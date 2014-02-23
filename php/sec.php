@@ -45,7 +45,7 @@
 	
 	$funccategories = getFiles("../functions/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
 	$installcategories = getFiles("../installs/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
-	$installaliases = getFiles("../aliases/*" . RCGLOBAL . "}");
+	$installaliases = getFiles("../aliases/*");
 		
 	switch ($SGPANEL) {
 		case "cP":
