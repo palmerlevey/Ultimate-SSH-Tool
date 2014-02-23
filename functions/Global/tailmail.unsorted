@@ -1,0 +1,4 @@
+##DESCRP=Tail exim mail log
+function tailmail(){
+	tail -f /var/log/exim_mainlog
+}
