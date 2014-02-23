@@ -70,7 +70,7 @@
 	if (isset($installaliases)) {
 		foreach($installaliases as $files) {
 			foreach ($files as $path => $file {
-				require once($path);
+				require once($path)
 				echo "\n";
 			}
 		}
