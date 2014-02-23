@@ -43,23 +43,23 @@
 		return $categories;
 	}
 	
-	$funccategories = getFiles("functions/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
-	$installcategories = getFiles("installs/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
+	$funccategories = getFiles("../functions/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
+	$installcategories = getFiles("../installs/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
 		
 	switch ($SGPANEL) {
 		case "cP":
-			if(file_exists("checks/cP.sh")) {
-				require_once("checks/cP.sh");
+			if(file_exists("../checks/cP.sh")) {
+				require_once("../checks/cP.sh");
 			}
 			break;
 		case "PSA":
-			if(file_exists("checks/PSA.sh")) {
-				require_once("checks/PSA.sh");
+			if(file_exists("../checks/PSA.sh")) {
+				require_once("../checks/PSA.sh");
 			}
 			break;
 		case "DA":
-			if(file_exists("checks/DA.sh")) {
-				require_once("checks/DA.sh");
+			if(file_exists("../checks/DA.sh")) {
+				require_once("../checks/DA.sh");
 			}
 			break;
 	}
