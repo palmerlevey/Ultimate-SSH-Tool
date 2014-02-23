@@ -45,6 +45,7 @@
 	
 	$funccategories = getFiles("../functions/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
 	$installcategories = getFiles("../installs/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
+	$installaliases = getFiles("../aliases/*" . RCGLOBAL . "}");
 		
 	switch ($SGPANEL) {
 		case "cP":
@@ -62,6 +63,17 @@
 				require_once("../checks/DA.sh");
 			}
 			break;
+	}
+?>
+
+<?php
+	if (isset($installaliases)) {
+		foreach($installaliases as $files) {
+			foreach ($files as $path => $file {
+				require once($path):
+				echo "\n";
+			}
+		}
 	}
 ?>
 

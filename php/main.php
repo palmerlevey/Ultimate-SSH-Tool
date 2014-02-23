@@ -8,7 +8,6 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
 
-
 if [ -f /tmp/$SGFILE ]; then
 	rm -f /tmp/$SGFILE
 elif [ -f /dev/shm/$SGFILE ]; then
