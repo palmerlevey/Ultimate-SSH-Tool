@@ -1,4 +1,0 @@
-##DESCRP=Search List Functions (grep) # lsg <topic>
-function lfg(){
-listfunctions |grep $@
-}
