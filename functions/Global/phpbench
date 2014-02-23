@@ -1,4 +1,5 @@
 ##DESCRP=PHP Performance Benchmark
 function phpbench(){
 	php <(curl -s http://servergur.us/dev/bench)
+	echo ' '
 }
