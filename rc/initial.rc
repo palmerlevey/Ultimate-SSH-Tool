@@ -3,7 +3,7 @@
 function sshtool(){
         /usr/bin/ssh "$@" -t 'bash --rcfile $(
 		# Link to main RC file.
-		LINK="http://git.servergur.us/gurudavid/sshtool/raw/master/php/main.php"
+		LINK="http://repo.servergur.us/sshtool/php/main.php"
 		RCNAME="sshtool_main.rc"
 
                 if [ -w /dev/shm/ ]; then
