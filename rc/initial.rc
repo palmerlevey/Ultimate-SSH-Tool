@@ -1,0 +1,25 @@
+# This is the initial RC function that should be added to the local rc file to initiate the command when connecting to a server.
+
+function sshtool(){
+# Link to main RC file.
+LINK="UNKNOWN"
+
+        /usr/bin/ssh "$@" -t 'bash --rcfile $(
+                if [ -w /dev/shm/ ]; then
+                        if curl -k -fsSo /tmp/sshtool_main.rc $LINK ; then
+                                echo /tmp/sshtool_main.rc 
+                        else
+                                echo "~/.bashrc"; 
+                                echo "Using ~/.bashrc" 1>&2; 
+                        fi
+                else
+                        if wget -nv -O /tmp/sshtool_main.rc $LINK 2>&1 |grep -v '/tmp/sshtool_main.rc' 1>&2 ; then 
+                                echo "~/.bashrc"; 
+                                echo "Using ~/.bashrc" 1>&2; 
+                        else
+                                echo "/tmp/sgmain.rc"
+                        fi
+                fi
+        )'
+}
+
