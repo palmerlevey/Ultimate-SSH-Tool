@@ -1,0 +1,64 @@
+##DESCRP=*Dig for A records of every domain in /etc/userdomains
+function masslookup(){
+	local OPTIND
+	local OPTARG
+	local RE
+	local ADDRS
+	local DOMAINS=$(grep -v '*' /etc/userdomains | cut -d: -f1 | sort)
+	local RECORD="a"
+	local SERVER="8.8.8.8"
+	while getopts ":hg:nms:" opt; do
+		case $opt in
+			h)
+				echo "Usage: $FUNCNAME -g [PATTERN] -s [SERVER]"
+				echo "Dig for A records of every domain in /etc/userdomains"
+				echo
+				echo "    -g PATTERN    Digs only domains where the domain or user match PATTERN"
+				echo "    -s SERVER     The server to query. Default: 8.8.8.8"
+				echo "    -n            Query for NS records instead of A records"
+				echo "    -m            Query for MX records instead of A records"
+				echo "    -h            This help message"
+				return
+				;;
+			g)
+				RE=$OPTARG
+				DOMAINS=$(grep -v '*' /etc/userdomains | egrep $RE | cut -d: -f1 | sort)
+				;;
+			n)
+				RECORD="ns"
+				;;
+			m)
+				RECORD="mx"
+				;;
+			s)
+				SERVER=$OPTARG
+				RE="^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+				if ! [[ $SERVER =~ $RE ]] ; then
+					echo "Error: Not a valid IP for server" >&2
+					return
+				fi
+				;;
+			:)
+				echo "-$OPTARG requires an argument" >&2
+				return
+				;;
+			?)
+				echo "Invalid option: -$OPTARG" >&2
+				return
+				;;
+		esac
+	done
+	for each in $DOMAINS;do
+		echo "$each :"
+		echo "-------------------------"
+		ADDRS=$(dig $RECORD $each +short @8.8.8.8)
+		if [ -z "$ADDRS" ];then
+			echo "Dig didn't return records"
+			echo "for $each from $SERVER"
+		else
+			echo "$ADDRS"
+		fi
+		echo "-------------------------"
+		echo
+	done
+}

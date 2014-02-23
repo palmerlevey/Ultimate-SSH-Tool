@@ -1,0 +1,4 @@
+##DESCRP=Access a root shell using this rcfile with su. Requires Root Password
+function surc(){
+	su -c 'bash --rcfile "$(curl -sSf http://jared.servergur.us/privatercfile/main.rc > /dev/shm/sgmain.rc && echo /dev/shm/sgmain.rc || echo ~/.bashrc)"'
+}

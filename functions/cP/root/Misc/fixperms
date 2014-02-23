@@ -1,0 +1,9 @@
+##DESCRP=*Fixes permissions for CGI based PHP handlers using the BoomShadow script
+function fixperms(){
+    local HANDLER=$(/usr/local/cpanel/bin/rebuild_phpconf --current|grep PHP5|awk {'print $3'})
+    if [ $HANDLER == "suphp" ] || [ $HANDLER == "fcgi" ] ; then
+        bash <(wget -qO- boomshadow.net/tools-utils/fixperms.sh) "$@"
+    else
+        echo "Your handler needs to be suPHP or FCGI to safely run."
+    fi
+}

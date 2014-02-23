@@ -1,0 +1,4 @@
+##DESCRP=Removes any added flare from the prompt
+function basicprompt() {
+	PS1="[\u@\h \W]\$ "
+}

@@ -1,0 +1,2 @@
+##DESCRP=Adds -y to yum so to make installs easier/faster.
+alias yum='yum -y'

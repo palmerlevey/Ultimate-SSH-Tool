@@ -1,0 +1,113 @@
+<?php
+	$SGSERVER = $_GET['SGSERVER'];
+	$SGOS = $_GET['SGOS'];
+	$SGPANEL = $_GET['SGPANEL'];
+	$SGUSER = $_GET['SGUSER'];
+	
+	define("RCGLOBAL", "Global");
+	
+	function getDesc($file)
+	{
+		$desc = file($file);
+		$desc = preg_grep("/##DESCRP=[[:print:]]+/", $desc);
+				if(empty($desc)) {
+			return "This function does not have a description";
+		} else {
+			$desc = array_values($desc);
+			$desc = trim(preg_replace('/##DESCRP=|\s+|\#|\'/', ' ', $desc[0]));
+			return $desc;
+		}
+	}
+
+	$globpat = "functions/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}";
+#	$dirs = glob("functions/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}", GLOB_BRACE|GLOB_ONLYDIR);
+	$dirs = glob( $globpat , GLOB_BRACE|GLOB_ONLYDIR);
+	foreach ($dirs as $old => $dir) {
+		$dirs[$dir] = array_diff(scandir($dir), array('..', '.'));
+		unset($dirs[$old]);
+	}
+	
+	foreach ($dirs as $dir => $files) {
+		$cat = explode('/',$dir);
+		$cat = end($cat);
+		foreach ($files as $file) {
+			$categories[$cat][$dir . "/" . $file] = $file;
+		}
+		array_unique($categories[$cat]);
+		asort($categories[$cat]);
+	}
+	ksort($categories);
+	
+	switch ($SGPANEL) {
+		case "cP":
+			if(file_exists("checks/cP.sh")) {
+				require_once("checks/cP.sh");
+			}
+			break;
+		case "PSA":
+			if(file_exists("checks/PSA.sh")) {
+				require_once("checks/PSA.sh");
+			}
+			break;
+		case "DA":
+			if(file_exists("checks/DA.sh")) {
+				require_once("checks/DA.sh");
+			}
+			break;
+	}
+?>
+
+function listfunctions(){
+echo -e "\*Functions with a \'-h\'\n"
+<?php
+	foreach($categories as $cat => $files) {
+		echo "echo '  " . $cat . " Functions'\n";
+		foreach ($files as $path => $file) {
+			echo "echo '    " . str_pad($file, 25, " ") . "-- ";
+			echo getDesc($path) . "'\n";
+		}
+		echo "echo \n";
+	}
+?>
+}
+
+function listfunctions(){
+if [ $(tput cols) -le 40 ]; then
+	echo "Your terminal is too small."
+else
+	echo -e "*Functions with a '-h'\n"
+	<?php
+		foreach($categories as $cat => $files) {
+			echo "echo '  " . $cat . " Functions'\n";
+			foreach ($files as $path => $file) {
+				echo "echo -e \"    " . str_pad($file, 25, " ") . "-- ";
+				echo "$(fold -s -w $[$(tput cols) - 32] <<< \"" .getDesc($path) . "\"| sed -e 's/^/\\\\033[33G/g')\"\n";
+			}
+			echo "echo \n";
+		}
+	?>
+fi
+}
+
+#function listfunctions(){
+#<?php
+#	foreach($categories as $cat => $files) {
+#		echo "echo '  " . $cat . " Functions'\n";
+#		echo "column -t -x -s = <<<'";
+#		foreach ($files as $path => $file) {
+#			echo "    " . str_pad($file, 25, " ") . "=--= ";
+#			echo getDesc($path) . "\n";
+#		}
+#		echo "'\n echo \n";
+#	}
+#?>
+#}
+
+<?php
+	foreach($categories as $files) {
+		foreach ($files as $path => $file) {
+			require_once($path);
+			echo "\n";
+		}
+	}
+?>

@@ -1,0 +1,45 @@
+##DESCRP=*Restarts MySQL and prints the log of the restart
+function logmysqlrestart(){
+	local OPTIND
+	local OPTARG
+	local restartPID
+	local LOG="/var/lib/mysql/$(hostname).err"
+	while getopts ":hl:" opt; do
+		case $opt in
+			h)
+				echo "Usage: $FUNCNAME -l [log file]"
+				echo "Restarts MySQL and prints the log of the restart"
+				echo
+				echo "    -l FILE    Sets the log file to record to. Default: /var/lib/mysql/$(hostname).err"
+				echo "    -h         This help message"
+				return
+				;;
+			l)
+				LOG=$OPTARG
+				RE='^[[:graph:]]+$'
+				if ! [[ $LOG =~ $RE ]] ; then
+					echo "Error: Not a valid name for the log" >&2
+					return
+				fi
+				;;
+			:)
+				echo "-$OPTARG requires an argument" >&2
+				return
+				;;
+			?)
+				echo "Invalid option: -$OPTARG" >&2
+				return
+				;;
+		esac
+	done
+	
+	if [ ! -f $LOG ];then
+		echo "Log file $LOG doesn't exist."
+		return
+	fi
+	
+	{ /etc/init.d/mysql restart & } 2>&1 1>/dev/null
+	restartPID=$!
+	
+	tail -fn0 $LOG --pid=$restartPID
+}

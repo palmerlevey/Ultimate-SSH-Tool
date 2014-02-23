@@ -1,0 +1,25 @@
+##DESCRP=Download and source the latest version of this script.
+function rcupdate(){
+	curl "${SGLOC}/main.rc" > /tmp/sgmain.rc
+	source /tmp/sgmain.rc
+}
+
+function rcupdate(){
+                local LINK="${SGLOC}/main.php"
+                if [ -w /dev/shm/ ]; then
+                        if curl -fsSo /tmp/sgmain.rc $LINK ; then
+                                source /tmp/sgmain.rc
+                        else
+                                source "~/.bashrc";
+                                echo "Using ~/.bashrc" 1>&2;
+                        fi
+                else
+                        if wget -nv -O /tmp/sgmain.rc $LINK 2>&1 |grep -v '/tmp/sgmain.rc' 1>&2 ; then
+                                source "~/.bashrc";
+                                echo "Using ~/.bashrc" 1>&2;
+                        else
+                                source "/tmp/sgmain.rc"
+                        fi
+                fi
+}
+

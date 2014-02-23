@@ -1,0 +1,8 @@
+##DESCRIP=Prints a random 16 character string
+function passgen() { 
+    if [ -e /dev/urandom ]; then
+        head /dev/urandom | uuencode -m - | sed -n 2p | cut -c1-${1:-16};
+    else
+        head /dev/random | uuencode -m - | sed -n 2p | cut -c1-${1:-16};
+    fi
+}

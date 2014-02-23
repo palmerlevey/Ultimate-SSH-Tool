@@ -1,0 +1,17 @@
+##DESCRP=Runs the mysqltuner.pl, regardless of current working directory
+function mysqltuner(){
+	local CURRENTVERSION
+	if [ ! -f /root/support/mysqltuner.pl ]; then
+		echo "Downloading MySQLTuner to /root/support/mysqltuner.pl"
+		curl https://raw.github.com/major/MySQLTuner-perl/master/mysqltuner.pl > /root/support/mysqltuner.pl
+	fi
+	
+	CURRENTVERSION=$(grep Version /root/support/mysqltuner.pl|awk '{print $NF}')
+	
+	if [[ $CURRENTVERSION =~ "[0-1].[0-1].[0-9]" ]]; then
+		echo "Downloading newer version MySQLTuner to /root/support/mysqltuner.pl"
+		curl https://raw.github.com/major/MySQLTuner-perl/master/mysqltuner.pl > /root/support/mysqltuner.pl
+	fi
+	
+	perl /root/support/mysqltuner.pl
+}

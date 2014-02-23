@@ -1,0 +1,64 @@
+##DESCRP=*Temporarily blocks IPs from domlogs if they are in the StopForumSpam.com RBL
+function banhammer(){
+	local OPTIND
+	local OPTARG
+	local LINES="5000"
+	local LINESTXT="5000"
+	local LOG="/root/support/logs/banned.out"
+	local RE
+	while getopts ":hal:L:" opt; do
+		case $opt in
+			h)
+				echo "Usage: banhammer -l [number of lines] -L [log file]"
+				echo "Find IPs in domlogs that are in RBL provide by StopForumSpam.com and ban them."
+				echo
+				echo "    -L FILE    Sets the log file to record to. Default: /root/support/logs/banned.out"
+				echo "    -l Lines   Sets the number of lines to read from the end of each dom log. Default: 5000"
+				echo "    -a         Use the entirety of the domlogs"
+				echo "    -h         This help message"
+				return
+				;;
+			l)
+				LINES=$OPTARG
+				LINESTXT=$OPTARG
+				RE='^[[:digit:]]+$'
+				if ! [[ $LINES =~ $RE ]] ; then
+					echo "Error: Not a valid number of lines" >&2
+					return
+				fi
+				;;
+			L)
+				LOG=$OPTARG
+				RE='^[[:graph:]]+$'
+				if ! [[ $LOG =~ $RE ]] ; then
+					echo "Error: Not a valid number name for the log" >&2
+					return
+				fi
+				;;
+			a)
+				LINES="+0"
+				LINESTXT="all"
+				;;
+			:)
+				echo "-$OPTARG requires an argument" >&2
+				return
+				;;
+			?)
+				echo "Invalid option: -$OPTARG" >&2
+				return
+				;;
+		esac
+	done
+    
+	echo -e "###############################################################################\nBanhammer run on `date`\n###############################################################################\n"
+	echo -e "Flushing iptables.\n"
+	>$LOG
+	iptables -F DROPSPAMMERS 2>/dev/null
+	iptables -X DROPSPAMMERS 2>/dev/null
+	iptables -N DROPSPAMMERS 2>/dev/null
+	echo -e "\nLooking for bot addresses in domlogs using $LINESTXT lines. This may take a while.\n"
+	comm -12 <(wget -qO- http://listed.privatesystems.net/latest/stopforumspam.com/bannedips.csv|sort) <(find /usr/local/apache/domlogs -type f 2>/dev/null|egrep -v 'bytes_log|ftpx|error\.log'|xargs tail -n $LINES|awk '{print $1}'|egrep -v '\=|[a-zA-Z]|0-9]{4}'|sort|uniq)|xargs -I % sh -c 'iptables -A DROPSPAMMERS -j DROP -s %; echo "Dropped %";'|tee -a $LOG
+	echo "$(cat $LOG|wc -l) dropped"
+	curl -F file=@$LOG http://paste.privatesystems.net/
+    
+}

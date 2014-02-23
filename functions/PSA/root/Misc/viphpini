@@ -1,0 +1,35 @@
+##DESCRP=*Open global php.ini in editor
+function viphpini(){
+	local OPTIND
+	local OPTARG
+	local EDITOR="nano"
+	local PHPINI=$(php -i|grep 'Loaded Configuration File'|awk '{print $NF}')
+	while getopts ":he:" opt; do
+		case $opt in
+			h)
+				echo "Usage: $FUNCNAME -e [EDITOR]"
+				echo "Open global php.ini in editor"
+				echo
+				echo "    -e EDITOR  Sets the EDITOR to be used. Default: nano"
+				echo "    -h         This help message"
+				return
+				;;
+			e)
+				EDITOR=$OPTARG
+				if ! which $EDITOR > /dev/null 2>&1; then
+					which $EDITOR
+					return
+				fi
+				;;
+			:)
+				echo "-$OPTARG requires an argument" >&2
+				return
+				;;
+			?)
+				echo "Invalid option: -$OPTARG" >&2
+				return
+				;;
+		esac
+	done
+	$EDITOR $PHPINI
+}

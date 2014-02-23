@@ -1,0 +1,5 @@
+##DESCRP=Installs memcached from yum and memcache from pecl
+function memcache-install() {
+	yum -y install memcached
+	yes | pecl install memcache
+}
