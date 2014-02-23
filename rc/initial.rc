@@ -2,22 +2,23 @@
 
 function sshtool(){
 # Link to main RC file.
-LINK="UNKNOWN"
+LINK="https://git.servergur.us/gurudavid/sshtool/raw/master/php/main.php"
+RCNAME="sshtool_main.rc"
 
         /usr/bin/ssh "$@" -t 'bash --rcfile $(
                 if [ -w /dev/shm/ ]; then
-                        if curl -k -fsSo /tmp/sshtool_main.rc $LINK ; then
-                                echo /tmp/sshtool_main.rc 
+                        if curl -k -fsSo /tmp/$RCNAME $LINK ; then
+                                echo /tmp/$RCNAME
                         else
                                 echo "~/.bashrc"; 
                                 echo "Using ~/.bashrc" 1>&2; 
                         fi
                 else
-                        if wget -nv -O /tmp/sshtool_main.rc $LINK 2>&1 |grep -v '/tmp/sshtool_main.rc' 1>&2 ; then 
+                        if wget -nv -O /tmp/$RCNAME $LINK 2>&1 |grep -v '/tmp/$RCNAME' 1>&2 ; then 
                                 echo "~/.bashrc"; 
                                 echo "Using ~/.bashrc" 1>&2; 
                         else
-                                echo "/tmp/sgmain.rc"
+                                echo "/tmp/$RCNAME"
                         fi
                 fi
         )'
