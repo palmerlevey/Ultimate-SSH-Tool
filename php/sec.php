@@ -142,13 +142,17 @@ if [ $(tput cols) -le 40 ]; then
 else
 	echo -e "*Functions with a '-h'\n"
 	<?php
-		foreach($funccategories as $cat => $files) {
-			echo "echo '  " . $cat . " Functions'\n";
-			foreach ($files as $path => $file) {
-				echo "echo -e \"    " . str_pad($file, 25, " ") . "-- ";
-				echo "$(fold -s -w $[$(tput cols) - 32] <<< \"" .getDesc($path) . "\"| sed -e 's/^/\\\\033[33G/g')\"\n";
+		if (isset($funccategories)) {
+			foreach($funccategories as $cat => $files) {
+				echo "echo '  " . $cat . " Functions'\n";
+				foreach ($files as $path => $file) {
+					echo "echo -e \"    " . str_pad($file, 25, " ") . "-- ";
+					echo "$(fold -s -w $[$(tput cols) - 32] <<< \"" .getDesc($path) . "\"| sed -e 's/^/\\\\033[33G/g')\"\n";
+				}
+				echo "echo \n";
 			}
-			echo "echo \n";
+		} else {
+			echo "echo 'No Available Functions'\n";
 		}
 	?>
 fi
@@ -156,10 +160,12 @@ fi
 
 
 <?php
-	foreach($funccategories as $files) {
-		foreach ($files as $path => $file) {
-			require_once($path);
-			echo "\n";
+	if (isset($installcategories)) {
+		foreach($funccategories as $files) {
+			foreach ($files as $path => $file) {
+				require_once($path);
+				echo "\n";
+			}
 		}
 	}
 ?>
