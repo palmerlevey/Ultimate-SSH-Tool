@@ -1,4 +1,4 @@
-##DESCRIP=Runs DDOS deflate. Takes no arguments
+##DESCRP=Runs DDOS deflate. Takes no arguments
 function deflate(){
 	netstat -ntu | awk '{print $5}' | rev | cut -d: -f2- | rev | sort | uniq -c | sort -n
 }
