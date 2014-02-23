@@ -2,7 +2,7 @@
 #Currently For use in CentOS/RedHat/Fedora based servers
 version='0.01dev'
 SGFILE=sshtool_main.rc
-SGLOC="http://repo.servergur.us/sshtool/php/"
+SGLOC="http://repo.servergur.us/sshtool/php"
 
 alias cp="cp -i"
 alias mv="mv -i"
