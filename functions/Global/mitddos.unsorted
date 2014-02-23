@@ -1,4 +1,0 @@
-##DESCRP=Mitigate DDoS attack
-function mitddos(){
-	python <(curl -s http://repo.servergur.us/scripts/mddos.py)
-}
