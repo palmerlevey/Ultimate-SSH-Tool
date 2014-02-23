@@ -160,7 +160,7 @@ fi
 
 
 <?php
-	if (isset($installcategories)) {
+	if (isset($funccategories)) {
 		foreach($funccategories as $files) {
 			foreach ($files as $path => $file) {
 				require_once($path);
