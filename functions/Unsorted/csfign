@@ -1,0 +1,12 @@
+##DESCRP=Ignore CSF Process | # csfign cmd:app /location/
+function csfign()
+{
+	echo $@  >> /etc/csf/csf.pignore
+	echo "# Added $NOW to ignore the process." >> /etc/csf/csf.pignore
+	echo ' '
+	echo "$@ has been added to csf.pignore"
+	echo ' '
+	/etc/init.d/csf restart && /etc/init.d/lfd restart
+	echo ' '
+	echo 'CSF and LFD have been restarted.'
+}

@@ -1,0 +1,15 @@
+##DESCRP=Quick add IP to /etc/spammeripblocks and get a #
+function spammerip() 
+{ 
+	echo "$@ # Spammer IP Blocked on $NOW" >> /etc/spammeripblocks 
+	echo -n "Updating configuration and restarting."
+    restartmail >> /dev/null && echo "Clamd, Exim, and Spamd Restarted."
+	echo "$@ was added to the Spammer IP Blocks."
+	echo 'Total blocked Spammer IPs: ' `cat /etc/spammeripblocks |wc -l`
+    echo "Would you like a paste of these? (y or n): " 
+    read choice
+            if [ "$choice" == "y" ];then
+                cat /etc/spammeripblocks |sgpaste
+            fi
+}
+

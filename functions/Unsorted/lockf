@@ -1,0 +1,12 @@
+##DESCRP=Chmod 000 chown 0:0 files
+function lockf() {
+    if [ -z "$1" ];then
+        echo "Usage: lockf FILES"
+        return
+    fi
+    until [ -z "$1" ];do
+        chmod 000 "$1"
+        chown 0:0 "$1"
+        shift
+    done
+}

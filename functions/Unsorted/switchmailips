@@ -1,0 +1,45 @@
+##DESCRP=Change the IP exim mails from
+function switchmailip() 
+{
+    IPs=($(ifconfig | grep 'inet addr' | awk '{print $2}'| sed 's#addr:##g' | grep -v 127.0.0.1 | sed 's/^/ /' | tr '\n' ' '))
+    index=1
+    mainIP=${IPs[0]}
+    curIP=$mainIP
+
+    altIP=$(grep -E "^\*:" /etc/mailips | cut -d':' -f2)
+    if [ ! -z $altIP ];then
+        curIP=$altIP
+    fi
+
+    echo -e "Current mailing IP is: $curIP\n"
+
+    for ip in ${IPs[@]};do
+        echo "$index.) $ip ----> $(host $ip | cut -d' ' -f5 | sed 's/.$//')"
+        index=$[ $index + 1 ]
+    done
+
+    echo -e "Enter new mailing IP: "
+    read choice
+
+    newip=${IPs[$[ $choice - 1 ]]}
+    echo "new IP is $newip"
+
+    chattr -ai /etc/mailips
+    sed -i '/^\*:/d' /etc/mailips
+    sed -i '/per_domain_mailips/d' /etc/exim.conf.localopts
+    if [ "$newip" == "$mainIP" ];then
+        echo "per_domain_mailips=0" >> /etc/exim.conf.localopts
+    else
+        echo "per_domain_mailips=1" >> /etc/exim.conf.localopts
+        echo -e "*: $newip\n$(cat /etc/mailips)" > /etc/mailips
+        grep $newip /etc/mail_reverse_dns 1> /dev/null
+        if [ $? -ne 0 ];then
+            echo "$newip: $(host $ip | cut -d' ' -f5 | sed 's/.$//')" >> /etc/mail_reverse_dns
+        fi
+    fi
+
+    /scripts/buildeximconf 1> /dev/null
+    service exim restart
+
+    chattr +ai /etc/mailips
+}

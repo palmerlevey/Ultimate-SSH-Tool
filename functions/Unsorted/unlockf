@@ -1,0 +1,16 @@
+##DESCRP=Removes prior 000 chmod
+function unlockf() {
+    if [ -z "$1" ];then
+        echo "Usage: unlockf FILES"
+        return
+    fi
+    until [ -z "$1" ];do
+        if [ -d "$1" ];then
+            chmod 755 "$1"
+        else
+            chmod 644 "$1"
+        fi
+        chown `pwd | cut -d/ -f3`:`pwd | cut -d/ -f3` "$1"
+        shift
+    done
+}

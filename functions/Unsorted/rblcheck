@@ -1,0 +1,5 @@
+##DESCRP=Checks main IP for positive RBL listing
+function rblcheck()
+{
+	echo " " && curl checkrbl.com
+}

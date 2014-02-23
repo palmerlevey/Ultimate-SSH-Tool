@@ -1,0 +1,12 @@
+##DESCRP=Creates/modifies .htaccess to prevent script execution in current directory
+function lockexec()
+{
+   if [ ! -f .htaccess ];then
+        echo -e "AddHandler cgi-script .php .pl .py .jsp .asp .htm .shtml .sh .cgi .php5 .php4 .php3 .phps .txt .bat .cmd .rb\nOptions -ExecCGI -Indexes" > .htaccess
+        chattr +ai .htaccess
+    else
+        sed -i '1s/^/AddHandler cgi-script .php .pl .py .jsp .asp .htm .shtml .sh .cgi .php5 .php4 .php3 .phps .txt .bat .cmd .rb\nOptions -ExecCGI -Indexes\n/' .htaccess
+        chattr +ai .htaccess
+    fi
+    echo ".htaccess edited."
+}

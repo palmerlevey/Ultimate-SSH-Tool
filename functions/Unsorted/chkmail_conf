@@ -1,0 +1,31 @@
+##DESCRP=Checks for SPF Verification and enabled RBL Filters
+function chkmail_conf() {
+CHANGES=0
+RBLS=('acl_spf_bl' 'acl_spamcop_rbl' 'acl_spamhaus_rbl')
+NOT_USING=('NOT using SPF checking!' 'NOT using Spamcop RBL!' 'NOT using Spamhaus RBL!')
+USING=('SPF checking is enabled.' 'Spamcop RBL is enabled.' 'Spamhaus RBL is enabled.')
+
+    index=0
+    for bl in ${RBLS[@]};do
+        local HAS_BL=$(grep "$bl" /etc/exim.conf.localopts | cut -d'=' -f2)
+        grep acl_spf_bl /etc/exim.conf.localopts 1> /dev/null
+        if [[ $? -ne 0 || $HAS_BL -ne 1 ]];then
+            echo "${NOT_USING[$index]} Would you like to enable this feature? (y or n): "
+            read choice
+            if [ "$choice" == "y" ];then
+                sed -i "/$bl/d" /etc/exim.conf.localopts
+                echo "$bl=1" >> /etc/exim.conf.localopts
+                CHANGES=1
+            fi
+        else
+            echo ${USING[$index]}
+        fi
+        index=$[ $index + 1 ]
+    done
+
+    if [ $CHANGES -eq 1 ];then
+        /scripts/buildeximconf 1> /dev/null
+        service exim restart
+    fi
+
+}

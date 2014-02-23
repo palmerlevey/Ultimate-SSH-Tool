@@ -1,0 +1,25 @@
+##DESCRP=Returns Fail/Pass for valid domain rDNS
+function rdnschck() 
+{
+ERRORS=0
+    host $(hostname) 1> /dev/null
+    if [ $? -ne 0 ];then
+        echo "$(hostname) ----> Invalid domain name!"
+        ERRORS=1
+    else
+        echo "$(hostname) ----> $(host $(hostname) | grep address | cut -d' ' -f4)"
+    fi
+
+    PTR=$(host $(hostname -i) | cut -d' ' -f5 | sed 's/.$//')
+    echo "$(hostname -i) ----> $PTR"
+
+    if [ "$PTR" != "$(hostname)" ];then
+        ERRORS=1
+    fi
+
+    if [ $ERRORS -eq 1 ];then
+        echo -e "rDNS check: \033[0;31mFAILED\033[m\017"
+    else
+        echo -e "rDNS check: \033[0;32mPASSED\033[m\017"
+    fi
+}

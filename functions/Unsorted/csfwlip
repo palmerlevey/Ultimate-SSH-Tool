@@ -1,0 +1,9 @@
+##DESCRP=Grep CSF Log for IP and Auto Whitelist it
+function csfwlip()
+{
+	echo 'Find matching IP in CSF Log:'
+	csf -g $@
+	echo ' '
+	echo 'Whitelist IP:'
+	csf -a $@
+}
