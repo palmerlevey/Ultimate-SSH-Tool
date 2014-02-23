@@ -1,4 +1,4 @@
-##DESCRIP=Pastebin function. # cat file |sgpaste 
+##DESCRP=Pastebin function. # cat file |sgpaste 
 function sgpaste() 
     {
         url=http://paste.servergur.us
