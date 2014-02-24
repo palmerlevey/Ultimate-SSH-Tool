@@ -3,7 +3,7 @@ function clnbaks(){
 	echo "Beggining search for files..."
 		CPMVS=`find /home/ -maxdepth 2 -name cpmove-*`
 		CPBKS=`find /home/ -maxdepth 2 -name *backup-*`
-		CPRFS=`ls -la /home/cprestore/*`
+		CPRFS=`find /home/cprestore/*`
 		CPRFSN=`ls -la /home/cprestore/* |wc -l`
 
 		echo "The following backup/migration files were found:"
@@ -18,7 +18,7 @@ function clnbaks(){
 						rm -rfv $CPBKS
 						rm -rfv $CPRFS
 							echo "Done."
-					then
+					elseif
 						echo "Aborted."
 				fi
 }
