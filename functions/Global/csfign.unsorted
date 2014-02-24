@@ -6,7 +6,7 @@ function csfign()
 	echo ' '
 	echo "$@ has been added to csf.pignore"
 	echo ' '
-	/etc/init.d/csf restart && /etc/init.d/lfd restart
+	/etc/init.d/csf -r && /etc/init.d/lfd restart
 	echo ' '
 	echo 'CSF and LFD have been restarted.'
 }
