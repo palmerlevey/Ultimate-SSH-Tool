@@ -1,0 +1,4 @@
+##DESCRP=Search existing virtual hosts by variable, lists port and conf location.
+function findvh() {
+	httpd -S |grep $@
+}

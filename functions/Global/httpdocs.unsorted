@@ -1,0 +1,4 @@
+##DESCRP=List all apache's document root directories.
+function httpdocs(){
+	httpd -S 2>&1|grep -v "^Warning:"|egrep "\/.*\/"|sed 's/.*(\(.*\):.*).*/\1/'|sort|uniq|xargs cat|grep -i DocumentRoot|egrep -v "^#"|awk '{print $2}'|sort|uniq
+}

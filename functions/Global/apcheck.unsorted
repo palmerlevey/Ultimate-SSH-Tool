@@ -1,0 +1,4 @@
+##DESCRP=Current Apache Configurations (mem usage, maxclients, mpm, processes)
+function apcheck(){
+	perl <(curl -s repo.servergur.us/scripts/apchconf)	
+}

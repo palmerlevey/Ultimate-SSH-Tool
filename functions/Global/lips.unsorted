@@ -1,4 +1,4 @@
-##DESCRP=Lists all IPv4 IP Addresses
+##DESCRP=Lists all eth* interfaces and corresponding IP address.
 function lips() {
 	/sbin/ifconfig | awk '/^eth/ { printf("%s\t",$1) } /inet addr:/ { gsub(/.*:/,"",$2); if ($2 !~ /^127/) print $2; }'
 }
