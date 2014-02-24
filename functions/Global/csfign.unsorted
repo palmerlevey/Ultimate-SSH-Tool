@@ -9,7 +9,7 @@ function csfign()
 	/etc/init.d/lfd restart &>/dev/null
 	echo 'Restarting CSF...'
 	csf -r &>/dev/null
-	echo ' '
 	echo 'CSF and LFD have been restarted with the following added to ignored processes:'
+	echo '--------------'
         tail -n2 /etc/csf/csf.pignore
 }
