@@ -1,0 +1,14 @@
+##DESCRP=Reports stats on processes in an uninterruptable sleep state.
+function highio() {
+	echo "Collecting stats on I/O bound processes for ~10 seconds..."
+	n=0
+	iofile=$(mktemp)
+	m=$((10*10))
+	while [[ $n -lt $m ]]; do
+		ps ax | awk '$3 ~ /D/ { print $5 }'
+		sleep 0.1
+		n=$((n+=1))
+	done > $iofile
+	echo "Top I/O bound processes in the last ~10 seconds."
+	sort $iofile | uniq -c | sort -nr | head -n30
+}

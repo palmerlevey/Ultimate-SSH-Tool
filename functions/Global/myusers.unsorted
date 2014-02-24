@@ -1,0 +1,4 @@
+##DESCRP=List MySQL users and grants.
+function myusers() {
+	mysql -e "SELECT User,Host from mysql.user;" && mysql -B -N -e "SELECT user, host FROM user" mysql | sed 's,\t,"@",g;s,^,show grants for ",g;s,$,";,g;' | mysql | sed 's,$,;,g'
+}

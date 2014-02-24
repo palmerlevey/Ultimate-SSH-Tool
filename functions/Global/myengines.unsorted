@@ -1,0 +1,29 @@
+##DESCRP=List MySQL tables and their storage engine.
+function myengines(){
+	# MySQL login helper
+	 mysql_client=$( which mysql )
+	 if [ -x $mysql_client ]; then
+	   if [ -e /etc/psa/.psa.shadow ]; then
+	    echo -e "[ls-scr] $brightyellow \bUsing Plesk's admin login. $norm"
+	    $mysql_client -u admin -p`cat /etc/psa/.psa.shadow` -e 'select table_schema, table_name, engine from information_schema.tables;'
+	   else
+	    i
+	if [ -e /root/.my.cnf ]; then
+	     echo -e "[ls-scr] $brightwhite \bFound a local $brightyellow \bmy.cnf $brightwhite \bin root's homedir, attempting to login without password prompt. $norm"
+	      $mysql_client -e 'select table_schema, table_name, engine from information_schema.tables;'
+	      if [ "$?" -ne "0" ]; then
+	        echo -e "[ls-scr] $brightred \bFailed! $norm \bprompting for MySQL root password.$norm"
+	      fi
+	    else
+	        echo -e "[ls-scr] $brightmagenta \bCould not auto-detect MySQL root password - prompting.$norm"
+	       $mysql_client -u root -p -e 'select table_schema, table_name, engine from information_schema.tables;'
+	      if [ "$?" -ne "0" ]; then
+	        echo -e "[ls-scr] $brightyellow \bMySQL authentication failed.$norm"
+	      fi
+	    fi
+	   fi
+	 else
+	   echo -e "[ls-scr] $brightred\bCould not locate MySQL client in path.$norm"
+	 fi
+	 return 0;	
+}
