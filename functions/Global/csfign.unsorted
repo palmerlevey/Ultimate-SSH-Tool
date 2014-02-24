@@ -7,10 +7,10 @@ function csfign()
 	echo ' '
 	echo "What was added:"
 	echo "---------------"
-	echo 'tail -n2 /etc/csf/csf.pignore'
+	tail -n2 /etc/csf/csf.pignore
 	echo ' '
 	echo 'Restarting...'
-	/etc/init.d/csf -r && /etc/init.d/lfd restart
+	/etc/init.d/csf restart && /etc/init.d/lfd restart
 	echo ' '
 	echo 'CSF and LFD have been restarted.'
 }
