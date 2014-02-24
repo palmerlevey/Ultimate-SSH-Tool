@@ -1,0 +1,25 @@
+##DESCRP=Prints traffic stats for the past 24 hours for the domain added.
+function traffic(){
+    if [ -z "$1" ];then
+	        echo "Usage: trafficstats [-f] DOMAIN"
+	        return
+	    fi
+	    if [ ! -f /etc/httpd/domlogs/"$1" ];then
+	        echo "Domain $1 not found."
+	        return
+	    fi
+	    
+	    local BEGIN=`head -n1 /etc/httpd/domlogs/"$1" | awk '{print $4$5}'`
+	    local END=`tail -n1 /etc/httpd/domlogs/"$1" | awk '{print $4$5}'`
+	    local HITS=`wc -l /etc/httpd/domlogs/"$1"| awk '{print $1}'`
+	    echo "From $BEGIN to $END there were $HITS hits for $1"
+	}
+
+	_traffic() {
+	    local cur
+	    cur=${COMP_WORDS[COMP_CWORD]}
+	    COMPREPLY=( $( compgen -f /etc/httpd/domlogs/$cur | perl -pi -e 's/.*\/(.*)/$1/g' ) )
+	}
+
+	complete -o nospace -F _traffic traffic
+}
