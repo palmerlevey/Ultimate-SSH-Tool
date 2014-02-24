@@ -7,4 +7,4 @@ Installing the initial RC file to add # sshtool functionality:
 	# . ~/.bashrc
 	# sshtool is now usable! 
 
-Currently working to test deploy hooks! <3
+Currently working to test deploy hooks2.
