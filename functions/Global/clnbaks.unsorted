@@ -18,7 +18,6 @@ function clnbaks(){
 						rm -rfv $CPBKS
 						rm -rfv $CPRFS
 							echo "Done."
-					elseif
+				elseif
 						echo "Aborted."
-				fi
 }
