@@ -1,11 +1,15 @@
 ##DESCRP=Ignore CSF Process | # csfign cmd:app /location/
 function csfign()
+NOW=$(date +"%m-%d-%Y")
 {
 	echo $@  >> /etc/csf/csf.pignore
 	echo "# Added $NOW to ignore the process." >> /etc/csf/csf.pignore
 	echo ' '
-	echo "$@ has been added to csf.pignore"
+	echo "What was added:"
+	echo "---------------"
+	echo 'tail -n2 /etc/csf/csf.pignore'
 	echo ' '
+	echo 'Restarting...'
 	/etc/init.d/csf -r && /etc/init.d/lfd restart
 	echo ' '
 	echo 'CSF and LFD have been restarted.'
