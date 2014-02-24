@@ -4,13 +4,12 @@ function csfign()
 {
 	echo $@  >> /etc/csf/csf.pignore
 	echo "# Added $NOW to ignore the process." >> /etc/csf/csf.pignore
+	echo 'Added, now:'
+	echo 'Restarting LFD...'
+	/etc/init.d/lfd restart &>/dev/null
+	echo 'Restarting CSF...'
+	csf -r &>/dev/null
 	echo ' '
-	echo "What was added:"
-	echo "---------------"
-	tail -n2 /etc/csf/csf.pignore
-	echo ' '
-	echo 'Restarting...'
-	/etc/init.d/csf restart && /etc/init.d/lfd restart
-	echo ' '
-	echo 'CSF and LFD have been restarted.'
+	echo 'CSF and LFD have been restarted with the following added to ignored processes:'
+        tail -n2 /etc/csf/csf.pignore
 }
