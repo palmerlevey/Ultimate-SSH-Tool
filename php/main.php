@@ -185,4 +185,4 @@ fi
 	}
 ?>
 
-echo "Loaded SSHTool $version"
+echo "Loaded SSHTool $version Last Pulled @ $pulld"
