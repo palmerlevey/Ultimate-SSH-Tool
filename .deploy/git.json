@@ -1,0 +1,6 @@
+{
+	"sshtool": {
+		"path": 	"~/domains/repo.servergur.us/public_html/sshtool",
+		"limit":	null
+	},
+}
