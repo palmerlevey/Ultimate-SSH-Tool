@@ -1,6 +1,6 @@
 #!/bin/bash
 #Currently For use in CentOS/RedHat/Fedora based servers
-version='0.01dev'
+version='0.02dpl'
 SGFILE=sshtool_main.rc
 SGLOC="http://repo.servergur.us/sshtool/php"
 
