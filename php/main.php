@@ -184,4 +184,4 @@ fi
 	}
 ?>
 
-echo "Loaded SGSSH $version"
+echo "Loaded SSHTool $version"
