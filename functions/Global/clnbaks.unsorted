@@ -13,12 +13,11 @@ function clnbaks(){
 		echo "There are also $CPRFSN files in the /home/cprestore/ folder."
 			read -p "Would you like to delete *ALL* of these now? (y/n)"
 				if [[ ! $REPLY =~ ^[Yy]$ ]]
-					then
 						rm -rfv $CPMVS
 						rm -rfv $CPBKS
 						rm -rfv $CPRFS
 							echo "Done."
-					else
+					then
 						echo "Aborted."
 				fi
 }

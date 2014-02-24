@@ -1,5 +1,4 @@
 ##DESCRP=List of top 50 largest files.
 function bigfiles() {
-	echo -e "List the top 50 files based on disk usage. $norm"
 	find / -type f -printf "%s %h/%f\n" | sort -rn -k1 | head -n 50 | awk '{ print $1/1048576 "MB" " " $2}'
 }

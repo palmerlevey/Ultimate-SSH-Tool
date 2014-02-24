@@ -1,4 +1,4 @@
-##DESCRIP=List all apache's processes w/ mem usage. Result is $pid $user $memamount
+##DESCRP=List all apache's processes w/ mem usage. Result is $pid $user $memamount
 function httprocs(){
 	for pid in $(pgrep httpd); do
 			echo $pid $(ps -p$pid -ouser|sed '1d') $(pmap -d $pid 2>/dev/null | awk '/private/{print $4}')|tr -d 'K'|awk '{printf "%s %s %s MB\n", $1, $2, $3/1024}'
