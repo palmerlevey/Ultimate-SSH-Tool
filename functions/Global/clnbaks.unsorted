@@ -17,6 +17,8 @@ function clnbaks(){
 						rm -rfv $CPBKS
 						rm -rfv $CPRFS
 							echo "Done."
+							echo "Total available space after clean up: `df -ha |awk 'FNR == 2 {print $4}'`B"
+
 				else
 						echo "Aborted."
 				fi
