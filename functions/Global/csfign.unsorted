@@ -1,6 +1,6 @@
 ##DESCRP=Ignore CSF Process | # csfign cmd:app /location/
+NOW=$(date +'%m-%d-%Y')
 function csfign()
-NOW=$(date +"%m-%d-%Y")
 {
 	echo $@  >> /etc/csf/csf.pignore
 	echo "# Added $NOW to ignore the process." >> /etc/csf/csf.pignore
