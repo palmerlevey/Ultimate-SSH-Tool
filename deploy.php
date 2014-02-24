@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ignore_user_abort(true);            //don't want users screwing up the processing of the script by stopping it mid-process
 
 // load config-file
-$file = file_get_contents('git.json');
+$file = file_get_contents('deploy.json');
 $data = json_decode($file);
 
 //I'm sure there are other ways of handling the system call, this is just the method I've chosen
