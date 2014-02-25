@@ -1,5 +1,0 @@
-##DESCRP=Test PHP Changes Locally (phpinfo) # tphp magic
-PHPIR=`php <(curl -s repo.servergur.us/scripts/phpi)`
-	function tphp(){
-		$PHPIR |grep "$@"
-	}
