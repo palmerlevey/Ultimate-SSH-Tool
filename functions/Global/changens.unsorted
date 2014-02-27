@@ -1,6 +1,8 @@
 ##DESCRP=Change nameservers
 function changens(){
+	cp -a /var/named /var/named-backup  
 	/usr/bin/perl -p -i -e "s/$1/$2/g" /var/named/$3.db
 	echo "Changed " $1 " to " $2 " in /var/named/$3.db."
 	grep $2 /var/named/$3.db;
+	find /var/named/*.db -mtime -1 -exec perl -pi -e 'if (/^\s+(\d{10})\s+;\s+serial/i) { my $i = $1+1; s/$1/$i/;}' '{}' \;
 }
