@@ -179,6 +179,14 @@ else
 	source ~/.bashrc
 fi
 
+if [ ! -d ${HOME}/support/logs ];then #Making a directory to leave our stuff
+	mkdir -p ${HOME}/support/logs 
+fi
+
+if [ ! -d ${HOME}/support/.bin ];then #Making a directory to leave our stuff
+	mkdir -p ${HOME}/support/.bin 
+fi
+
 <?php
 	if (isset($_GET['PS1'])) {
 		echo "PS1=\"" . base64_decode($_GET['PS1']) . "\"";

@@ -46,8 +46,8 @@
 
 	$funccategories = getFiles("../functions/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");
 	$installcategories = getFiles("../installs/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . "}");	
-//	$funccategories = getFiles("../functions/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . RCNOCAT . "}");
-//	$installcategories = getFiles("../installs/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . RCNOCAT . "}");
+	$aliascategories = getFiles("../alias/{" . $SGSERVER  . "/" . $SGUSER . "/*," . $SGOS  . "/" . $SGUSER . "/*," . $SGPANEL  . "/" . $SGUSER . "/*," . RCGLOBAL . ",SSHTOOL}");
+
 		
 	switch ($SGPANEL) {
 		case "cP":
@@ -165,6 +165,39 @@ fi
 <?php
 	if (isset($funccategories)) {
 		foreach($funccategories as $files) {
+			foreach ($files as $path => $file) {
+				require_once($path);
+				echo "\n";
+			}
+		}
+	}
+?>
+
+function listaliases(){
+if [ $(tput cols) -le 40 ]; then
+	echo "Your terminal is too small."
+else
+	<?php
+		if (isset($aliascategories)) {
+			foreach($aliascategories as $cat => $files) {
+				echo "echo '  " . $cat . " Aliases'\n";
+				foreach ($files as $path => $file) {
+					echo "echo -e \"    " . str_pad($file, 25, " ") . "-- ";
+					echo "$(fold -s -w $[$(tput cols) - 32] <<< \"" .getDesc($path) . "\"| sed -e 's/^/\\\\033[33G/g')\"\n";
+				}
+				echo "echo \n";
+			}
+		} else {
+			echo "echo 'No Available Aliases'\n";
+		}
+	?>
+fi
+}
+
+// Adding aliases
+<?php
+	if (isset($aliascategories)) {
+		foreach($aliascategories as $files) {
 			foreach ($files as $path => $file) {
 				require_once($path);
 				echo "\n";
