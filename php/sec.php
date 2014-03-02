@@ -194,7 +194,6 @@ else
 fi
 }
 
-// Adding aliases
 <?php
 	if (isset($aliascategories)) {
 		foreach($aliascategories as $files) {
