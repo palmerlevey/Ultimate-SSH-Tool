@@ -7,6 +7,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/media/dlevey/Seagate HDD 1TB/Downloads/Apps/New/firefox/run-mozilla.sh",
+			"settings":
+			{
+				"buffer_size": 8915,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -35,6 +43,22 @@
 	},
 	"file_history":
 	[
+		"/home/dlevey/Music/Spotify-Convert/list.filtered",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/tphp.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/apcheck.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/findvh.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/lips.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/myusers.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/myengines.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/highio.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/bigfiles.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/whatswrong.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/.gitignore",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/httpdocs.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/httprocs.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/linenum.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/clnbaks.unsorted",
+		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/clanbaks.unsorted",
 		"/home/dlevey/Development/Server Tools/sshtool/php/sec.php",
 		"/home/dlevey/Development/Server Tools/sshtool/php/main.php",
 		"/home/dlevey/Development/Server Tools/sshtool/functions/Global/deflate",
@@ -65,6 +89,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"data-duration=\"",
+			"music-paused item playlist\" rel=\"track\" data-track=\"",
+			"<li class=\"",
 			"listf",
 			"listf\n",
 			"listf",
@@ -88,8 +115,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/media/dlevey/Seagate HDD 1TB/Downloads/Apps/New/firefox/run-mozilla.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8915,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -165,7 +221,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 241.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
