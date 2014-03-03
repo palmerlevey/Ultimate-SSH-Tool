@@ -1,0 +1,4 @@
+##DESCRP=Find Error Log location and size. (Cork)
+function ferrl(){
+	find /home -type f -name error_log -exec ls -lh {} \; |awk '{print "Error Log Path: " $9 "     Log Size: " $5}'
+}
