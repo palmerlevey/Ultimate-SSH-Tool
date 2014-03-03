@@ -148,6 +148,17 @@ else #this is a dedicated server
 		fi
 
 		if [ $SGUSER = "root" ]; then
+			#Attempting to fix php version not being relayed on dedis. https://git.servergur.us/gurudavid/sshtool/issues/1
+			php -v | head -n 1 | awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN '{
+        	                        if( $2 ~ /[5-9].[4-9]./ ) {
+                	                        print $0 SGPASS
+                	       	        } else if( $2 ~ /5.3./ ) {
+        	                       	        print $0 SGWARN
+	                                } else {
+        	                                print $0 SGFAIL
+                	                }
+	                        }' 
+
 			PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]# "
 		else
 			PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]# "
