@@ -1,4 +1,4 @@
 ##DESCRP=Search List Functions (grep) # lfsearch <topic>
 function lfsearch(){
-listfunctions |grep $@
+listfunctions |grep -i $@
 }
