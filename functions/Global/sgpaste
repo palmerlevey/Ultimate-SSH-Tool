@@ -17,6 +17,6 @@ function sgpaste()
                     exit 1;
             fi
  
-        output=`curl -s -X POST -d "$str" paste.servergur.us/documents |perl -pi -e 's|.+:\"(.+)\"}|$1|'`
+        output=`curl -s -X POST -d "$str" paste.servergur.us/documents |perl -pi -e 's|.+:\"(.+)\"}|$1|'`;
         echo $url/$output
 }
