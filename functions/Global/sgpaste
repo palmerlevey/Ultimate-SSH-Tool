@@ -1,0 +1,22 @@
+##DESCRP=Pastebin function. # cat file |sgpaste 
+function sgpaste() 
+    {
+        url=http://paste.servergur.us
+        usage="$0 pastes into $server
+        usage: $0 something
+        example: '$0 pie' or 'ps aufx |$0'"
+ 
+            if [ -z $1 ]; then
+                    str=`cat /dev/stdin`;
+            else
+                    str=$1;
+            fi;
+ 
+            if [ -z "$str" ]; then
+                    echo $usage;
+                    exit 1;
+            fi;
+ 
+        output=`curl -s -X POST -d "$str" paste.servergur.us/documents |perl -pi -e 's|.+:\"(.+)\"}|$1|'`;
+        echo $url/$output
+}
