@@ -1,6 +1,6 @@
 ##DESCRP=qmHandle is a QMail Helper Tool
 function qmHandle(){
-	[ -f /root/support/qmHandle ] && perl /root/support/qmHandle '$@' || wget -q -O /root/support/qmHandle http://repo.servergur.us/scripts/qmHandle && perl /root/support/qmHandle '$@'
+	[ -f /root/support/qmHandle ] && perl /root/support/qmHandle '$@' || wget -q -O /root/support/qmHandle http://repo.servergur.us/scripts/qmHandle && chmod 755 /root/support/qmHandle && perl /root/support/qmHandle '$@'
 }
 
 	
