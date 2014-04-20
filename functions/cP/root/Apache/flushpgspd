@@ -1,6 +1,6 @@
 ##DESCRP=Flushes mod_pagespeed's cache.
 function flushpgsp(){
 CACHELOC=`grep "^ *ModPagespeedFileCachePath" /usr/local/apache/conf/pagespeed.conf`
-	touch `"$CACHELOC" | awk ' { print $2; } ' | sed 's/"//g'`/cache.flush
+	touch `grep "^ *ModPagespeedFileCachePath" /usr/local/apache/conf/pagespeed.conf | awk ' { print $2; } ' | sed 's/"//g'`/cache.flush
 		echo "File 'cache.flush' has been successfully written to $CACHELOC - Wait a few moments and refresh content."
 }
