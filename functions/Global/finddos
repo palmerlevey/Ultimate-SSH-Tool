@@ -1,0 +1,4 @@
+##DESCRP=Search for DOS flavored files in the path declared. IE finddos /home/user/
+function finddos(){
+	find "$@" -name '*' -print0 | xargs -0 grep -l '^M'
+}
