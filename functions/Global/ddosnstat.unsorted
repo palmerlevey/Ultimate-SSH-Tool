@@ -1,5 +1,5 @@
 ##DESCRP=Shows information helpful to determine the help type of attack.
-function ddosnstat() {
+function ddosnstat(){
 ivar=$2
     if [ -z "$ivar" ] ; then
 	ivar="0"
@@ -14,17 +14,17 @@ ivar=$2
 
 echo -en "\e[1;31mddoSutil:\033[0m statistics report generating..."
 echo -e ""
-  necho "port [80] connection total:" " $(netstat -n | grep :80 |wc -l)"
-  necho "apache memory usage:" "$(ps aux | grep apache | grep -v "grep" | awk '{ s += $6 } END { print s/1024, "Mb"}')"
-  necho "apache threads count:" "$(ps -ef | grep apache | grep -v "grep" | wc -l)"
-  necho "sytem load averages:" "$(uptime | awk '{print $10,$11,$12}' | sed 's/,/ /g')"
-  necho "system uptime:" "$(uptime | awk '{print $3,$4}'  | sed 's/,/ /g')"
-  necho "last yum update:" "$(sed -n '/Updated:/h;${;g;p;}' < /var/log/yum.log | awk '{print $1,$2,$3}')"
-  necho "authenication failures:" "$(awk '{print}' /var/log/secure* | grep -i 'authentication failure' | wc -l)"
+  echo "port [80] connection total:" " $(netstat -n | grep :80 |wc -l)"
+  echo "apache memory usage:" "$(ps aux | grep apache | grep -v "grep" | awk '{ s += $6 } END { print s/1024, "Mb"}')"
+  echo "apache threads count:" "$(ps -ef | grep apache | grep -v "grep" | wc -l)"
+  echo "sytem load averages:" "$(uptime | awk '{print $10,$11,$12}' | sed 's/,/ /g')"
+  echo "system uptime:" "$(uptime | awk '{print $3,$4}'  | sed 's/,/ /g')"
+  echo "last yum update:" "$(sed -n '/Updated:/h;${;g;p;}' < /var/log/yum.log | awk '{print $1,$2,$3}')"
+  echo "authenication failures:" "$(awk '{print}' /var/log/secure* | grep -i 'authentication failure' | wc -l)"
 echo -e ""
-  necho "connections in SYN state:" "$(netstat -ant | awk '{print $6}' | grep SYN | wc -l)"
-  necho "connections in LISTEN state:" "$(netstat -ant | awk '{print $6}' | grep LISTEN | wc -l)"
-  necho "connections in ESTABLISHED state:" "$(netstat -ant | awk '{print $6}' | grep ESTABLISHED | wc -l)"
+  echo "connections in SYN state:" "$(netstat -ant | awk '{print $6}' | grep SYN | wc -l)"
+  echo "connections in LISTEN state:" "$(netstat -ant | awk '{print $6}' | grep LISTEN | wc -l)"
+  echo "connections in ESTABLISHED state:" "$(netstat -ant | awk '{print $6}' | grep ESTABLISHED | wc -l)"
 echo -e ""
-  necho "connected IP addresses (top 10):\n" "$(netstat -tunv  | awk '{print $5}' | awk -F':' '{print $1}' | grep ^[0-9] | uniq -c | sort -rn | head -n 10)"
+  echo "connected IP addresses (top 10):\n" "$(netstat -tunv  | awk '{print $5}' | awk -F':' '{print $1}' | grep ^[0-9] | uniq -c | sort -rn | head -n 10)"
 }
