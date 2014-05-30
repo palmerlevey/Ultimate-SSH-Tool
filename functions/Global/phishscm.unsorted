@@ -1,4 +1,4 @@
-##DESCRP=Checks for domains with scams in the title.
-function phishscm(){
-	grep -iE "ebay|chase|webscr|hotmail|yahoo|gmail|google|remax|fidelity|santander|visa|amazon|paypal|mastercard|signin|gdocs|googledoc" /etc/userdomains
+##DESCRP=Checks for domains with scams in the title
+function phishscm() {
+	`grep -iE 'ebay|chase|webscr|hotmail|yahoo|gmail|google|remax|fidelity|santander|visa|amazon|paypal|mastercard|signin|gdocs|googledoc' /etc/userdomains`
 }
