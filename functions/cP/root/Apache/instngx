@@ -7,7 +7,6 @@ function instngx(){
 	./nginxinstaller install
 	echo " "
 	echo "NGiNX has now been successfully installed."
-	echo " "
 	/etc/init.d/httpd restart
 	echo " "
 	echo "The httpd service has successfully restarted with NGiNX as the master daemon."
