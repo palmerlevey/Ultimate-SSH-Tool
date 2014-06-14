@@ -1,4 +1,4 @@
-##DESCRP=Install NGiNX CP Admin
+##DESCRP=Install NGiNX CP Admin Warning - Doesnt check for existing
 function instngx(){
 	cd /usr/local/src
 	wget -q http://nginxcp.com/latest/nginxadmin.tar 
