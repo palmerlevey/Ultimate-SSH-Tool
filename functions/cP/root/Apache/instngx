@@ -1,8 +1,17 @@
-##DESCRP=Install NGiNx CP Admin
+##DESCRP=Install NGiNX CP Admin
 function instngx(){
 	cd /usr/local/src
 	wget -q http://nginxcp.com/latest/nginxadmin.tar 
 	tar xf nginxadmin.tar
 	cd publicnginx
 	./nginxinstaller install
+	echo " "
+	echo "NGiNX has now been successfully installed."
+	echo " "
+	/etc/init.d/httpd restart
+	echo " "
+	echo "The httpd service has successfully restarted with NGiNX as the master daemon."
+	echo " "
+	echo "Please reference the below process as nginx is successfully running:"
+	ps auxf |grep -i "nginx: master"
 }
