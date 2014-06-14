@@ -10,12 +10,14 @@ function instngx(){
 	echo "NGiNX has now been successfully installed."
 	echo "Please wait..."
 	sleep 5
-	/etc/init.d/httpd restart
+	/etc/init.d/httpd restart &> /dev/null
 	echo " "
 	echo "The httpd service has successfully restarted with NGiNX as the master daemon."
 	echo "Please wait..."
 	sleep 5
 	echo " "
 	echo "Please reference the below process as nginx is successfully running:"
-	ps auxf |grep -i "nginx: master"
+	echo "-----"
+	ps auxf |grep -i "nginx: master" && netstat -tulpn |grep -i nginx
+	echo "-----"
 }
