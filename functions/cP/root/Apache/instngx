@@ -1,0 +1,8 @@
+##DESCRP=Install NGiNx CP Admin
+function instngx(){
+	cd /usr/local/src
+	wget -q http://nginxcp.com/latest/nginxadmin.tar 
+	tar xf nginxadmin.tar
+	cd publicnginx
+	./nginxinstaller install
+}
