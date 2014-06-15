@@ -1,0 +1,12 @@
+##DESCRP=cPanel backup downloader and restoration tool.
+function cpbkrst(){
+	echo "Enter the source cPanel account name:"
+		read USER
+	echo "Enter the cPanel account password:"
+		read PASS
+	echo "Enter the cPanel backup download link from source server:"
+		read DLFILE
+
+	cd /home
+	wget --user=$USER --pass=$PASS --auth-no-challenge --no-check-certificate $DLFILE	
+}
