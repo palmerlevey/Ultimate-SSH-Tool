@@ -12,7 +12,9 @@ function cpbkrst(){
 	while true; do
     	read -p "Download complete. Restore account $USER now? " yn
     	case $yn in
-	        [Yy]* ) /scripts/restorepkg $USER; break;;
+	        [Yy]* ) echo "Beginning cPanel restore, sit tight...";
+	        		/scripts/restorepkg $USER >> /root/support/restore_$USER.log; 
+	        		echo "cPanel account $USER has been restored, a log of the restoration can be found here: /root/support/restore_$USER.log"; break;;
         	[Nn]* ) exit;;
         	* ) echo "Please answer yes or no.";;
     	esac
