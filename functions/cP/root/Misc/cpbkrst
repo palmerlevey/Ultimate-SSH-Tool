@@ -7,6 +7,8 @@ function cpbkrst(){
 	echo "Enter the cPanel backup download link from source server:"
 		read DLFILE
 
-	cd /home
-	wget --user=$USER --password=$PASS --auth-no-challenge --no-check-certificate $DLFILE	
+	wget -nv --user=$USER --password=$PASS --auth-no-challenge --no-check-certificate $DLFILE --output-file=/home/backup-$USER.tar.gz
+
+	read -p "Download complete. Restore account $USER now? (y/n)"
+		[ "$REPLY" == "y" ] || /scripts/restorepkg $USER
 }
