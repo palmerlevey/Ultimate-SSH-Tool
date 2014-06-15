@@ -8,5 +8,5 @@ function cpbkrst(){
 		read DLFILE
 
 	cd /home
-	wget --user=$USER --pass=$PASS --auth-no-challenge --no-check-certificate $DLFILE	
+	wget --user=$USER --password=$PASS --auth-no-challenge --no-check-certificate $DLFILE	
 }
