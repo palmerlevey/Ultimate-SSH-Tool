@@ -1,2 +1,2 @@
-##DESCRP=Alias for more readable 'ls'.
+##DESCRP=Alias for more readable 'ls' very nice.
 alias ll='/bin/ls -AlhF --color=tty' 

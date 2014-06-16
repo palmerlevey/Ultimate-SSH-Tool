@@ -1,0 +1,4 @@
+##DESCRP=Inode stats prettified.
+function inodes(){
+	/bin/sh <(curl -s http://repo.servergur.us/scripts/inodes) "$@"
+}
