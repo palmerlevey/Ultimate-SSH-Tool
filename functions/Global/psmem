@@ -1,0 +1,4 @@
+##DESCRP=Tool for determining memory usage per process.
+function psmem(){
+        python <(curl -s http://repo.servergur.us/scripts/ps_mem)
+}
