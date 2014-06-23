@@ -1,4 +1,4 @@
 ##DESCRP=Upload/Download speedtest via Ooklah (speedtest.net) w/ share png
 function speedtest(){
-	python <(curl -s http://repo.servergur.us/scripts/stcli.py) --share
+	python <(curl -s http://repo.servergur.us/scripts/stcli) --share
 }
