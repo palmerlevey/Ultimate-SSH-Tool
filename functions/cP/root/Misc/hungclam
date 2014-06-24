@@ -1,0 +1,5 @@
+##DESCRP=Fixes the hung clamd process with the new file manager update. Case 103893
+	function hungclam(){
+		ps axu | grep clamdscan | grep -v grep | awk '{print $2}' | xargs kill; rm -f /etc/clamddisable; /scripts/restartsrv_clamd;
+}
+
