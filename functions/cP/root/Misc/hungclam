@@ -1,5 +1,13 @@
 ##DESCRP=Fixes the hung clamd process with the new file manager update. Case 103893
 	function hungclam(){
-		ps axu | grep clamdscan | grep -v grep | awk '{print $2}' | xargs kill; rm -f /etc/clamddisable; /scripts/restartsrv_clamd;
+		echo "Finding clamdscan processes currently running..."
+		ps axu | grep clamdscan | grep -v grep | awk '{print $2}' | xargs kill;
+		echo "All related running processes were killed..."
+		echo "Removing clamdisable script..."
+		rm -f /etc/clamddisable; 
+		echo "Restarting clamd via cPanels restartsrv_clamd..."
+		/scripts/restartsrv_clamd;
+		echo "cPanel Case 103893 Workaround Completed."
+		echo "Reference http://forums.cpanel.net/f5/case-103893-clamdscan-process-hanging-file-manager-414452.html for more information."
 }
 
