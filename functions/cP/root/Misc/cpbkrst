@@ -13,7 +13,7 @@ function cpbkrst(){
     	read -p "Download complete. Restore account $USER now? " yn
     	case $yn in
 	        [Yy]* ) echo "Beginning cPanel restore, sit tight...";
-	        		/scripts/restorepkg $USER > /root/support/restore_$USER.log 2> /dev/null; 
+	        		/scripts/restorepkg /home/$USER.tar.gz > /root/support/restore_$USER.log 2> /dev/null; 
 	        		echo "cPanel account $USER has been restored, a log of the restoration can be found here: /root/support/restore_$USER.log";
 	        		tail -n6 /root/support/restore_$USER.log; break;;
         	[Nn]* ) exit;;
