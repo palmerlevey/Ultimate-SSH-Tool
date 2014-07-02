@@ -1,7 +1,8 @@
 ##DESCRP=Install mod_cloudflare
 function imodcf()
 	{
-		perl <(GET https://raw.github.com/tylerl/util/master/easyapache/cloudflare.pl) install
+		wget -q https://raw.github.com/tylerl/util/master/easyapache/cloudflare.pl -O /root/support/cloudflare.pl
+		perl /root/support/cloudflare.pl install
 			echo " "
 			echo "mod_cloudflare module has been installed successfully, please run EasyApache to rebuild with the module enabled!"
 }	
