@@ -1,0 +1,7 @@
+##DESCRP=White list CloudFlare IPs
+function wlcfi()
+{
+	echo "Loading CloudFlare IPs..."
+	for each in $(wget -O- https://www.cloudflare.com/ips-v4 | sort); do csf -a $each; done && csf -tf
+	echo "CloudFlare IPs have been whitelisted and CSF has been restarted!"
+}
