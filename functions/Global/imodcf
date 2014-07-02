@@ -1,0 +1,7 @@
+##DESCRP=Install mod_cloudflare
+function imodcf()
+	{
+		perl <(GET https://raw.github.com/tylerl/util/master/easyapache/cloudflare.pl) install
+			echo " "
+			echo "mod_cloudflare module has been installed successfully, please run EasyApache to rebuild with the module enabled!"
+}	
