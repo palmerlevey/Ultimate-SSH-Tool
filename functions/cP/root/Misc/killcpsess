@@ -1,0 +1,11 @@
+##DESCRP=Kill all current cPanel Sessions
+function killcpsess(){
+	echo "Current cPanel sessions:"
+	ls -lha /var/cpanel/sessions/raw/
+	read -p "Kill all these sessions? " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]
+	then
+		rm -fv /var/cpanel/sessions/raw/*
+	fi
+}
