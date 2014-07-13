@@ -1,0 +1,4 @@
+##DESCRP=Checks exim log for sendmail functions
+function checkmailabuse(){
+	less /var/log/exim_mainlog | grep sendmail | grep -vE "csf|FCron"
+}
