@@ -1,0 +1,13 @@
+##DESCRP=Set or create maximum email attachment size for exim
+function setattlmt(){
+	echo "What would you like the attachment limit for exim to be defined to? (eg. 10M) "
+		read ATTLIMIT
+	echo "message_size_limit = $ATTLIMIT # Added via SSHTOOL" >> /etc/exim.conf
+	echo "Restarting exim with new configuration."
+	echo " "
+	/etc/init.d/exim restart
+	echo " "
+	echo "Restart completed."
+	echo " "
+	exim -bP |grep message_size_limit
+}
