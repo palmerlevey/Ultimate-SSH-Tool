@@ -1,0 +1,9 @@
+##DESCRP=Check current FTP File LimitRecursion for Pure-FTPD
+function ftpfl(){
+ grep "LimitRecursion" /etc/pure-ftpd.conf
+#	echo " "
+#	read -p "Would you like to change the current File LimitRecursion set? " yn
+#	case $yn in
+#		[Yy]* ) echo "New limit?"
+#			read NEWLIMIT
+}
