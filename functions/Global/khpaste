@@ -1,0 +1,5 @@
+##DESCRP=Pastebin function for KnownHost. khpaste <absolute file path> 
+function khpaste() 
+    {
+	curl -F file=@"@" paste.privatesystems.net
+}
