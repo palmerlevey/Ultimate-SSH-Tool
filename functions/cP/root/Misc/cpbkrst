@@ -1,6 +1,6 @@
 ##DESCRP=cPanel backup downloader and restoration tool.
 function cpbkrst(){
-DIR=pwd
+DIR=$(pwd)
 	echo "Enter the source cPanel account name:"
 		read USER
 	echo "Enter the cPanel account password:"
