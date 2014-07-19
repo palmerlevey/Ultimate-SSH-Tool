@@ -1,1 +1,1 @@
-alias wpu=`wp plugin update` # wp-cli plugin update
+alias wpu='/opt/wp-cli/wp-cli.phar plugin update' # wp-cli plugin update
