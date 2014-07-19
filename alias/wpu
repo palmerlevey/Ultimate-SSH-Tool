@@ -1,0 +1,1 @@
+alias wpu=`wp plugin update` # wp-cli plugin update
