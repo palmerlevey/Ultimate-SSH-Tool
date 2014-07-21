@@ -1,0 +1,1 @@
+alias prfm='/usr/bin/python <(curl http://repo.servergur.us/scripts/ranger) -c .'

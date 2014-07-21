@@ -1,5 +1,6 @@
 ##DESCRP=cPanel backup downloader and restoration tool.
 function cpbkrst(){
+DIR=$(pwd)
 	echo "Enter the source cPanel account name:"
 		read USER
 	echo "Enter the cPanel account password:"
@@ -7,16 +8,16 @@ function cpbkrst(){
 	echo "Enter the cPanel backup download link from source server:"
 		read DLFILE
 
-	wget --directory-prefix=/home/ --output-document=$USER.tar.gz --user=$USER --password=$PASS --auth-no-challenge --no-check-certificate $DLFILE 
+	wget --output-document=$USER.tar.gz --user=$USER --password=$PASS --auth-no-challenge --no-check-certificate $DLFILE 
 
 	while true; do
     	read -p "Download complete. Restore account $USER now? " yn
     	case $yn in
 	        [Yy]* ) echo "Beginning cPanel restore, sit tight...";
-	        		/scripts/restorepkg /home/$USER.tar.gz > /root/support/restore_$USER.log 2> /dev/null; 
+	        		/scripts/restorepkg $DIR/$USER.tar.gz > /root/support/restore_$USER.log 2> /dev/null; 
 	        		echo "cPanel account $USER has been restored, a log of the restoration can be found here: /root/support/restore_$USER.log";
 	        		tail -n6 /root/support/restore_$USER.log; break;;
-        	[Nn]* ) exit;;
+        	[Nn]* ) echo "Restoration not performed."; break;;
         	* ) echo "Please answer yes or no.";;
     	esac
 	done
