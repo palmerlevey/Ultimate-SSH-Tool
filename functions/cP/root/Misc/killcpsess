@@ -1,7 +1,7 @@
-##DESCRP=Kill all current cPanel Sessions
+##DESCRP=List and kill all current cPanel Sessions
 function killcpsess(){
 	echo "Current cPanel sessions:"
-	ls -lha /var/cpanel/sessions/raw/
+        find /var/cpanel/sessions/raw/ -type f -exec grep -oHP "([0-9]{1,3}\.){3}[0-9]{1,3}" {} \;|cut -d/ -f6|cut -d: -f1,3|uniq
 	read -p "Kill all these sessions? " -n 1 -r
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]
