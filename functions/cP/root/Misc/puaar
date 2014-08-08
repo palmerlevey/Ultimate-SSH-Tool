@@ -1,0 +1,8 @@
+##DESCRP=Permit unregistered apps as root in WHM.
+function puaar(){
+	echo "permit_unregistered_apps_as_root=1" >> /var/cpanel/cpanel.config
+	/usr/local/cpanel/etc/init/startcpsrvd
+	sleep 5
+	echo "If you saw USR1 accepted, it's all gravy..."
+}
+
