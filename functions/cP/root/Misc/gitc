@@ -1,0 +1,4 @@
+##DESCRP=Git clone command using cPanels 3rdparty bin.
+function gitc(){
+	/usr/local/cpanel/3rdparty/bin/git clone $@
+}
