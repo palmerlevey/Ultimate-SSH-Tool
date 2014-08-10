@@ -4,7 +4,7 @@ USER=`stat -c %U ../public_html`
 GROUP=`stat -c %G ../public_html`
 	mv .htaccess .htaccess.kh_support_bak
 	curl -s http://repo.servergur.us/code/wphtaccess > .htaccess
-	chown $USER:$GROUP .htacces
+	chown $USER:$GROUP .htaccess
 #	chmod 644 .htaccess
 		echo "Completed, printing contents and perms for review."
 		echo " "
