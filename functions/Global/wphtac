@@ -12,6 +12,10 @@ GROUP=`stat -c %G .htaccess`
 		echo " "
 		cat .htaccess
 		echo " "
+		echo "Original .htaccess backed up to:"
+		echo " "
+		ll .htaccess.kh_support_bak
+		echo " "
 		echo "Done."
 }
 
