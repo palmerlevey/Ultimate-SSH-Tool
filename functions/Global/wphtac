@@ -1,7 +1,7 @@
 ##DESCRP=Replace current paths htaccess file with default WordPress and stores a backup.
 function wphtac() {
 USER=`stat -c %U ../public_html`
-GROUP=`stat -c %G ../public_html`
+GROUP=`stat -c %G .htaccess`
 	mv .htaccess .htaccess.kh_support_bak
 	curl -s http://repo.servergur.us/code/wphtaccess > .htaccess
 	chown $USER:$GROUP .htaccess
