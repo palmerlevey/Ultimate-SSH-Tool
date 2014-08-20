@@ -1,0 +1,4 @@
+##DESCRP=Greps for eval, base64, etc in current directory.
+function findbad() {
+	egrep -rl '\} if\(isset\(|extract\(\$_COOKIE|eval\(base64_decode|eval\(gzinflate|eval\(gzuncompress\(base64_decode|eval\(preg_replace\(|\{eval\(stripslash|eval\(strrev|eval\(str_rot13|eval\(unescape|stripslash\(base64_decode|\\x62\\141\\x73\\145\\x36\\64\\x5f\\144\\x65\\143\\x6f\\144\\x65' . |xargs ls -ldh
+}
