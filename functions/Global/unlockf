@@ -1,16 +1,19 @@
-##DESCRP=Removes prior 000 chmod
-function unlockf() {
-    if [ -z "$1" ];then
-        echo "Usage: unlockf FILES"
-        return
-    fi
-    until [ -z "$1" ];do
-        if [ -d "$1" ];then
-            chmod 755 "$1"
+##DESCRP=Remove lockf function
+function ulockf() {
+    if [ -z "$1" ]; then
+        echo "Usage: ulockf FILES";
+        return;
+    fi;
+    until [ -z "$1" ]; do
+        if [ -d "$1" ]; then
+            chmod 755 "$1";
         else
-            chmod 644 "$1"
-        fi
-        chown `pwd | cut -d/ -f3`:`pwd | cut -d/ -f3` "$1"
-        shift
+            chmod 644 "$1";
+        fi;
+        if "$1" = *.OFF; then 
+        	mv "$1" `echo "$1" | sed 's/\.[^.]*$//'`
+        fi;
+        chown `pwd | cut -d/ -f3`:`pwd | cut -d/ -f3` "$1";
+        shift;
     done
 }

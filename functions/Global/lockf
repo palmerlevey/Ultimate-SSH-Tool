@@ -1,12 +1,21 @@
-##DESCRP=Chmod 000 chown 0:0 files
+##DESCRP=Chmod 000 chown nobody:nobody and add .OFF to files
 function lockf() {
-    if [ -z "$1" ];then
-        echo "Usage: lockf FILES"
-        return
-    fi
-    until [ -z "$1" ];do
-        chmod 000 "$1"
-        chown 0:0 "$1"
-        shift
+LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`
+
+    if [ -z "$1" ]; then
+        echo "Usage: lockf FILES";
+        return;
+    fi;
+    until [ -z "$1" ]; do
+        chmod 000 "$1";
+        chown nobody:nobody "$1";
+        mv "$1" "$1".OFF;
+	echo "$1" >> $LOCKEDLOG
+        shift;
     done
+	echo "The following files have now been locked:"
+	echo "--"
+	pwd
+	cat $LOCKEDLOG
 }
+
