@@ -7,15 +7,15 @@ LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`
         return;
     fi;
     until [ -z "$1" ]; do
+	UGA=`stat -c "%U:%G:%a" $1`
         chmod 000 "$1";
         chown nobody:nobody "$1";
         mv "$1" "$1".OFF;
-	echo "$1" >> $LOCKEDLOG
+	echo "`pwd`$1 $UGA" >> $LOCKEDLOG
         shift;
     done
 	echo "The following files have now been locked:"
 	echo "--"
-	pwd
 	cat $LOCKEDLOG
 }
 
