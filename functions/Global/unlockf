@@ -1,19 +1,22 @@
-##DESCRP=Remove lockf function
-function ulockf() {
-    if [ -z "$1" ]; then
-        echo "Usage: ulockf FILES";
-        return;
-    fi;
-    until [ -z "$1" ]; do
-        if [ -d "$1" ]; then
-            chmod 755 "$1";
-        else
-            chmod 644 "$1";
-        fi;
-        if "$1" = *.OFF; then 
-        	mv "$1" `echo "$1" | sed 's/\.[^.]*$//'`
-        fi;
-        chown `pwd | cut -d/ -f3`:`pwd | cut -d/ -f3` "$1";
-        shift;
-    done
+##DESCRP=Remove lockf function *DEVELOPMENTAL*
+function unlockf() {
+    read -p "For cPanel suPHP ownership and permissions only!! Continue? " -n 1 -r
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+	    if [ -z "$1" ]; then
+	        echo "Usage: ulockf FILES";
+	        return;
+	    fi;
+	    until [ -z "$1" ]; do
+	        if [ -d "$1" ]; then
+	            chmod 755 "$1";
+	        else
+	            chmod 644 "$1";
+	        fi;
+	        if "$1" = *.OFF; then 
+	        	mv "$1" `echo "$1" | sed 's/\.[^.]*$//'`
+	        fi;
+	        chown `pwd | cut -d/ -f3`:`pwd | cut -d/ -f3` "$1";
+	        shift;
+	    done
+	fi
 }
