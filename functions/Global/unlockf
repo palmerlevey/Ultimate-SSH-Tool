@@ -18,5 +18,7 @@ function unlockf() {
 #	        fi;
 	        shift;
 	    done
+	echo " "
+	echo "$1 unlocked."
 	fi
 }
