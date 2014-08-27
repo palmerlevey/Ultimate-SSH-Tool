@@ -19,6 +19,6 @@ function unlockf() {
 	        shift;
 	    done
 	echo " "
-	echo "$1 unlocked."
+	echo "Files unlocked."
 	fi
 }
