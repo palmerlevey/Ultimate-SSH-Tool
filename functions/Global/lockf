@@ -6,7 +6,7 @@ function lockf() {
         return;
     fi;
     until [ -z "$1" ]; do
-        UGA=`stat -c "%U:%G:%a" $1`;
+        UGA=`stat -c "%U:%G:%a - Last Modified: %y" $1`;
         chmod 000 "$1";
         chown nobody:nobody "$1";
         mv -i "$1" "$1".OFF;
