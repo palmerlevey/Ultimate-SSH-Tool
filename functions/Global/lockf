@@ -1,12 +1,19 @@
 ##DESCRP=Chmod 000 chown 0:0 files
-function lockf() {
-    if [ -z "$1" ];then
-        echo "Usage: lockf FILES"
-        return
-    fi
-    until [ -z "$1" ];do
-        chmod 000 "$1"
-        chown 0:0 "$1"
-        shift
-    done
+function lockf() { 
+    LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`;
+    if [ -z "$1" ]; then
+        echo "Usage: lockf FILES";
+        return;
+    fi;
+    until [ -z "$1" ]; do
+        UGA=`stat -c "%U:%G:%a" $1`;
+        chmod 000 "$1";
+        chown nobody:nobody "$1";
+        mv -i "$1" "$1".OFF;
+        echo "`pwd`/$1 $UGA" >> $LOCKEDLOG;
+        shift;
+    done;
+    echo "The following files have now been locked:";
+    echo "--";
+    cat $LOCKEDLOG
 }
