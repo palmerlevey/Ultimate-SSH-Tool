@@ -1,12 +1,19 @@
+<<<<<<< HEAD
 ##DESCRP=Chmod 000 chown nobody:nobody and add .OFF to files
 function lockf() {
 LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`
 
+=======
+##DESCRP=Chmod 000 chown 0:0 files
+function lockf() { 
+    LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`;
+>>>>>>> 7b123eee583e1b0d6712e84c4c1002fef4c4fc20
     if [ -z "$1" ]; then
         echo "Usage: lockf FILES";
         return;
     fi;
     until [ -z "$1" ]; do
+<<<<<<< HEAD
 	UGA=`stat -c "%U:%G:%a" $1`
         chmod 000 "$1";
         chown nobody:nobody "$1";
@@ -19,3 +26,16 @@ LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`
 	cat $LOCKEDLOG
 }
 
+=======
+        UGA=`stat -c "%U:%G:%a - Last Modified: %y" $1`;
+        chmod 000 "$1";
+        chown nobody:nobody "$1";
+        mv -i "$1" "$1".OFF;
+        echo "`pwd`/$1 $UGA" >> $LOCKEDLOG;
+        shift;
+    done;
+    echo "The following files have now been locked:";
+    echo "--";
+    cat $LOCKEDLOG
+}
+>>>>>>> 7b123eee583e1b0d6712e84c4c1002fef4c4fc20
