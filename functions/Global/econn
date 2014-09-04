@@ -1,0 +1,7 @@
+##DESCRP=Display information about established connections.
+function econn(){
+	echo "Printing established connections:"
+	echo "--------------------------------"
+	lsof -Pnl +M -i4 |grep '>' | grep -v '>127'
+	echo "End of list."
+}
