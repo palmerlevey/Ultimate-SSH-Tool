@@ -1,1 +1,1 @@
-alias grep='grep -i -rn' # Case insensitive recursive and line numbers.
+alias grep='grep -i -rn' # Case insensitive recursive and line numbers
