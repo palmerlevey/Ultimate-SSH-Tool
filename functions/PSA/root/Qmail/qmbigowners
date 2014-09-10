@@ -1,0 +1,11 @@
+##DESCRP=Display 10 largest mail accounts by disk space consumed.
+function qmbigowners(){
+	if [ -d /usr/local/psa/qmail/mailnames ]
+	then
+		DIR='/usr/local/psa/qmail/mailnames'
+	else
+		DIR='/var/qmail/mailnames'
+	fi
+
+	du -hsx $DIR | sort -r | tail -10
+}
