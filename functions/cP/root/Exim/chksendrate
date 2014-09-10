@@ -1,4 +1,4 @@
 ##DESCRP=Check email sending rate
 chksendrate() {
-	grep sendmail /var/log/exim_mainlog | cut -c2-18 | uniq -c    
+	grep sendmail /var/log/exim_mainlog | cut -c3-16 | uniq -c
 } 
