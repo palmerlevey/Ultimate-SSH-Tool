@@ -1,0 +1,5 @@
+##DESCRP=Check a certificate file for issued domain. Ex chkssldomain cert.pem
+function chkssldomain(){
+	echo "This certificate has been issued for:"
+		openssl x509 -text -in $@ |grep DNS
+}
