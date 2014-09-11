@@ -1,9 +1,8 @@
 ##DESCRP=Find number of SMTP auths by email address Eg. qmauthl test@domain.tld.
 function qmauthl(){
-	grep 'smtp_auth: SMTP user $@' /usr/local/psa/var/log/maillog 
-/usr/local/psa/var/log/maillog.processed > /root/support/qmail_auths.log
-	echo "Example auth: " 
-	head -n1 /root/support/qmail_auths.log
-	echo "Number of authentications: "
-	cat /root/support/qmail_auths.log
+	grep 'smtp_auth: SMTP user $@' /usr/local/psa/var/log/maillog /usr/local/psa/var/log/maillog.processed > /root/support/qmail_auths.log;
+	echo "Example auth: ";
+	head -n1 /root/support/qmail_auths.log;
+	echo "Number of authentications: ";
+	cat /root/support/qmail_auths.log;
 }
