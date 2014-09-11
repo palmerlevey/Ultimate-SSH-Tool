@@ -4,11 +4,12 @@ KILLEMAIL="cd /var/qmail/queue; find . -type f -exec rm -f '{}' \;"
 echo "Stopping Qmail"
         service qmail stop && killall -9 qmail
 echo "Cleaning Queue"
-	if [ -f /var/qmail/queue/lock ] then;
+	if [ -f /var/qmail/queue/lock ]
+	   then
 	        mv /var/qmail/queue/lock /root/support/
 		$KILLEMAIL
 	        mv /root/support/lock /var/qmail/queue/
-	else 
+   	   else 
 		$KILLEMAIL
 	fi
 echo "Restarting Qmail"
