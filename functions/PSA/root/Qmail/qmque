@@ -1,0 +1,4 @@
+##DESCRP=Display Qmails message queue.
+function qmque(){
+	/var/qmail/bin/qmail-qstat
+}
