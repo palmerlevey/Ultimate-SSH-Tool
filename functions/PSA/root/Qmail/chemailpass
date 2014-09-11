@@ -1,0 +1,6 @@
+##DESCRP=Change PSA email account password Ex. chemailpass user@domain.tld.
+function chemailpass(){
+NEWPASS=`head /dev/urandom | uuencode -m - | sed -n 2p | cut -c1-${1:-16};`
+	/usr/local/psa/bin/mail -u $@ -passwd $NEWPASS
+	echo "$@ password updated to $NEWPASS"
+}
