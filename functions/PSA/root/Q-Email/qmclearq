@@ -1,5 +1,7 @@
 ##DESCRP=Clear qmail email queue.
 function qmclearq(){
+	echo "This may take a minute, hold your horses..."
+	echo "Stopping services..."
 	service qmail stop;
 	service courier-imap stop;
 	killall -9 qmail-smtpd;
@@ -12,6 +14,7 @@ function qmclearq(){
 			find /var/qmail/queue/todo -type f -exec rm {} \;
 			find /var/qmail/queue/remote -type f -exec rm {} \;
 		echo "Queue cleared successfully..."
+		echo "Starting services..."
 	service qmail start
 	service courier-imap start
 	service qmail status
