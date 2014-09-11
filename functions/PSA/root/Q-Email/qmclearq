@@ -1,6 +1,6 @@
 ##DESCRP=Clear qmail email queue.
 function qmclearq(){
-KILLEMAIL="cd /var/qmail/queue; find . -type f -exec rm -f '{}' \;"
+KILLEMAIL="cd /var/qmail/queue && find . -type f -exec rm -f '{}' \;"
 echo "Stopping Qmail"
         service qmail stop && killall -9 qmail
 echo "Cleaning Queue"
