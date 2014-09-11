@@ -7,5 +7,5 @@ function qmbigowners(){
 		DIR='/var/qmail/mailnames'
 	fi
 
-	du -hsx $DIR/* | sort -r | tail -10
+	du -hsx $DIR/* | sort -r | tail -10 | awk '{gsub("'$DIR/'", "");print}'
 }
