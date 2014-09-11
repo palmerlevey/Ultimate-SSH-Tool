@@ -1,0 +1,20 @@
+##DESCRP=Clear qmail email queue.
+function qmclearq(){
+KILLEMAIL="cd /var/qmail/queue; find . -type f -exec rm -f '{}' \;"
+echo "Stopping Qmail"
+        service qmail stop && killall -9 qmail
+echo "Cleaning Queue"
+	if [ -f /var/qmail/queue/lock ] then;
+	        mv /var/qmail/queue/lock /root/support/
+		$KILLEMAIL
+	        mv /root/support/lock /var/qmail/queue/
+	else 
+		$KILLEMAIL
+	fi
+echo "Restarting Qmail"
+	service qmail restart
+	service qmail status
+echo "Queue is now super duper empty:"
+        /var/qmail/bin/qmail-qstat
+}
+
