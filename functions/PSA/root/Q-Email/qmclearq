@@ -1,9 +1,19 @@
 ##DESCRP=Clear qmail email queue.
 function qmclearq(){
-	/sbin/service qmail stop
-		for i in bounce info intd local mess remote todo; do
-			find /var/qmail/queue/$i -type f -exec rm {} \;
-		done
-	/sbin/service qmail start
+	service qmail stop;
+	service courier-imap stop;
+	killall -9 qmail-smtpd;
+	service qmail status;
+		echo "Beginning the clearing..."
+			find /var/qmail/queue/mess -type f -exec rm {} \;
+			find /var/qmail/queue/info -type f -exec rm {} \;
+			find /var/qmail/queue/local -type f -exec rm {} \;
+			find /var/qmail/queue/intd -type f -exec rm {} \;
+			find /var/qmail/queue/todo -type f -exec rm {} \;
+			find /var/qmail/queue/remote -type f -exec rm {} \;
+		echo "Queue cleared successfully..."
+	service qmail start
+	service courier-imap start
+	service qmail status
 	/var/qmail/bin/qmail-qstat
 }
