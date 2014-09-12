@@ -1,0 +1,5 @@
+##DESCRP=Change cPanel user/account password. Ex. chgcpass user newpass
+function chgcpass(){
+export ALLOW_PASSWORD_CHANGE=1
+	/scripts/chpass $1 $2
+}
