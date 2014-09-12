@@ -123,13 +123,15 @@ elif [ -d /proc/vz/ ];then #This is a VPS on an OpenVPS node
 				SGMTA2="NA"
 			fi
 			SGMTA="${SGMTA1} / ${SGMTA2}"
-			echo "VPS MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
-                if( $3 = "Exim") {
-                    print $0 SGPASS
-                } else {
-                    print $0 SGWARN
-                }
-            }'
+			echo "VPS MTA: $SGMTA"
+# - Remove Pass / Warn until function proves correct.
+#			echo "VPS MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
+#                if( $3 = "Exim") {
+#                    print $0 SGPASS
+#                } else {
+#                    print $0 SGWARN
+#                }
+#            }'
 
 			php -v | head -n 1 | awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN '{
 				if( $2 ~ /[5-9].[4-9]./ ) {
@@ -194,13 +196,16 @@ else #this is a dedicated server
 			SGMTA2="NA"
 		fi
 		SGMTA="${SGMTA1} / ${SGMTA2}"
-		echo "Dedi MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
-                if( $3 = "Exim") {
-                    print $0 SGPASS
-                } else {
-                    print $0 SGWARN
-                }
-            }'
+		echo "Dedi MTA: $SGMTA"
+
+# - Remove Pass / Warn until function proves correct.
+#		echo "Dedi MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
+#                if( $3 = "Exim") {
+#                    print $0 SGPASS
+#                } else {
+#                    print $0 SGWARN
+#                }
+#            }'
 
 		if [ $SGUSER = "root" ]; then
 			#Attempting to fix php version not being relayed on dedis. https://git.servergur.us/gurudavid/sshtool/issues/1
