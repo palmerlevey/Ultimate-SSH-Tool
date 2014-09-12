@@ -1,0 +1,4 @@
+##DESCRP=Read specific postfix message by header. Eg. psfr <EMAILNUM>
+function psfr(){
+	postcat -qv $@
+}

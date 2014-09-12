@@ -1,0 +1,7 @@
+##DESCRP=Clear postfix email queue. Eg. psfclr all | Or psfclr user@domain.tld.
+function psfclr(){
+	if [ "$@" = "all" ]; then
+		postsuper -d ALL deferred
+	else
+		perl <(curl -s http://repo.servergur.us/scripts/pf_del) "$@"
+}

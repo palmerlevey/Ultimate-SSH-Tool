@@ -1,0 +1,4 @@
+##DESCRP=List entire postfix email queue.
+function psfq(){
+	postqueue -p
+}
