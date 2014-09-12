@@ -1,4 +1,4 @@
 ##DESCRP=Show summary of postfix mail delivery and queue.
 function psfstats(){
-	perl <(curl -s http://repo.servergur.us/scripts/pfqs)
+	perl <(curl -s http://repo.servergur.us/scripts/pfqs);
 }
