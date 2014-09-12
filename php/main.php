@@ -103,6 +103,34 @@ elif [ -d /proc/vz/ ];then #This is a VPS on an OpenVPS node
 					}
 				}' /etc/redhat-release
 			fi
+
+			#Servers MTA and IMAP (VPS)
+			if [ -f ${SGinit}/exim ]; 
+				then SGMTA1="Exim"
+			elif [ -f ${SGinit}/postfix ];
+				then SGMTA1="Postfix"
+			elif [ -f ${SGinit}/qmail ];
+				then SGMTA1="Qmail"
+			else 
+				SGMTA1="NA"
+			fi 
+
+			if [ -f ${SGinit}/dovecot ];
+				then SGMTA2="Dovecot"
+			elif [ -f ${SGinit}/courier-imapd ];
+				then SGMTA2="Courier"
+			else 
+				SGMTA2="NA"
+			fi
+			SGMTA="${SGMTA1} / ${SGMTA2}"
+			echo "VPS MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
+                if( $3 = "Exim") {
+                    print $0 SGPASS
+                } else {
+                    print $0 SGWARN
+                }
+            }'
+
 			php -v | head -n 1 | awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN '{
 				if( $2 ~ /[5-9].[4-9]./ ) {
 					print $0 SGPASS
@@ -147,7 +175,7 @@ else #this is a dedicated server
 			SGPANEL="NA"
 		fi
 
-		#Servers MTA and IMAP
+		#Servers MTA and IMAP (Dedi)
 		if [ -f ${SGinit}/exim ]; 
 			then SGMTA1="Exim"
 		elif [ -f ${SGinit}/postfix ];
@@ -165,8 +193,14 @@ else #this is a dedicated server
 		else 
 			SGMTA2="NA"
 		fi
-		SGMTA="${SGMTA1} with ${SGMTA2}"
-		echo "This server is using $SGMTA."
+		SGMTA="${SGMTA1} / ${SGMTA2}"
+		echo "Dedi MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
+                if( $3 = "Exim") {
+                    print $0 SGPASS
+                } else {
+                    print $0 SGWARN
+                }
+            }'
 
 		if [ $SGUSER = "root" ]; then
 			#Attempting to fix php version not being relayed on dedis. https://git.servergur.us/gurudavid/sshtool/issues/1
