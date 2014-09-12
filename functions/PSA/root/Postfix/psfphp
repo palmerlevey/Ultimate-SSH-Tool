@@ -2,11 +2,14 @@
 function psfphp(){
 PHPELOG=/root/support/.psfphp.log.`(date +"%m-%d-%Y")`
 	echo "Searcing messages now..."
-	grep -Rl 'X-PHP-Originating-Script' /var/spool/postfix/deferred/ > $PHPELOG
+	grep -rin 'X-PHP-Originating-Script' /var/spool/postfix/deferred/ > $PHPELOG
 	echo "`(cat $PHPELOG |wc -l)` entries of email originating from PHP Scripts."
 }
 
 ## PERSONAL NOTES
+#
+# CHANGED grep -Rl to grep -rin (altering output for ease)
+#
 #PSFPEX=/root/support/.psfephp.example.`(date +"%m-%d-%Y")`
 #PSFPOFS=/root/support/.psfepep.originfiles.`(date +"%m-%d-%Y")`
 #
