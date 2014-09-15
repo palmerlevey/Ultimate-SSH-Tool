@@ -119,19 +119,19 @@ elif [ -d /proc/vz/ ];then #This is a VPS on an OpenVPS node
 				then SGMTA2="Dovecot"
 			elif [ -f ${SGinit}/courier-imapd ];
 				then SGMTA2="Courier"
+			elif [ -f /usr/sbin/courierlogger ];
+				then SGMTA2="Courier"
 			else 
 				SGMTA2="NA"
 			fi
 			SGMTA="${SGMTA1} / ${SGMTA2}"
-			echo "VPS MTA: $SGMTA"
-# - Remove Pass / Warn until function proves correct.
-#			echo "VPS MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
-#                if( $3 = "Exim") {
-#                    print $0 SGPASS
-#                } else {
-#                    print $0 SGWARN
-#                }
-#            }'
+			echo "VPS MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
+		                if( $3 = "Exim") {
+                		    print $0 SGPASS
+		                } else {
+		                    print $0 SGWARN
+		                }
+		            }'
 
 			php -v | head -n 1 | awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN '{
 				if( $2 ~ /[5-9].[4-9]./ ) {
