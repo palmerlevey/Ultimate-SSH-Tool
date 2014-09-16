@@ -1,0 +1,5 @@
+##DESCRP=Read a specific qmail email message. Ex qmqr 96233840.
+function qmqr(){
+	find /var/qmail/queue -name $@| xargs cat
+	echo "End of Qmail Email ID: $@"
+}
