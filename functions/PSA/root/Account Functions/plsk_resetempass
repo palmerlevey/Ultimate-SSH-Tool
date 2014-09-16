@@ -1,0 +1,4 @@
+##DESCRP=Reset email account with a randomly generated password Ex plsk_resetempass email@domain.tld.
+function plsk_resetempass(){
+	/usr/local/psa/bin/mail -u $@ -passwd `passgen`
+}
