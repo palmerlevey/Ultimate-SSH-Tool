@@ -1,0 +1,4 @@
+##DESCRP=Display Qmails message queue count.
+function qmqstats(){
+	/var/qmail/bin/qmail-qstat
+}
