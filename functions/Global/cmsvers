@@ -1,7 +1,0 @@
-##DESCRP=Check all (wp, joom, drup) versions.
-function cmsvers(){
-	find /home/*/public_html/ -type f -iname version.php | xargs grep "wp_version = '" | sort -u
-	find /home/*/public_html/ -type f -iname version.php | xargs grep '$RELEASE' | sort -u
-	find /home/*/public_html/ -type f -iname standard.info | xargs grep -H 'version = "' | sort -u
-}
-
