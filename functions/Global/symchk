@@ -23,5 +23,6 @@ fi
 	echo "----"
 	cat $SYMLOG
 	echo "----"
-	echo "$TOTAL symlinks found."
+	echo "$TOTAL symlinks found, here's the paste of the entire list:"
+	khpaste $SYMLOG
 }
