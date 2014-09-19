@@ -1,0 +1,20 @@
+##DESCRP=Symlink checker, prints owner, date, path.
+function symchk(){
+##If statement for Control Panels DocumentRoot
+if [[ $SGPANEL == cP ]];then
+	SYMDOCROOT="/home/*/public_html/"
+elif [[ $SGPANEL == PSA ]];then
+	SYMDOCROOT="/var/www/vhosts/*/httpdocs/"
+elif [[ $SGPANEL == DA ]];then
+	SYMDOCROOT="/home/*/domains/*/public_html/"
+else 
+	SYMDOCROOT="NONE FOUND"
+fi
+
+	echo "Searching for symlinks in $SYMDOCROOT ..."
+	echo " "
+	# Awking out awstats, need to find other control panel default symlinks for false positives.
+	find $SYMDOCROOT -type l |xargs ls -lha --color=auto |awk '!/awstats/'
+	echo " "
+	echo "Search complete."
+}
