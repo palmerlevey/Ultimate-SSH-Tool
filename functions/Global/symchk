@@ -1,5 +1,6 @@
 ##DESCRP=Symlink checker, prints owner, date, path.
 function symchk(){
+SYMLOG=/root/support/symchk.`(date +"%m-%d-%Y")`.log
 ##If statement for Control Panels DocumentRoot
 if [[ $SGPANEL == cP ]];then
 	SYMDOCROOT="/home/*/public_html/"
@@ -14,7 +15,13 @@ fi
 	echo "Searching for symlinks in $SYMDOCROOT ..."
 	echo " "
 	# Awking out awstats, need to find other control panel default symlinks for false positives.
-	find $SYMDOCROOT -type l |xargs ls -lha --color=auto |awk '!/awstats/'
+	find $SYMDOCROOT -type l |xargs ls -lha --color=auto |awk '!/awstats/' > $SYMLOG
+        echo "Search complete."
+	TOTAL=`wc -l $SYMLOG`
 	echo " "
-	echo "Search complete."
+	echo "Printing symlinks:"
+	echo "----"
+	cat $SYMLOG
+	echo "----"
+	echo "$TOTAL symlinks found."
 }
