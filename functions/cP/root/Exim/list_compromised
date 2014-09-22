@@ -1,0 +1,4 @@
+##DESCRP=Disables the password for a given email
+scramble_ep() {
+	grep "ABUSE" /home/*/etc/*/shadow    
+} 
