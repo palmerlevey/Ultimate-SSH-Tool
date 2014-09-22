@@ -1,5 +1,7 @@
 ##DESCRP=WordPress-CLI Tool aliased to wp.
+function wp(){
 if [ -f /opt/wp-cli-wp-cli.phar ]; then
-alias wp='/opt/wp-cli/wp-cli.phar --allow-root'
+	/opt/wp-cli/wp-cli.phar --allow-root $@
 else echo "WP-CLI not found"
 fi
+}

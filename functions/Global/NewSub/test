@@ -1,0 +1,4 @@
+##DESCRP=Test
+function test(){
+echo "test"
+}
