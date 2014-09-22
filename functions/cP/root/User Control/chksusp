@@ -1,0 +1,10 @@
+##DESCRP=List suspended cPanel accounts.
+function chksusp(){
+echo "Suspended Accounts:"
+echo "----"
+for i in $(find /var/cpanel/suspended/ -type f)
+	do
+		echo "Account: $i has been suspended since: $(stat -c%y $i)"
+	done
+echo "----"
+}
