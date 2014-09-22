@@ -4,7 +4,7 @@ echo "Suspended Accounts:"
 echo "----"
 for i in $(find /var/cpanel/suspended/ -type f)
 	do
-		echo "Account: $i has been suspended since: $(stat -c%y $i)"
+		echo "Account: $(echo $i |awk -F'/' '{print $5}') | Suspended since: $(stat -c%y $i)"
 	done
 echo "----"
 }
