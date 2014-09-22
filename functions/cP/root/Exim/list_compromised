@@ -1,4 +1,4 @@
-##DESCRP=Disables the password for a given email
-scramble_ep() {
+##DESCRP=List abuse locked compromised emails.
+list_compromised() {
 	grep "ABUSE" /home/*/etc/*/shadow    
 } 
