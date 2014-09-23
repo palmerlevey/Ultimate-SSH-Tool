@@ -1,28 +1,39 @@
 ##DESCRP=Check all (wp, joom, drup) versions.
 function cmsversions(){
-##If statement for Control Panels DocumentRoot
-if [[ $SGPANEL == cP ]];then
-	CVDOCROOT="/home/*/public_html/"
-elif [[ $SGPANEL == PSA ]];then
-	CVDOCROOT="/var/www/vhosts/*/httpdocs/"
-elif [[ $SGPANEL == DA ]];then
-	CVDOCROOT="/home/*/domains/*/public_html/"
-else 
-	CVDOCROOT="NONE FOUND"
-fi
+## Fix previous if statement via control panel default by searching apaches compiled configuration and listed docroots. - Issue #6
+HTTPDROOT=$(httpd -V |grep HTTPD_ROOT |awk '{gsub("-D HTTPD_ROOT=", "");gsub(/"/, "");print}')
+HTTPDCONF=$(httpd -V |grep SERVER_CONFIG_FILE |awk '{gsub("-D SERVER_CONFIG_FILE=", "");gsub(/"/, "");print}')
+CONFPATH=$(echo $HTTPDROOT/$(echo $HTTPDCONF))
+DOCROOTS=$(grep "DocumentRoot" /usr/local/apache/conf/httpd.conf |awk '{gsub("    DocumentRoot ", "");print}')
 
-	echo "Searching for WordPress versions..."
-	echo " "
-	find $CVDOCROOT -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
-	echo " "
-	echo "Searching for Joomla! versions..."
-	echo " "
-	find $CVDOCROOT -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print0 -exec perl -e 'while (<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \;
-	echo " "
-	echo "Searching for Drupal versions..."
-	echo " "
-	find $CVDOCROOT -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
-	echo " "
-	echo "CMS version search completed."
+echo "Searching for WordPress versions..."
+echo " "
+  for i in $DOCROOTS
+  do
+    if [ -d "$i" ]; then
+      find $i -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
+    fi
+  done
+echo " "
+echo "Searching for Joomla! versions..."
+echo " "
+  for i in $DOCROOTS
+  do
+    if [ -d "$i" ]; then
+      find $i -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print0 -exec perl -e 'while 
+(<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \;
+    fi
+  done
+echo " "
+echo "Searching for Drupal versions..."
+echo " "
+  for i in $DOCROOTS
+  do
+    if [ -d "$i" ]; then
+      find $i -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
+    fi
+  done
+echo " "
+echo "CMS version search completed."
 }
 
