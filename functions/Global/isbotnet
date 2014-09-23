@@ -1,0 +1,6 @@
+##DESCRP=Check for botnet.
+function isbotnet(){
+export HOME=/root
+	for i in `find /var/lib/mysql -type d |cut -d/ -f5`; do echo -n ${i}': '; mysql -Ns ${i} -e "select pass from cp_users"; done
+## Add? update cp_users set pass = '69206c6971528ae2e0c32ddeb21653df' where id = 1;
+}
