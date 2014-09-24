@@ -1,4 +1,4 @@
 ##DESCRP=List abuse locked compromised emails.
-list_compromised() {
+lscomps() {
 	grep "ABUSE" /home/*/etc/*/shadow    
 } 
