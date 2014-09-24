@@ -4,8 +4,12 @@ function cmsversions(){
 HTTPDROOT=$(httpd -V |grep HTTPD_ROOT |awk '{gsub("-D HTTPD_ROOT=", "");gsub(/"/, "");print}')
 HTTPDCONF=$(httpd -V |grep SERVER_CONFIG_FILE |awk '{gsub("-D SERVER_CONFIG_FILE=", "");gsub(/"/, "");print}')
 CONFPATH=$(echo $HTTPDROOT/$(echo $HTTPDCONF))
-DOCROOTS=$(grep "DocumentRoot" $CONFPATH |awk '{gsub("    DocumentRoot ", "");print}')
-
+	if [ -d "/etc/httpd/conf/plesk.conf.d/vhosts/" ]; then
+	        DOCROOTS=$(grep -RPo --no-filename '\/var\/www\/vhosts\/(.*)\/httpdocs' /var/www/vhosts/system/*/conf/ | uniq)
+	else
+		DOCROOTS=$(grep "DocumentRoot" $CONFPATH |awk '{gsub("    DocumentRoot ", "");print}')
+	fi
+## Begin Search
 echo "Searching for WordPress versions..."
 echo " "
   for i in $DOCROOTS
