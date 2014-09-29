@@ -11,8 +11,8 @@ CONFPATH=$(echo $HTTPDROOT/$(echo $HTTPDCONF))
 	fi
 ## Latest versions available check.
 WPLATEST=$(curl -sI https://wordpress.org/latest.tar.gz | grep filename| cut -d- -f3 | cut -d. -f1-2)
-JLATEST=$(curl -s http://www.joomla.org/download.html |grep -Po "Joomla_(?:\d*\.)?\d+(?:\d*\.)?\d+\-Stable\-Full\_Package\.zip" | grep -Po "(?:\d*\.)?\d+(?:\d*\.)?\d+")
-DLATEST=$(curl -s https://www.drupal.org/project/drupal | grep -Po "drupal\-(?:\d*\.)?\d+.tar.gz" | grep -Po "(?:\d*\.)?\d+(?:\d*\.)?\d+")
+JLATEST=$(curl -s http://www.joomla.org/download.html |grep -Po "Joomla_(?:\d*\.)?\d+(?:\d*\.)?\d+\-Stable\-Full\_Package\.zip" | grep -Po "(?:\d*\.)?\d+(?:\d*\.)?\d+" |tr -d "\n")
+DLATEST=$(curl -s https://www.drupal.org/project/drupal | grep -Po "drupal\-(?:\d*\.)?\d+.tar.gz" | grep -Po "(?:\d*\.)?\d+(?:\d*\.)?\d+" |tr -d "\n")
 echo "Latest WordPress Version: $WPLATEST"
 echo "Latest Joomla! Version(s): $JLATEST"
 echo "Latest Drupal Version(s): $DLATEST"
