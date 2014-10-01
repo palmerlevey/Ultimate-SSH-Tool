@@ -1,4 +1,4 @@
 ##DESCRP=List exim email auth logins.
 lsauths() {
-	grep -Po "A\=(.*?)(_plain|_login):(.*?)@(.*?)\.(com|net|org)" /var/log/exim_mainlog | sort | uniq -c | sort -n | awk '{gsub("A=(.*?):", "");print}'
+	grep -Po "A\=(.*?)(_plain|_login):(.*?)@(.*?)\.(com.*|net|org)" /var/log/exim_mainlog | sort | uniq -c | sort -n | awk '{gsub("A=(.*?):", "");print}'
 } 
