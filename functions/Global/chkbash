@@ -1,4 +1,4 @@
-##DESCRP=Check bash for CVE-2014-7169.
+##DESCRP=Check bash for all current vulnerabilities.
 function chkbash(){
-bash <(curl -s http://repo.servergur.us/scripts/bashchecker)
+bash <(curl -s https://raw.githubusercontent.com/hannob/bashcheck/master/bashcheck)
 }
