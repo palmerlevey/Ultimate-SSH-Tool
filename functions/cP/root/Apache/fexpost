@@ -1,4 +1,4 @@
 ##DESCRP=Find possible exploited POSTs in the domlogs for .php and .sh. Ex. fexpost domain.com
 function fexpost(){
-	grep -H -Po "POST (.*?.(php|sh))" karimunjawaagency.com | sort | uniq -c | sort -n | awk '{gsub(":POST ", "");print}' /usr/local/apache/domlogs/$@
+	grep -H -Po "POST (.*?.(php|sh))" karimunjawaagency.com | sort | uniq -c | sort -n | awk '{gsub(":POST ", "");print}' /usr/local/apache/domlogs/$@ | sort | uniq -c | sort -n | awk '{gsub(":POST ", "");print}'
 }
