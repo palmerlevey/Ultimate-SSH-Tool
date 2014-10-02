@@ -1,4 +1,4 @@
-##DESCRP=Disables the password for a given email on Exim/cP
+##DESCRP=Disables the password for a given email on Exim/DirectAdmin
 scramble_ep() {
     
     if [ -z "$1" ];then
@@ -8,15 +8,15 @@ scramble_ep() {
 
     USER=$(echo "$1" | cut -d'@' -f1)
     DOMAIN=$(echo "$1" | cut -d'@' -f2)
-    ACCT=$(grep "^$DOMAIN" /etc/userdomains | awk -F": " '{print $2}')
+    #ACCT=$(grep "^$DOMAIN" /etc/userdomains | awk -F": " '{print $2}')
 
-    grep "^$USER" /home/"$ACCT"/etc/"$DOMAIN"/shadow | grep -viE "ABUSE|LOCKED" 1> /dev/null
+    grep "^$USER" /etc/virtual/"$DOMAIN"/passwd | grep -viE "ABUSE|LOCKED" 1> /dev/null
     if [ $? -ne 0 ];then
         echo "Error: $1 may be suspended, already locked, or does not exist"
         return
     fi
 
-    sed -i "s/^$USER:/$USER:!!ABUSE!!/" /home/"$ACCT"/etc/"$DOMAIN"/shadow
+    sed -i "s/^$USER:/$USER:!!ABUSE!!/" /etc/virtual/"$DOMAIN"/passwd
 
     echo "Scrambled password for $1 under '$ACCT'"
     service exim restart
