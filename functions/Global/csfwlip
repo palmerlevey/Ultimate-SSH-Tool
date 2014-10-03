@@ -2,7 +2,8 @@
 function csfwlip()
 {
 	echo 'Find matching IP in CSF Log:'
-	csf -g $@
+	if csf -t | grep -q "$@"; then echo "Temp block found. Removing temp block." && csf -tr $@|head -n1; else echo "No temp block found, skipping temp remove."; fi	
+	csf -g $@	
 	echo ' '
 	echo 'Whitelist IP:'
 	csf -a $@
