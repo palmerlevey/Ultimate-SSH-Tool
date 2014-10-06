@@ -1,0 +1,17 @@
+##DESCRP=WordPress CLI Tool http://wp-cli.org/ for more information.
+function wpcli() {
+phar=$(php -m |grep Phar)
+wpcli=/root/support/bin/wp-cli.phar
+
+if [ ! -f "$wpcli" ]; then
+  curl -sO $wpcli https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
+  chmod +x $wpcli
+fi
+
+if [[ $phar == "Phar" ]]; then 
+  $wpcli --allow-root "$@"
+  else echo "Phar is not installed - Can not proceed."; 
+fi
+}
+
+	
