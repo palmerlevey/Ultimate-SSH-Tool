@@ -1,0 +1,4 @@
+##DESCRP=DirectAdmin admin password finder.
+function dapass(){
+	grep adminpass /usr/local/directadmin/scripts/setup.txt
+}
