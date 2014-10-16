@@ -3,9 +3,9 @@ function qmauthl(){
 EXAMPLE=`head -n1 /root/support/qmail_auths.log`
 NUMBER=`cat /root/support/qmail_auths.log |wc -l`
 	echo "Parsing current mail log..."
-		grep "smtp_auth: SMTP user $@" /usr/local/psa/var/log/maillog > /root/support/qmail_auths.log;
+		grep "smtp_auth: SMTP user $@" /usr/local/psa/var/log/maillog >> /root/support/qmail_auths.log.`(date +"%m-%d-%Y")`;
 	echo "Parsing processed mail log..."
-		grep "smtp_auth: SMTP user $@" $(gunzip -c /usr/local/psa/var/log/maillog.processed.*) >> /root/support/qmail_auths.log;
+		gunzip -c /usr/local/psa/var/log/maillog.processed.* | grep "smtp_auth: SMTP user $@" >> /root/support/qmail_auths.log.`(date +"%m-%d-%Y")`;
 	echo "Example auth: $EXAMPLE";
 	echo "Number of authentications: $NUMBER";
 }
