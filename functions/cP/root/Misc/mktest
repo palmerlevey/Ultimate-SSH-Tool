@@ -1,7 +1,5 @@
 ##DESCRP=Makes test php file named khtest.php Credit to MGeorge
 function mktest(){
-# lostin.pw | KnownHost test page generator for cPanel only | script v.02b
-# Original Source: http://paste.servergur.us/semucelayo.bash
 USER="$(ls -la|awk '/^d/ {print $3|"sort"}'|uniq|grep -v 'root'|grep -v 'nobody')"
 GROUP="$(ls -la|awk '/^d/ {print $4|"sort"}'|uniq|grep -v 'root'|grep -v 'nobody')"
 LINK="$(grep -E $USER /etc/userdomains|awk -F[\:] '{print $1}')"
