@@ -1,0 +1,14 @@
+##DESCRP=Checks for maldetect email reporting before running.
+function mald(){
+ALERT=`grep 'email_alert=' /usr/local/maldetect/conf.maldet |grep -o '[0-9]\+'`
+	if [ ! -f /usr/local/sbin/maldet ]
+		echo "Maldet is not installed, run $ imald"
+	else
+		if [ $ALERT = "1" ]; then
+			echo "Maldetect Email Reporting Enabled!!"
+			echo "Disable to continue..."
+		else
+			/usr/local/sbin/maldet $@
+		fi
+	fi
+}
