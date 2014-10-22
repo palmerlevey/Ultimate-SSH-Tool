@@ -1,0 +1,4 @@
+##DESCRP=List test account email addresses.
+lstestems() {
+	grep -i 'test' /home/*/etc/*/shadow |awk 'BEGIN { FS = "/" } ; { print "test@" $5 " email address exists!"}'
+} 
