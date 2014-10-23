@@ -77,7 +77,7 @@ function whatswrong(){
 
 		### VM checks
 		oom_hit() {
-		  if dmesg | grep -q 'invoked oom-killer'; then
+		  if dmesg | grep -q 'OOM killed process'; then
 		    bad "Out of memory killer has been triggered"
 		  else
 		    ok "No out of memory conditions found"
