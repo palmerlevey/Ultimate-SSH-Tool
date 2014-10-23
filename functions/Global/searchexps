@@ -1,0 +1,8 @@
+##DESCRP=Search and list known exploits by CMS ex. searchexps wordpress
+function searchexps (){
+STRING=`$@ |sed 's/\ /%20/g'`
+  echo "Searching for known exploits for: $@"
+  echo " "
+  curl -s http://www.intelligentexploit.com/api/search-exploit?name=$STRING |python -m json.tool
+}
+
