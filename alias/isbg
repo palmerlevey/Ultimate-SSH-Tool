@@ -1,2 +1,2 @@
-alias isbg='/usr/local/bin/python2.7 /root/support/.bin/isbg.py' # SpamAssasin Tool.
+alias isbg='/usr/local/bin/python2.7 /root/support/.bin/isbg.py'
 
