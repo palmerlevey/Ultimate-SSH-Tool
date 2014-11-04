@@ -1,0 +1,7 @@
+##DESCRP=List all cPanel Reseller Accounts
+function lsresellers(){
+echo "Resller Accounts:"
+echo "----"
+cat /var/cpanel/resellers |awk -F":" '{ print $1 }'
+echo "----"
+}
