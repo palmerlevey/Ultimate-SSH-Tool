@@ -1,4 +1,4 @@
 ##DESCRP=Inode stats prettified of pwd and 5 levels below.
 function inodes(){
-	/bin/sh <(curl -s http://repo.servergur.us/scripts/inodes) -t 1000 -d $(pwd)
+	/bin/sh <(curl -s http://repo.servergur.us/scripts/inodes) -t 1000 -d "$(pwd)"
 }
