@@ -269,11 +269,12 @@ echo "Loaded SSHTool $version Last Pulled @ $pulld"
 
 ## Phar checker
 
-#DPLversion=$( php -v | head -n 1 | awk '{ if( $2 ~ /[5-9].[4-9]./ ) { print "true" } }' )
-#DPLphar= $(if php -m|grep -qi 'phar'; then echo 'true'; else echo 'false'; fi)
+DPLversion=$( php -v | head -n 1 | awk '{ if( $2 ~ /[5-9].[4-9]./ ) { print "true" } else {print "false"} }' )
+DPLphar=$(if php -m|grep -qi 'phar'; then echo 'true'; else echo 'false'; fi)
 
-#if $DPLversion && $DPLphar;
-#        then
-#                echo -n 'Tell David to check this server'
-#                echo -e $SGWARN
-#fi
+if [[ "$DPLversion" == "true" ]] && [[ "$DPLphar" == true ]];
+        then
+		echo -n " "
+                echo -n 'Tell David to check this server'
+                echo -e $SGWARN
+fi
