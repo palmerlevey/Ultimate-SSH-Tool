@@ -265,4 +265,4 @@ fi
 	}
 ?>
 
-echo "Loaded SSHTool $version Last Pulled @ $pulld | Loaded/used on $(curl http://repo.servergur.us/sshtool/php/stats.php |grep -Po "(\d*)") servers!"
+echo "Loaded SSHTool $version Last Pulled @ $pulld | Loaded/used on $(curl -s http://repo.servergur.us/sshtool/php/stats.php |grep -Po "(\d*)") servers!"
