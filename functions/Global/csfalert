@@ -1,0 +1,14 @@
+##DESCRP=Change CSFs LF_ALERT_TO configuration Ex csfalert newemail@domain.tld
+function csfalert(){
+	if [ ! -f /etc/csf/csf.conf ]; then
+                echo "CSF does not appear to be installed...";
+        else
+            	sed -i "/LF_ALERT_TO/s/\"\([^\"]*\)\"/\"$@\"/" /etc/csf/csf.conf;
+                echo "/etc/csf/csf.conf updated with "$@" for the alert to email address.";
+                echo "Restarting LFD...";
+                /etc/init.d/lfd restart &>/dev/null;
+                echo "Restarting CSF...";
+                csf -r &>/dev/null;
+                echo "CSF and LFD have been restarted to load the updated configuration."
+        fi
+}
