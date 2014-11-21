@@ -22,7 +22,7 @@ $monthly_path = "oldfiles";
 //   0 = Total hits
 //   1 = Unique hits
 //   2 = Both unique and total
-$type = 2;
+$type = 1;
 
 // Text to display
 // before total hits
@@ -34,7 +34,7 @@ $beforeUniqueText = "Unique Visits: ";
 // Display hits on this page:
 //   0 = No
 //   1 = Yes
-$display = 1;
+$display = 0;
 
 // Only change this if you are recording both values
 // Separator for unique and total hits display - use HTML tags! (line break is default)
