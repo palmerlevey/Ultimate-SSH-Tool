@@ -204,3 +204,6 @@ fi
 		}
 	}
 ?>
+
+<?php require("counter.php"); ?>
+
