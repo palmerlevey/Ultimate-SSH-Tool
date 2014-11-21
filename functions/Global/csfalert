@@ -1,6 +1,8 @@
 ##DESCRP=Change CSFs LF_ALERT_TO configuration Ex csfalert newemail@domain.tld
 function csfalert(){
-	if [ ! -f /etc/csf/csf.conf ]; then
+	if [ -z "$1" ]; then
+		echo "No argument supplied. Try # csfalert emailaddress"
+	elif [ ! -f /etc/csf/csf.conf ]; then
                 echo "CSF does not appear to be installed...";
         else
             	sed -i "/LF_ALERT_TO/s/\"\([^\"]*\)\"/\"$@\"/" /etc/csf/csf.conf;
