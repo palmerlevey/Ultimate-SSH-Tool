@@ -1,0 +1,4 @@
+##DESCRP=Find running host process
+function fhostproc(){
+	ps auxf |grep "/usr/bin/host" |grep -v grep
+}
