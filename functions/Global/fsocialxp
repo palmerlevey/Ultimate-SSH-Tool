@@ -1,0 +1,4 @@
+##DESCRP=Find social png exploit - http://go.khtechs.com/cryptophp
+function fsocialxp(){
+	find -L /home/*/public_html/ -type f -name 'social.png' | xargs file
+}
