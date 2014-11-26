@@ -1,0 +1,4 @@
+##DESCRP=Find PHP Scripts used for UBE
+fxphpspam() {
+	grep -Rh -Po 'X\-PHP\-Script\: (.*?) for' /var/spool/exim/input/ |cut -d: -f2 |sed 's/ for//g' |sed 's/ //g' |sort |uniq -c
+} 
