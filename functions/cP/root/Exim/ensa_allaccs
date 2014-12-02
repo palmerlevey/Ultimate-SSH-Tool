@@ -1,5 +1,8 @@
 ##DESCRP=Enable Spamassassin on all cPanel Accounts
 ensa_allaccs() {
+if [ ! -d /root/support/spamassassin ]; then
+	mkdir -p /root/support/spamassassin;
+fi
 if [ ! -f /etc/global_spamassassin_enable ]; then
 	touch /etc/global_spamassassin_enable;
 	echo "Global SA Enable file has been created."
@@ -7,6 +10,7 @@ else
 	echo "Global SA Enable file already exists."
 fi
 if [ ! -f /root/support/spamassassin/user_prefs ]; then
+	touch /root/support/spamassassin/user_prefs
 	echo "required_score 3" > /root/support/spamassassin/user_prefs;
 	echo "Created default SA user preferences file."
 else
