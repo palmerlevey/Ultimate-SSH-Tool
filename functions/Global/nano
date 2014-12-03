@@ -1,5 +1,7 @@
 ##DESCRIPTION=Use nano with syntax highlighting enabled and auto-backups.
+function nano(){
 if [ ! -d /root/support/rc]; then mkdir -p /root/support/rc; fi
 if [ ! -d /root/support/.nanobaks]; then mkdir -p /root/support/.nanobaks; fi
 if [ ! -f /root/support/rc/nanosyntax ]; then curl -so /root/support/rc/nanosyntax http://repo.servergur.us/scripts/nanosyntaxh; fi
 /usr/bin/nano -Y conf /root/support/rc/nanosyntax
+}
