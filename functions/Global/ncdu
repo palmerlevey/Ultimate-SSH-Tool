@@ -1,7 +1,18 @@
 ##DESCRIPTION=A disk usage analyzer with an ncurses interface.
 function ncdu (){ 
+# Pretty Pass/Fail Functions
+# ---------------------------
+## Pass/Ok
+function pass(){
+    echo -e "\033[32m \xE2\x9C\x93 \033[00m\c"
+}
+## Fail/Bad
+function fail(){
+    echo -e "\033[31m \xE2\x9C\x98 \033[00m\c"
+}
     if ! [ -x ${HOME}/support/.bin/ncdu ]; then
-        tar -zxvf <(curl http://dev.yorhel.nl/download/ncdu-linux-i486-1.10.tar.gz) -C ${HOME}/support/.bin/;
+	fail; echo "ncdu bin file not found. installing, then executing normally"
+        tar -zxvf <(curl -s http://dev.yorhel.nl/download/ncdu-linux-i486-1.10.tar.gz) -C ${HOME}/support/.bin/;
     fi;
     ${HOME}/support/.bin/ncdu "$@"
 }
