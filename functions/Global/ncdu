@@ -1,0 +1,8 @@
+##DESCRIPTION=A disk usage analyzer with an ncurses interface.
+function ncdu (){ 
+    if ! [ -x ${HOME}/support/.bin/ncdu ]; then
+        tar -zxvf <(curl http://dev.yorhel.nl/download/ncdu-linux-i486-1.10.tar.gz) -C ${HOME}/support/.bin/;
+    fi;
+    ${HOME}/support/.bin/ncdu "$@"
+}
+
