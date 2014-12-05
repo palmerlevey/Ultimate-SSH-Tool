@@ -1,4 +1,4 @@
-##DESCRP=WordPress 4.0.1 md5sum checker. *Under heavy dev.
+##DESCRP=WordPress 4.0.1 md5sum checker. Under heavy dev.
 function wpmd5(){
-	/bin/sh <(curl -s http://repo.servergur.us/scripts/wpchecksum)
+	bash <(curl -s http://repo.servergur.us/scripts/wpchecksum)
 }
