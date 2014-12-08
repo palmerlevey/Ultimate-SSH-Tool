@@ -1,5 +1,5 @@
-#DISABLED https://git.privatesystems.net/dlevey/ultimate-ssh-tool/issues/11
-##DESCRP=Tool for determining memory usage per process.
-#function psmem(){
-#        python <(curl -s http://repo.servergur.us/scripts/ps_mem)
-#}
+DISABLED https://git.privatesystems.net/dlevey/ultimate-ssh-tool/issues/11
+#DESCRP=Tool for determining memory usage per process.
+function psmem(){
+        python <(curl -s http://repo.servergur.us/scripts/ps_mem)
+}
