@@ -1,0 +1,29 @@
+##DESCRP=Disable directory listing with htaccess rule (for pwd).
+function disdirlihta() {
+USER=`stat -c %U .`
+GROUP=`stat -c %G .htaccess`
+if [ -f .htaccess ]; then
+	mv .htaccess .htaccess.kh_support_bak;
+fi
+
+	touch .htaccess
+	echo "Options -Indexes" >> .htaccess
+
+	chown $USER:$GROUP .htaccess
+#	chmod 644 .htaccess
+		echo "Completed, printing contents and perms for review."
+		echo " "
+		ll .htaccess
+		echo " "
+		cat .htaccess
+		echo " "
+		if [ -f kh_support_bak ]; then
+		echo "Original .htaccess backed up to:";
+		echo " ";
+		ll .htaccess.kh_support_bak;
+		echo " ";
+		fi
+		echo "Done."
+}
+
+	
