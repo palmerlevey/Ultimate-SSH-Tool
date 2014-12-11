@@ -1,0 +1,22 @@
+##DESCRP=Replace current paths htaccess file with default or master Joomla version and stores a backup.
+function joohtac() {
+USER=`stat -c %U ../public_html`
+GROUP=`stat -c %G .htaccess`
+	mv .htaccess .htaccess.kh_support_bak
+	curl -s http://repo.servergur.us/code/joomhtaccess > .htaccess
+	chown $USER:$GROUP .htaccess
+#	chmod 644 .htaccess
+		echo "Completed, printing contents and perms for review."
+		echo " "
+		ll .htaccess
+		echo " "
+		cat .htaccess
+		echo " "
+		echo "Original .htaccess backed up to:"
+		echo " "
+		ll .htaccess.kh_support_bak
+		echo " "
+		echo "Done."
+}
+
+	
