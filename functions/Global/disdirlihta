@@ -1,7 +1,7 @@
 ##DESCRP=Disable directory listing with htaccess rule (for pwd).
 function disdirlihta() {
 USER=`stat -c %U .`
-GROUP=`stat -c %G .htaccess`
+GROUP=`stat -c %G .`
 if [ -f .htaccess ]; then
 	mv .htaccess .htaccess.kh_support_bak;
 fi
