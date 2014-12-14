@@ -3,7 +3,11 @@ function fixperms(){
     local HANDLER=$(/usr/local/cpanel/bin/rebuild_phpconf --current|grep PHP5|awk {'print $3'})
     if [ $HANDLER == "suphp" ] || [ $HANDLER == "fcgi" ] ; then
         bash <(wget -qO- boomshadow.net/tools-utils/fixperms.sh) "$@"
+    local MRE=$(/usr/local/cpanel/bin/rebuild_phpconf --current|grep RUID2|awk {'print $2'})
+    elif [ $HANDLER == "dso" ] && [ $MRE == "enabled" ] ; then
+	echo "dso with mod ruid2 currently enabled, tool is in beta for this configuration, proceeding...";
+	bash <(wget -qO- boomshadow.net/tools-utils/fixperms.sh) "$@";
     else
-        echo "Your handler needs to be suPHP or FCGI to safely run."
+        echo "Your handler needs to be suPHP, FCGI or DSO with RUID2 to safely run."
     fi
 }
