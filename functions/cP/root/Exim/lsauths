@@ -1,4 +1,4 @@
 ##DESCRP=List exim email auth logins.
 lsauths() {
-	grep -o 'A=[A\-z]*_login\:[A\-z0\-9@]*\.[A\-z]*' /var/log/exim_mainlog|sed -e 's/A\=\(courier\|dovecot\)\(\_login\|\_plain\)\://g'|sort|uniq -c|sort -n
+	grep -o 'A=[A\-z]*(\_login|\_plain)\:[A\-z0\-9@]*\.[A\-z]*' /var/log/exim_mainlog|sed -e 's/A\=\(courier\|dovecot\)\(\_login\|\_plain\)\://g'|sort|uniq -c|sort -n
 } 
