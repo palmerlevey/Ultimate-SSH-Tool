@@ -1,4 +1,4 @@
 ##DESCRP=Read specific postfix message by header. Eg. psfr <EMAILNUM>
 function psfr(){
-	postcat -qv 6B5186AA5528 |sed 's/regular_text: //g' |sed 's/pointer_record:\(.*\)//g'
+	postcat -qv 6B5186AA5528 |sed 's/regular_text: //g' |sed 's/pointer_record:\(.*\)//g' |sed '/^\s*$/d'
 }
