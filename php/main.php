@@ -268,7 +268,8 @@ fi
 echo "Loaded SSHTool $version Last Pulled @ $pulld | Loaded/used on $(curl -s http://repo.servergur.us/sshtool/php/stats.php | grep -o '[0-9]\+') servers!"
 
 if [ -f /root/support/.ssht.msg ]; then
-	echo "Read the message:" echo_warn;
+	echo " "
+        echo -e "\\033[60G\\033[0;39m[\\033[1;33mSERVER NOTE\\033[0;39m]";
 	cat /root/support/.ssht.msg;
 	echo " ";
 else
