@@ -1,0 +1,2 @@
+##DESCRP=Alias for disk space.
+alias dspace='df -ha | grep "%"' 
