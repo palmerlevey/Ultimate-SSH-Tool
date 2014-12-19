@@ -1,0 +1,13 @@
+##DESCRP=Leave a note on this server for SSH Tool display on load.
+function addnote(){
+NOTEFILE=/root/support/.ssht.msg
+if [ -f $NOTEFILE ]; then
+	echo "Note already exists for this server.";
+	echo "Remove $NOTEFILE first then addnote again.";
+else
+	echo "$@" >> $NOTEFILE;
+	echo "The following will now be displayed on server load.";
+	echo "-----";
+	cat $NOTEFILE;
+fi
+}
