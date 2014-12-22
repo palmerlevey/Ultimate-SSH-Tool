@@ -1,7 +1,7 @@
 ##DESCRP=Look for front page files, ignoring common allowd files. Mal searching.
 function findfpfiles(){
 	for i in $(find /home/*/public_html/ -type d -iname "_vti*"); 
-		do find $i -type f \( ! -iname ".htaccess" ! -iname "*.cnf" ! -iname "*.lck" ! -iname "*.btr" ! -iname "*.grp" ! -iname "*.pwd" ! -iname ".roles" \); 
+		do find $i -type f \( ! -iname ".htaccess" ! -iname "*.cnf" ! -iname "*.lck" ! -iname "*.btr" ! -iname "*.grp" ! -iname "*.pwd" ! -iname ".roles" ! -iname "*.fbx" ! -iname "*.mb"  \); 
 	done
 }
 
