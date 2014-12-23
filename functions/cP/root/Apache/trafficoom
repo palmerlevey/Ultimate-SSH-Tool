@@ -1,0 +1,4 @@
+##DESCRP=OOMs by traffic.
+function trafficoom(){
+	find /usr/local/apache/domlogs -maxdepth 1 -type f | egrep -v 'bytes_log|ftpx|ftp\.|error\.log'| xargs grep -c $(date -d"$(grep OOM /var/log/messages | tail -n1  | cut -d' '  -f1-3)" +"%d/%b/%Y:%H") | grep -v ":0" | sed 's|/usr/local/apache/domlogs/||' | sed 's/:/ /' | sort -nk2 | tail
+}
