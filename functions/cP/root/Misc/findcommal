@@ -9,7 +9,6 @@ echo "Beginning Common Malware Search"
 		
 		for i in $MWLIST; do 
 			find /home/*/public_html/ -type f -iname $i -exec readlink -f {} \; >> $MWHIT
-		}
 
 	kill $!; trap 'kill $!' SIGTERM
 
@@ -22,3 +21,4 @@ if [ -z "$MWHIT" ]; then
 fi
 
 echo "Search completed."
+}
