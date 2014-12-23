@@ -1,8 +1,8 @@
 ##DESCRP=Check for duplicate php tags in the first line of code in php files under the current directory.
 function chk4duphp(){
 for file in $(find . -type f -iname "*.php" -o -iname ".*.php"); do
-	if [ "$(head -n1 $file |grep -o "<?php" |wc -l)" -ge "2" ]; then
-		readlink -f $file;
+	if [[ "$(head -n1 $file |grep -o "<?php" |wc -l)" -ge "2" ]]; then
+		readlink -f $file
 	fi
 done
 }
