@@ -1,0 +1,16 @@
+##DESCRP=Delete the on load server message. 
+function delnote(){
+NOTEFILE=/root/support/.ssht.msg
+NOTEHIST=/root/support/.ssht.msg.history
+if [ ! -f $NOTEFILE ]; then
+	echo "No message exists on this server currently..";
+else
+	if [ ! -f $NOTEHIST ]; then
+		touch $NOTEHIST;
+	fi
+		echo $(date) >> $NOTEHIST;
+		cat $NOTEFILE >> $NOTEHIST;
+		echo " " >> $NOTEHIST;
+	echo "The message has been removed and added to the history.";
+fi
+}
