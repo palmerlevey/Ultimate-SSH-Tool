@@ -4,8 +4,6 @@ TRIGGERTYPE="$1"s;
     if [ $(curl -sI -A "SSH Tool Pre-Check" http://mwlocker.servergur.us/api/$TRIGGERTYPE |head -n1 |awk '{print $2}') == 404 ]; then
         echo "$1 triggers not found.";
     else
-        echo "Listing $TRIGGERTYPE malware triggers from ServerGuru's Malware Locker...";
-        echo " ";
         curl -s -A "SSH Tool" http://mwlocker.servergur.us/api/$TRIGGERTYPE | grep '"name"' | awk '{print $2}' | sed 's/",//g' | sed 's/^.//';
     fi
 }
