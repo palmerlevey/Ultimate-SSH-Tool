@@ -11,6 +11,7 @@ else
 		echo $(date) >> $NOTEHIST;
 		cat $NOTEFILE >> $NOTEHIST;
 		echo " " >> $NOTEHIST;
+		rm -f $NOTEFILE;
 	echo "The message has been removed and added to the history.";
 fi
 }
