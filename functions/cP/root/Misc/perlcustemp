@@ -1,0 +1,20 @@
+##DESCRP=Use a custom template with cPanel, perl command to update vhost. Eg. perlcustemp sub.domainname.com /path/to/template
+function perlcustemp(){
+if [ -z "$1" ]; then 
+	echo "No domain name was given....";
+	exit;
+fi
+if [ -z "$2" ]; then
+	echo "No template file was given...";
+	exit;
+fi
+if [ ! -f "$2" ]; then
+	echo "The template file given does not exist...";
+	exit;
+fi
+
+USERNAME=$(grep "$1" /etc/userdomains |awk '{print $2}')
+DOMAINNAME="$1"
+
+	perl -MYAML::Syck -e 'my $hr = YAML::Syck::LoadFile($ARGV[0]);$hr->{$ARGV[1]} = $ARGV[2];YAML::Syck::DumpFile($ARGV[0],$hr);' /var/cpanel/userdata/$USERNAME/$DOMAINNAME custom_vhost_template_ap2 "$2"
+}
