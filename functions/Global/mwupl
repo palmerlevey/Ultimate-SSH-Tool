@@ -1,4 +1,4 @@
 ##DESCRP=Upload to SG Repo. ALPHA
 function mwupl(){
-	curl -A "SSHTool mwupl function." -F file=@"$1" 204.77.6.186:5500
+	curl -A "SSHTool mwupl function." -F file=@"$1" http://uplocker.servergur.us/
 }
