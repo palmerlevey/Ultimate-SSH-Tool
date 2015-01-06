@@ -1,24 +1,25 @@
 ##DESCRP=Upload to SG Repo for future db. ALPHA
 function mwupl(){
-	file="$1"
+	files=$(echo "$@" |awk '{print $0}' RS=' ')
 	B64ID="QUtJQUpGQlFGSkVTUVNRREVOVEE="
 	B64SEC="VXR2ODlra3AxRWxrV0MzNTUrc2c5eDNTN25GZVE2ZkkxdVFoUjBzOQ=="
 	#--------------
 	key_id=$(echo $B64ID |base64 --decode)
 	key_secret=$(echo $B64SEC |base64 --decode)
-	path="sshtoolUploads/$file"
-	bucket="mwuploadcollection"
-	content_type="application/octet-stream"
-	date="$(LC_ALL=C date -u +"%a, %d %b %Y %X %z")"
-	md5="$(openssl md5 -binary < "$file" | base64)"
+		for file in $files; do
+			path="sshtoolUploads/$file"
+			bucket="mwuploadcollection"
+			content_type="application/octet-stream"
+			date="$(LC_ALL=C date -u +"%a, %d %b %Y %X %z")"
+			md5="$(openssl md5 -binary < "$file" | base64)"
+			sig="$(printf "PUT\n$md5\n$content_type\n$date\n/$bucket/$path" | openssl sha1 -binary -hmac "$key_secret" | base64)"
 	
-	sig="$(printf "PUT\n$md5\n$content_type\n$date\n/$bucket/$path" | openssl sha1 -binary -hmac "$key_secret" | base64)"
-	
-	curl -T $file http://$bucket.s3.amazonaws.com/$path \
-	-H "Date: $date" \
-	-H "Authorization: AWS $key_id:$sig" \
-	-H "Content-Type: $content_type" \
-	-H "Content-MD5: $md5"
-
-	echo "$1 uploaded successfully. Thank you."
-}
+				curl -T "$file" http://$bucket.s3.amazonaws.com/$path \
+				-H "Date: $date" \
+				-H "Authorization: AWS $key_id:$sig" \
+				-H "Content-Type: $content_type" \
+				-H "Content-MD5: $md5"
+				
+				echo "$file uploaded successfully. thank you.";
+		done
+}	
