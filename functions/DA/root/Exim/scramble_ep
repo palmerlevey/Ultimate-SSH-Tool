@@ -18,6 +18,6 @@ scramble_ep() {
 
     sed -i "s/^$USER:/$USER:!!ABUSE!!/" /etc/virtual/"$DOMAIN"/passwd
 
-    echo "Scrambled password for $1 successfully.
+    echo "Scrambled password for $1 successfully."
     service exim restart
 } 
