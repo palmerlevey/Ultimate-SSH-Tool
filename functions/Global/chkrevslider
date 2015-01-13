@@ -1,0 +1,4 @@
+##DESCRP=Check for revslider exploit.
+function chkrevslider(){
+	find /home/ -name revslider -type d | cut -d/ -f1-4 | xargs grep -Rl 'eval(base64_decode('
+}
