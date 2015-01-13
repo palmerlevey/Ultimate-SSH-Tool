@@ -34,7 +34,7 @@ MD5SIGS=$MD5SCANDIR/mwlocker.sigs
 	echo "Retreiving latest md5 signatures from MWLocker."
 		curl -s http://mwlocker.servergur.us/api/md5s | grep '"name"' | awk '{print $2}' | sed 's/",//g' | sed 's/^.//' > $MD5SIGS
 	echo "Comparing generated md5s against MWlocker signatures."	
-		for SIG in $MD5SIGS; do grep $SIG $MD5SCANLOG; done
+		for SIG in $(cat $MD5SIGS); do grep $SIG $MD5SCANLOG; done
 
 	echo "Done."
 }
