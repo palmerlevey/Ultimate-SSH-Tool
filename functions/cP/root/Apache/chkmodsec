@@ -1,0 +1,9 @@
+##DESCRP=Check if modsec is installed.
+function chkmodsec(){
+GREPCONF=$(grep -o 'Include "/usr/local/apache/conf/modsec2.conf"' /usr/local/apache/conf/httpd.conf)
+if [ -z $GREPCONF ]; then
+	echo "Mod Security 2 is *NOT* installed.";
+else
+	echo "Mod Securit 2 *IS* installed.";
+fi
+}
