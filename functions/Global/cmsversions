@@ -1,4 +1,18 @@
 ##DESCRP=Check all (wp, joom, drup) versions.
+####### NOTES #######
+# Working on:
+#Checking for instances of all known/defined CMSes....
+#Found WordPress, Drupal, Joomla!, ModX installs.......
+#
+#Latest WordPress Version: 4.1
+#Latest Joomla! Version(s): 3.3.6 
+#Latest Drupal Version(s): 7.34 6.34 
+#Latest ModX Evolution Version: 1.0.15
+#
+#Checking for outdated WordPress installs:
+#
+#etc...
+####### NOTES #######
 function cmsversions(){
 ## Fix previous if statement via control panel default by searching apaches compiled configuration and listed docroots. - Issue #6
 HTTPDROOT=$(httpd -V |grep HTTPD_ROOT |awk '{gsub("-D HTTPD_ROOT=", "");gsub(/"/, "");print}')
