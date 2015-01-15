@@ -1,7 +1,9 @@
 ##DESCRP=Check for files in the cgi-bin directories.
 function chkcgibin(){
 CGIDIRS=$(grep 'ScriptAlias /cgi-bin/ /home/' /usr/local/apache/conf/httpd.conf |awk '{print $3}')
-	for DIR in $CGIDIRS; do
-		find $DIR -type f -exec readlink {} \;
-	done
+        for DIR in $CGIDIRS; do
+        	if [[ -d "$DIR" ]]; then
+                find $DIR -type f -exec readlink -f {} \;
+            fi
+        done
 }
