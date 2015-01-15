@@ -1,6 +1,6 @@
 ##DESCRP=Local host information enumerator. (a lot of info)
 function linenum(){
-	/bin/bash <(curl -s repo.servergur.us/scripts/linenum)
+	/bin/sh <(curl -s repo.servergur.us/scripts/linenum)
 }
 
 # Add option to create report as a paste, or print to screen.

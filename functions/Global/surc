@@ -1,6 +1,6 @@
 ##DESCRP=Access a root shell using this rcfile with su. Requires Root Password
 function surc(){
-	su -c '/bin/bash --rcfile $(
+	su -c '/bin/sh --rcfile $(
 		LINK="http://rez-n.org/privatercfileDEV/main.php"
 		if [ -w /dev/shm/ ]; then
 			if curl -fsSo /tmp/sgmain.rc $LINK ; then

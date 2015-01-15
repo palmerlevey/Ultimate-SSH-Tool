@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #Currently For use in CentOS/RedHat/Fedora based servers
 version='0.04.dpl'
 pulld='09-03-2014 10:30:01'

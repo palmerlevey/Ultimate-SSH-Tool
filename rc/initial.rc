@@ -1,7 +1,7 @@
 # This is the initial RC function that should be added to the local rc file to initiate the command when connecting to a server.
 
 function sshtool(){
-        /usr/bin/ssh "$@" -t '/bin/bash --rcfile $(
+        /usr/bin/ssh "$@" -t '/bin/sh --rcfile $(
 		# Link to main RC file.
 		LINK="http://repo.servergur.us/sshtool/php/main.php"
 		RCNAME="sshtool_main.rc"

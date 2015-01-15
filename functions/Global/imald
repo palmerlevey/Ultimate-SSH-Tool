@@ -6,7 +6,7 @@ function imald(){
 			DIR=$(pwd)
 			wget -q --output-document=/root/support/maldetect-current.tar.gz http://www.rfxn.com/downloads/maldetect-current.tar.gz
 			cd /root/support/ && tar xfz /root/support/maldetect-current.tar.gz
-			cd maldetect-* && /bin/bash install.sh
+			cd maldetect-* && /bin/sh install.sh
 			echo " "
 			echo "Maldetect has now been successfully installed!"
 			cd $DIR
