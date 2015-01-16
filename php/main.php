@@ -235,7 +235,7 @@ if [ -n "$SGSERVER" ] && [ -n "$SGOS" ] && [ -n "$SGPANEL" ] && [ -n "$SGUSER" ]
 			rm -f /dev/shm/secrc
 			echo "Use ${SGBOLD}'listfunctions'${SGNORM} to see added commands"
 		else
-			Failed to wget secrc
+			echp "Failed to wget secrc"
 		fi
 	else
 		if wget -qO /tmp/secrc "${SGLOC}/sec.php?SGOS=$SGOS&SGSERVER=$SGSERVER&SGPANEL=$SGPANEL&SGUSER=$SGUSER" ; then
@@ -243,7 +243,7 @@ if [ -n "$SGSERVER" ] && [ -n "$SGOS" ] && [ -n "$SGPANEL" ] && [ -n "$SGUSER" ]
 			rm -f /tmp/secrc
 			echo "Use 'listfunctions' to see added commands"
 		else
-			Failed to wget secrc
+			echo "Failed to wget secrc"
 		fi
 	fi
 else
