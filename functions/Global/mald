@@ -4,6 +4,9 @@ ALERT=$(grep 'email_alert=' /usr/local/maldetect/conf.maldet |grep -o '[0-9]\+')
 	if [ ! -f /usr/local/sbin/maldet ]; then
 		echo "Maldet is not installed, run $ imald"
 	else
+		if [[ -z $(grep 'OFF' /usr/local/maldetect/ignore_paths) ]]; then
+			echo "*/*.OFF" >> /usr/local/maldetect/ignore_paths
+		fi
 		if [[ -z $(grep 'OFF' /usr/local/maldetect/ignore_file_ext) ]]; then
 			echo ".OFF" >> /usr/local/maldetect/ignore_file_ext;
 		fi
