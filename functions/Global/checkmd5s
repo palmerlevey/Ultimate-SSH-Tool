@@ -20,7 +20,7 @@ MD5SIGS=$MD5SCANDIR/mwlocker.sigs
 
 	# Start md5sum scans in pwd.
 	echo "Creating md5sums for `pwd`".
-		find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" \) -exec md5sum {} \; >> $MD5SCANLOG
+		find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" -o ! -iname "*.OFF" \) -exec md5sum {} \; >> $MD5SCANLOG
 			echo "$(cat $MD5SCANLOG |wc -l) md5sums for all defined filetypes created and located here: $MD5SCANLOG."
 
 	# Check for md5sigs file, remove or create.
