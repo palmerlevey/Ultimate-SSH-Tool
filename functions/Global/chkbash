@@ -1,4 +1,0 @@
-##DESCRP=Check bash for all current vulnerabilities.
-function chkbash(){
-	/bin/sh <(curl -s https://raw.githubusercontent.com/hannob/bashcheck/master/bashcheck)
-}
