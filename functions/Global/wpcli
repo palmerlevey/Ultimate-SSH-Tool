@@ -1,0 +1,23 @@
+##DESCRP=Use WP-CLI tool if requirements are met https://github.com/wp-cli/wp-cli/wiki
+function wpcli(){
+if [[ "$(/usr/bin/php-cli -m |grep Phar)" -ne "Phar" ]]; then
+	echo "PHP Phar module is not currently installed. No dice sir.";
+	set -e
+fi
+if [[ ! -f /root/support/.bin/wp-cli.phar ]]; then
+	echo "WP-CLI executable not found. Downloading and installing now.";
+	curl -so /root/support/.bin/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
+	chmod +x /root/support/.bin/wp-cli.phar;
+	echo "Installed, check output info:";
+	/usr/bin/php-cli /root/support/.bin/wp-cli.phar --info;
+	echo " ";
+fi
+if [[ -z "$@" ]]; then
+	echo "Looks like wp-cli is installed but you didn't run a command. Read the wiki: https://github.com/wp-cli/wp-cli/wiki";
+	echo "/usr/bin/php-cli /root/support/.bin/wp-cli.phar --info";
+	echo "Usage: wpcli [commands]";
+	echo "Don't forget, if you're root, fix perms after!";
+fi
+#All checks are performed, now actually execute:
+	/usr/bin/php-cli /root/support/.bin/wp-cli.phar --allow-root "$@"
+}
