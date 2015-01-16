@@ -1,6 +1,10 @@
 ##DESCRP=Searches for php files in wp-content uploads.
 function phpwpupped(){
-WPUPDIRS=`find /home/*/public_html/ -type d -name 'uploads' |grep 'wp-content'`
+if [[ -z "$@" ]]; then
+	WPUPDIRS=`find . -type d -name 'uploads' |grep 'wp-content'`;
+else
+	WPUPDIRS=`find /home/*/public_html/ -type d -name 'uploads' |grep 'wp-content'`;
+fi
 	for i in $WPUPDIRS
 		do 
 			find $i -type f -iname "*.php" -ls; 
