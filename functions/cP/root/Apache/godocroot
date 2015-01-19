@@ -1,4 +1,0 @@
-##DESCRP=Jump to a domains document root. $ godocroot crazydomainname.com
-function godocroot(){
-#fix me later
-}
