@@ -4,7 +4,7 @@ OWNER=$(pwd |awk -F/ '{print $3}')
 MD5SCANDIR=/root/support/md5scans
 MD5SCANLOG=$MD5SCANDIR/$OWNER.md5scan.`(date +"%m-%d-%Y")`.log
 MD5SIGS=$MD5SCANDIR/mwlocker.sigs
-CPUNUM=8
+CPUNUM=$(($(cat /proc/cpuinfo |grep -i processor |tail -n1 |awk '{print $3'}) + 1))
 	if [ ! -d $MD5SCANDIR ]; then
 		mkdir -p $MD5SCANDIR
 	fi
@@ -16,7 +16,7 @@ CPUNUM=8
 	fi
 	MD5STARTGEN=$(date +%s)
 	echo "Creating md5sums for `pwd`".
-		find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" -o ! -iname "*.OFF" \) -print0 |xargs -I{} -0 -n 1 -P "$CPUNUM" md5sum {} >> $MD5SCANLOG
+		find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" -o ! -iname "*.OFF" -o ! -iname "*.mp3" \) -print0 |xargs -I{} -0 -n 1 -P "$CPUNUM" md5sum {} >> $MD5SCANLOG
 		MD5ENDGEN=$(date +%s)
 		MD5ELAPSEDGEN=$(($MD5ENDGEN - $MD5STARTGEN))
 			echo "$(cat $MD5SCANLOG |wc -l) md5sums for all defined filetypes created in $MD5ELAPSEDGEN seconds and located here: $MD5SCANLOG."
