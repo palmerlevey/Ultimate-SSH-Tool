@@ -14,12 +14,12 @@ CPUNUM=8
 	else 
 		touch $MD5SCANLOG
 	fi
-	MD5STARTGEN=$(date +%s%N)
+	MD5STARTGEN=$(date +%s)
 	echo "Creating md5sums for `pwd`".
 		find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" -o ! -iname "*.OFF" \) -print0 |xargs -I{} -0 -n 1 -P "$CPUNUM" md5sum {} >> $MD5SCANLOG
-		MD5ENDGEN=$(date +%s%N)
+		MD5ENDGEN=$(date +%s)
 		MD5ELAPSEDGEN=$(($MD5ENDGEN - $MD5STARTGEN))
-			echo "$(cat $MD5SCANLOG |wc -l) md5sums for all defined filetypes created in $MD5ELAPSEDGEN and located here: $MD5SCANLOG."
+			echo "$(cat $MD5SCANLOG |wc -l) md5sums for all defined filetypes created in $MD5ELAPSEDGEN seconds and located here: $MD5SCANLOG."
 	if [ -f $MD5SIGS ]; then
 		rm -f $MD5SIGS;
 		touch $MD5SIGS
