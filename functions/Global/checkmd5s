@@ -5,39 +5,30 @@ MD5SCANDIR=/root/support/md5scans
 MD5SCANLOG=$MD5SCANDIR/$OWNER.md5scan.`(date +"%m-%d-%Y")`.log
 MD5SIGS=$MD5SCANDIR/mwlocker.sigs
 CPUNUM=8
-	# Check for md5scans directory.
 	if [ ! -d $MD5SCANDIR ]; then
 		mkdir -p $MD5SCANDIR
 	fi
-
-	# Check for existing log, remove or create.
 	if [ -f $MD5SCANLOG ]; then
 		mv -f $MD5SCANLOG $MD5SCANLOG.OLD;
 		touch $MD5SCANLOG
 	else 
 		touch $MD5SCANLOG
 	fi
-
-	# Start md5sum scans in pwd.
+	MD5STARTGEN=$(date +%s%N)
 	echo "Creating md5sums for `pwd`".
-		#find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" -o ! -iname "*.OFF" \) -exec md5sum {} \; >> $MD5SCANLOG
-		#Speeding up with parallel functions.
 		find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" -o ! -iname "*.OFF" \) -print0 |xargs -I{} -0 -n 1 -P "$CPUNUM" md5sum {} >> $MD5SCANLOG
-			echo "$(cat $MD5SCANLOG |wc -l) md5sums for all defined filetypes created and located here: $MD5SCANLOG."
-
-	# Check for md5sigs file, remove or create.
+		MD5ENDGEN=$(date +%s%N)
+		MD5ELAPSEDGEN=$(echo "scale=8; ($END - $START) / 1000000000" | bc)
+			echo "$(cat $MD5SCANLOG |wc -l) md5sums for all defined filetypes created in $ELAPSED and located here: $MD5SCANLOG."
 	if [ -f $MD5SIGS ]; then
 		rm -f $MD5SIGS;
 		touch $MD5SIGS
 	else
 		touch $MD5SIGS
 	fi
-
-	# Scan list again mwlocker repo.
 	echo "Retreiving latest md5 signatures from MWLocker."
 		curl -s http://mwlocker.servergur.us/api/md5s | grep '"name"' | awk '{print $2}' | sed 's/",//g' | sed 's/^.//' > $MD5SIGS
 	echo "Comparing generated md5s against MWlocker signatures."	
 		for SIG in $(cat $MD5SIGS); do grep $SIG $MD5SCANLOG; done
-
 	echo "Done."
 }

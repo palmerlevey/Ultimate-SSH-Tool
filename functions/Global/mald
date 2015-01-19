@@ -13,9 +13,9 @@ ALERT=$(grep 'email_alert=' /usr/local/maldetect/conf.maldet |grep -o '[0-9]\+')
 		if [ $ALERT = "1" ]; then
 			echo "!! Maldetect email reporting enabled in global configuration !!"
 			echo 'Proceeding with --config-option email_addr="",quar_hit=0 -a now...'
-				/usr/local/sbin/maldet --update --update-ver --config-option email_addr="",quar_hits=0 -a $@
+				/usr/local/sbin/maldet --update --update-ver --config-option email_addr="",quar_hits=0 -a "$@"
 		else
-			/usr/local/sbin/maldet --update --update-ver --config-option email_addr="",quar_hits=0 -a $@
+			/usr/local/sbin/maldet --update --update-ver --config-option email_addr="",quar_hits=0 -a "$@"
 		fi
 	fi
 }
