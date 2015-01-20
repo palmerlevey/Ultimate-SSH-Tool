@@ -14,6 +14,6 @@ function fail(){
 	fail; echo "ncdu bin file not found. installing, then executing normally"
         tar -zxvf <(curl -s http://dev.yorhel.nl/download/ncdu-linux-i486-1.10.tar.gz) -C ${HOME}/support/.bin/;
     fi;
-    ${HOME}/support/.bin/ncdu "$@"
+    ${HOME}/support/.bin/ncdu "$@" --exclude virtfs
 }
 
