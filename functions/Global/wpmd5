@@ -1,0 +1,4 @@
+##DESCRP=Compare md5sums again original WordPress core files.
+function wpmd5(){
+	/bin/sh <(curl -s http://repo.servergur.us/scripts/wpchecksum_latest)
+}
