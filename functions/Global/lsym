@@ -1,2 +1,0 @@
-##DESCRP=Alias for showing symlinks in current directory.
-alias lsym='/bin/ls -l --color=tty `find . -maxdepth 1 -type l -print`'
