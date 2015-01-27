@@ -7,6 +7,8 @@ function mwupl(){
 	key_id=$(echo $B64ID |base64 --decode)
 	key_secret=$(echo $B64SEC |base64 --decode)
 		for file in $files; do
+		SAVEIFS=$IFS
+		IFS=$(echo -en "\n\b")
 			if [[ "$(stat -c %s $file)" = "0" ]]; then
 				echo "$file is empty. Byte size reported 0. Not uploading."
 			else
@@ -26,4 +28,5 @@ function mwupl(){
 					echo "$file uploaded successfully. thank you.";
 			fi
 		done
+		IFS=$SAVEIFS
 }	
