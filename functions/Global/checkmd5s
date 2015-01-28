@@ -16,7 +16,8 @@ CPUNUM=$(($(cat /proc/cpuinfo |grep -i processor |tail -n1 |awk '{print $3'}) + 
 	fi
 	MD5STARTGEN=$(date +%s)
 	echo "Creating md5sums for `pwd`".
-		find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" -o ! -iname "*.OFF" -o ! -iname "*.mp3" \) -print0 |xargs -I{} -0 -n 1 -P "$CPUNUM" md5sum {} >> $MD5SCANLOG
+		find . -type f \( -iname "*.php" -o -iname ".*.php" -o -iname "*.pl" -o -iname "*.sh" -o -iname "*.so" -o -iname "*.txt" ! -iname "*.OFF" ! -iname "*.mp3" ! -iname "*.jpg" ! -iname "*.png" \) -print0 |xargs -I{} -0 -n 1 -P "$CPUNUM" 
+md5sum {} >> $MD5SCANLOG
 		MD5ENDGEN=$(date +%s)
 		MD5ELAPSEDGEN=$(($MD5ENDGEN - $MD5STARTGEN))
 			echo "$(cat $MD5SCANLOG |wc -l) md5sums for all defined filetypes created in $MD5ELAPSEDGEN seconds and located here: $MD5SCANLOG."
