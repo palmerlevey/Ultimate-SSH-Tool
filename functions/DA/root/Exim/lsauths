@@ -1,0 +1,4 @@
+##DESCRP=List exim email auth logins (DA).
+lsauths() {
+	grep -o "A=\(.*\)\@\(.*\) S=" /var/log/exim/mainlog | sed 's/ S\=//g' | sed 's/A\=\(.*\)\://g' | sed '/\(.*\)P=\(.*\)/d' | sort | uniq -c | sort -n
+} 
