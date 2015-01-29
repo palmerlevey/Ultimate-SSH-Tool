@@ -1,0 +1,5 @@
+##DESCRP=Check for kernel upgrades.
+function kernelcheck(){
+KERNEL=$(rpm -q kernel |tail -n1|sed -e 's/kernel-//')
+	if uname -a | grep -qv "$KERNEL"; then echo "Running Kernel is" `uname -r` "but latest installed rpm is ${KERNEL}"; fi;
+}
