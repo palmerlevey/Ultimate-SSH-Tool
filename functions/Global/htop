@@ -1,0 +1,14 @@
+##DESCRIPTION=Graphical and colored top menu.
+function htop (){ 
+serverarch=$(uname -a |awk '{print $12}')
+htoprpm="htop-1.0.3-1.el6.rf.$serverarch.rpm"
+	if [ -z "$(rpm -qa htop)" ]; then
+		echo "htop not installed. installing, then executing normally";
+		curl -s "http://repo.servergur.us/packages/$htoprpm" > /root/support/"$htoprpm";
+		rpm -Uvh $htoprpm;
+		/usr/bin/htop;
+	else
+		/usr/bin/htop
+	fi
+
+	
