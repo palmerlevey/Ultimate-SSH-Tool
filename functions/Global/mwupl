@@ -3,6 +3,7 @@ function mwupl(){
 	files=$(echo "$@" |awk '{print $0}' RS=' ')
 	B64ID="QUtJQUpGQlFGSkVTUVNRREVOVEE="
 	B64SEC="VXR2ODlra3AxRWxrV0MzNTUrc2c5eDNTN25GZVE2ZkkxdVFoUjBzOQ=="
+	RANID=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w12 | head -n1)
 	#--------------
 	key_id=$(echo $B64ID |base64 --decode)
 	key_secret=$(echo $B64SEC |base64 --decode)
@@ -12,20 +13,26 @@ function mwupl(){
 			if [[ "$(stat -c %s $file)" = "0" ]]; then
 				echo "$file is empty. Byte size reported 0. Not uploading."
 			else
-				path="sshtoolUploads/$file"
+				fileid="$file.$RANID"
+
+                                        cp "$file" "$fileid";
+
+				path="sshtoolUploads/$fileid"
 				bucket="mwuploadcollection"
 				content_type="application/octet-stream"
 				date="$(LC_ALL=C date -u +"%a, %d %b %Y %X %z")"
-				md5="$(openssl md5 -binary < "$file" | base64)"
+				md5="$(openssl md5 -binary < "$fileid" | base64)"
 				sig="$(printf "PUT\n$md5\n$content_type\n$date\n/$bucket/$path" | openssl sha1 -binary -hmac "$key_secret" | base64)"
-		
-					curl -T "$file" http://$bucket.s3.amazonaws.com/$path \
-					-H "Date: $date" \
-					-H "Authorization: AWS $key_id:$sig" \
-					-H "Content-Type: $content_type" \
-					-H "Content-MD5: $md5"
-					
-					echo "$file uploaded successfully. thank you.";
+
+						curl -T "$fileid" http://$bucket.s3.amazonaws.com/$path \
+						-H "Date: $date" \
+						-H "Authorization: AWS $key_id:$sig" \
+						-H "Content-Type: $content_type" \
+						-H "Content-MD5: $md5"
+						
+						echo "$file uploaded successfully as $fileid. thank you.";
+
+					rm -f "$fileid";
 			fi
 		done
 		IFS=$SAVEIFS
