@@ -10,5 +10,4 @@ htoprpm="htop-1.0.3-1.el6.rf.$serverarch.rpm"
 	else
 		/usr/bin/htop
 	fi
-
-	
+}
