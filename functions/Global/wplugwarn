@@ -9,7 +9,7 @@ PLUGURL="https://wordpress.org/plugins/$PLUGNAME/"
 			PLUGSLIST=$(find `pwd` -maxdepth 1 -type d |sed 's/\.\///g' |tail -n +2 |awk -F/ '{ print $NF }')
 				for PLUGNAME in $PLUGSLIST; 
 					do 
-						if [[ ! -z "$(curl -s "PLUGURL" |grep updated |sed "s/<[^>]\+>//g" |sed 's/ !//g')" ]]; then
+						if [[ ! -z "$(curl -s "$PLUGURL" |grep updated |sed "s/<[^>]\+>//g" |sed 's/ !//g')" ]]; then
 							echo "$PLUGNAME : WAY OUT OF DATE BRO";
 						else
 							echo "$PLUGNAME : Doesn't seem extremely outdated."
@@ -18,7 +18,7 @@ PLUGURL="https://wordpress.org/plugins/$PLUGNAME/"
 		fi
 	else 
 		PLUGNAME="$@"
-			if [[ ! -z "$(curl -s "PLUGURL" |grep updated |sed "s/<[^>]\+>//g" |sed 's/ !//g')" ]]; then
+			if [[ ! -z "$(curl -s "$PLUGURL" |grep updated |sed "s/<[^>]\+>//g" |sed 's/ !//g')" ]]; then
 				echo "$PLUGNAME : WAY OUT OF DATE BRO";
 			else
 				echo "$PLUGNAME : Doesn't seem extremely outdated.";
