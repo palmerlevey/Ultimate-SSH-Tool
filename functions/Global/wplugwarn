@@ -3,7 +3,7 @@ function wplugwarn(){
 	if [[ -z "$@" ]]; then
 		if [[ -z "$(pwd |grep 'wp-content/plugins')" ]]; then
 			echo "Make sure you are in a WordPress plugins directory. Die now.";
-			exit 0;
+			exit 1;
 		else
 			PLUGSLIST=$(find `pwd` -maxdepth 1 -type d |sed 's/\.\///g' |tail -n +2 |awk -F/ '{ print $NF }')
 				for i in $PLUGSLIST; 
