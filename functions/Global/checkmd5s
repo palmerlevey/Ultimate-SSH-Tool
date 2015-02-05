@@ -31,9 +31,9 @@ CPUNUM=$(($(cat /proc/cpuinfo |grep -i processor |tail -n1 |awk '{print $3'}) + 
 	echo "Comparing generated md5s against MWlocker signatures."	
 		for SIG in $(cat $MD5SIGS); 
 			do 
-#				grep $SIG $MD5SCANLOG; 
+				grep $SIG $MD5SCANLOG; 
 # Testing difference with parallels
-				parallel --will-cite --pipe --block 50K grep $SIG < $MD5SCANLOG;
+#				parallel --will-cite --pipe --block 50K grep $SIG < $MD5SCANLOG;
 		done
 	echo "Done."
 }
