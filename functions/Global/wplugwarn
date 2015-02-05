@@ -1,6 +1,5 @@
 ##DESCRP=Check wordpress.org for extremely outdated plugins in current directory.
 function wplugwarn(){
-PLUGURL="https://wordpress.org/plugins/$PLUGNAME/"
 	if [[ -z "$@" ]]; then
 		if [[ -z "$(pwd |grep 'wp-content/plugins')" ]]; then
 			echo "Make sure you are in a WordPress plugins directory. Die now.";
@@ -10,6 +9,7 @@ PLUGURL="https://wordpress.org/plugins/$PLUGNAME/"
 				for i in $PLUGSLIST; 
 					do 
 						PLUGNAME="$i";
+						PLUGURL="https://wordpress.org/plugins/$PLUGNAME/"				
 							if [[ ! -z "$(curl -s "$PLUGURL" |grep updated |sed "s/<[^>]\+>//g" |sed 's/ !//g')" ]]; then
 								echo "$PLUGNAME : WAY OUT OF DATE BRO";
 							else
@@ -19,6 +19,7 @@ PLUGURL="https://wordpress.org/plugins/$PLUGNAME/"
 		fi
 	else 
 		PLUGNAME="$@"
+		PLUGURL="https://wordpress.org/plugins/$PLUGNAME/"
 			if [[ ! -z "$(curl -s "$PLUGURL" |grep updated |sed "s/<[^>]\+>//g" |sed 's/ !//g')" ]]; then
 				echo "$PLUGNAME : WAY OUT OF DATE BRO";
 			else
