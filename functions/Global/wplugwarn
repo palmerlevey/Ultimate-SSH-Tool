@@ -2,7 +2,7 @@
 function wplugwarn(){
 PLUGURL="https://wordpress.org/plugins/$PLUGNAME/"
 	if [[ -z "$@" ]]; then
-		if [[ -z "$(pwd |grep 'wp-content/plugins/')" ]]; then
+		if [[ -z "$(pwd |grep 'wp-content/plugins')" ]]; then
 			echo "Make sure you are in a WordPress plugins directory. Die now.";
 			exit 0;
 		else
