@@ -1,4 +1,4 @@
 ##DESCRP=Check for common email forwarders. Credit: wlittle
 chkcomfrwd() {
-	grep -rih "yahoo\|aol\|msn\|outlook\|live\|hotmail\|gmail" /etc/valiases/|tr -d ":"|awk '{print$1" --> "$2}' 
+#	grep -rih "yahoo\|aol\|msn\|outlook\|live\|hotmail\|gmail" /etc/valiases/|tr -d ":"|awk '{print$1" --> "$2}' 
 } 
