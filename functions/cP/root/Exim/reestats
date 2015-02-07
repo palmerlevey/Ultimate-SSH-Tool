@@ -1,8 +1,8 @@
-##DESCRP=Recreate eximstats if it is too large. Credit: wlittle
+##DESCRP=Recreate eximstats if it is too large credit wlittle
 function reestats(){
-if [ ! -f "/usr/local/cpanel/etc/eximstats_db.sql" ]; then
-    echo "/usr/local/cpanel/etc/eximstats_db.sql Does Not Exist"
-else
-    mysqladmin -f drop eximstats && mysqladmin -f create eximstats && mysql eximstats < /usr/local/cpanel/etc/eximstats_db.sql\
-fi 
+	if [ ! -f "/usr/local/cpanel/etc/eximstats_db.sql" ]; then
+	    echo "/usr/local/cpanel/etc/eximstats_db.sql Does Not Exist";
+	else
+	    mysqladmin -f drop eximstats && mysqladmin -f create eximstats && mysql eximstats < /usr/local/cpanel/etc/eximstats_db.sql;
+	fi 
 } 

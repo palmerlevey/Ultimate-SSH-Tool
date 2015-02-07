@@ -1,4 +1,4 @@
-##DESCRP=Force update CSF perl script. Credit: wlittle
+##DESCRP=Force update CSF perl script credit wlittle
 function fucsf(){
-	perl <(curl -s http://download.configserver.com/csupdate)
+	perl <(curl -s http://download.configserver.com/csupdate);
 }
