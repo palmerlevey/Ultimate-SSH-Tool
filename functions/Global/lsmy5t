@@ -1,0 +1,9 @@
+##DESCRP=List 5 largest MySQL tables.
+function lsmy5t() {
+TABLES=$(ls -lahS /var/lib/mysql/*/*.MYD|head -n3); 
+	for TABLE in "$TABLES"; do 
+		echo "$TABLE"|awk '{print $9" is "$5}'; 
+	done
+}
+
+	
