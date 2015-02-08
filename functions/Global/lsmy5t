@@ -1,6 +1,10 @@
-##DESCRP=List 5 largest MySQL tables.
+##DESCRP=List 5 largest MySQL tables by default. Add number to change from 5. Credit wlittle
 function lsmy5t() {
-TABLES=$(ls -lahS /var/lib/mysql/*/*.MYD|head -n3); 
+if [[ -z "$@" ]]; then
+	TABLES=$(ls -lahS /var/lib/mysql/*/*.MYD|head -n5); 
+else
+	TABLES=$(ls -lahS /var/lib/mysql/*/*.MYD|head -n"$@");
+fi
 	for TABLE in "$TABLES"; do 
 		echo "$TABLE"|awk '{print $9" is "$5}'; 
 	done
