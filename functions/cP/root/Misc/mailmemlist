@@ -1,0 +1,4 @@
+##DESCRP=List all email addresses in mailman lists.
+function mailmemlist(){
+	find /usr/local/cpanel/3rdparty/mailman/lists/ -type f -name 'config.pck' -exec /usr/local/cpanel/3rdparty/mailman/bin/dumpdb -p {} \; |grep -Po "[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}"
+}
