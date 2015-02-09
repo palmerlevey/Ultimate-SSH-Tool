@@ -1,0 +1,12 @@
+##DESCRP=William Ks regex scanner for malicious content $ findcrack0r $account $ticketnum
+function findcrack0r(){
+if [[ -z "$1" ]];
+	echo "Please provide the account to scan.";
+	exit 1;
+elif [[ -z "$2" ]];
+	echo "No ticket number provided, skipping and scanning account: $1";
+	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -a "$1";
+else 
+	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -a "$1" -t "$2";
+fi
+}
