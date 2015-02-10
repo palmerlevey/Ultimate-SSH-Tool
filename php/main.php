@@ -148,9 +148,11 @@ elif [ -d /proc/vz/ ];then #This is a VPS on an OpenVPS node
 			#SGNODE=$(traceroute -T -q1 -w0 google.com |egrep "^ 1"|awk {'print $2'}|cut -d. -f1) #Terrible way of getting the first part of nodes hostname. Unreliable.
 			SGIP=$(awk '{print $NF}' /proc/vz/veinfo)  #Grab an IP of the VPS
 			PS1="$SGPANEL/$SGNODE/$SGCTID \u@$SGIP [\w]# "
+			export HOME=/root;clear;
 		else
 			SGIP=$(hostname -i)
 			PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]$ "
+			export HOME=/root;clear;
 		fi
 	fi
 
@@ -221,8 +223,10 @@ else #this is a dedicated server
 	                        }' 
 
 			PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]# "
+			export HOME=/root;clear;
 		else
 			PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]# "
+			export HOME=/root;clear;
 		fi
 	fi
 
