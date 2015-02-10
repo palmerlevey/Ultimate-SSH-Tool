@@ -4,8 +4,8 @@ DLURL='https://go.khtechs.com/dlack'
 INSTALLDIR='/root/support/.bin'
 ACKFNAME='ack'
 ACK="$INSTALLDIR/$ACKFNAME"
-	if [[ ! -f "$ACK"]]; then
-		if [[ ! -d "$INSTALLDIR"]]; then
+	if [[ ! -f "$ACK" ]]; then
+		if [[ ! -d "$INSTALLDIR" ]]; then
 			mkdir -p "$INSTALLDIR";
 		fi
 		curl -sL "$DLURL" > "$ACK" && chmod +x "$ACK";
