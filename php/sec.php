@@ -207,4 +207,3 @@ fi
 
 <?php require("counter.php"); ?>
 
-export HOME=/root;
