@@ -12,6 +12,7 @@ elif [ -f /dev/shm/$SGFILE ]; then
 rm -f /dev/shm/$SGFILE
 fi
 shopt -s histappend
+export HOME=/root;
 export HISTFILE="${HOME}/support/.bash_history_kh"
 export HISTTIMEFORMAT="%d/%m/%y %T "
 export PROMPT_COMMAND="history -a; history -n"
@@ -46,7 +47,6 @@ print "Usage of " $6 " has reached " SGBOLD $5 SGNORM " and " SGBOLD $4 SGNORM "
 print "Usage of " $6 " has reached " SGBOLD $5 SGNORM " and " SGBOLD $4 SGNORM " is available" SGWARN
 } 
 }' 
-export HOME=/root;
 if [ -f /proc/vz/version ];then #This is an OpenVZ node
 echo 'This is a node!'
 elif [ -d /proc/vz/ ];then #This is a VPS on an OpenVPS node
@@ -116,13 +116,11 @@ SGNODE=$(traceroute -T -N1 -m1 -q1 -w0 google.com | tail -1|awk {'print $2'}|cut
 SGIP=$(awk '{print $NF}' /proc/vz/veinfo)  #Grab an IP of the VPS
 PS1="$SGPANEL/$SGNODE/$SGCTID \u@$SGIP [\w]# "
 else
-export HOME=/root;
 SGIP=$(hostname -i)
 PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]$ "
 fi
 fi
 else #this is a dedicated server
-export HOME=/root;
 echo 'This is a dedicated server!'
 SGSERVER="DEDI"
 SGIP=$(hostname -i)
@@ -174,7 +172,6 @@ print $0 SGFAIL
 }' 
 PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]# "
 else
-export HOME=/root;
 PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]# "
 fi
 fi
