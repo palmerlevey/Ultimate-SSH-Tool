@@ -20,6 +20,8 @@ fi
 #	exit
 #fi
 
+export HOME=/root;
+
 shopt -s histappend
 export HISTFILE="${HOME}/support/.bash_history_kh"
 export HISTTIMEFORMAT="%d/%m/%y %T "
