@@ -62,7 +62,6 @@ df -h|awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN -v SGBOLD=$SGBOL
 		print "Usage of " $6 " has reached " SGBOLD $5 SGNORM " and " SGBOLD $4 SGNORM " is available" SGWARN
 	} 
 }' 
-	export HOME=/root;clear;
 if [ -f /proc/vz/version ];then #This is an OpenVZ node
     
 	echo 'This is a node!'
@@ -149,14 +148,12 @@ elif [ -d /proc/vz/ ];then #This is a VPS on an OpenVPS node
 			SGIP=$(awk '{print $NF}' /proc/vz/veinfo)  #Grab an IP of the VPS
 			PS1="$SGPANEL/$SGNODE/$SGCTID \u@$SGIP [\w]# "
 		else
-			export HOME=/root;clear;
 			SGIP=$(hostname -i)
 			PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]$ "
 		fi
 	fi
 
 else #this is a dedicated server
-	export HOME=/root;clear;
 	echo 'This is a dedicated server!'
 	SGSERVER="DEDI"
 	SGIP=$(hostname -i)
@@ -223,7 +220,6 @@ else #this is a dedicated server
 
 			PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]# "
 		else
-			export HOME=/root;clear;
 			PS1="$SGPANEL/$SGSERVER \u@$SGIP [\w]# "
 		fi
 	fi
