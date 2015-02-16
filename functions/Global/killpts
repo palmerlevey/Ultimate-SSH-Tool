@@ -15,6 +15,6 @@ PTSPID=$(echo "$PTSESS" |awk '{print $2}')
         echo "--------------------------"
         echo "$PTSESS";
     else
-        exit 1;      
+	echo "Fine then...";
     fi
 }
