@@ -1,0 +1,20 @@
+##DESCRP=Kill all shell sessions.
+function killpts(){
+PTSESS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev 'LISTEN|24.73.185.86')
+PTSPID=$(echo "$PTSESS" |awk '{print $2}')
+  echo "Current Sessions:";
+  echo "-----------------";
+  echo "$PTSESS";
+  echo " "
+  read -p "Do you want to kill all of these sessions now? " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+      then
+        echo "";
+        for i in "$PTSPID"; do kill -9 "$i"; done
+        echo "Sessions killed, new list:"
+        echo "--------------------------"
+        echo "$PTSESS";
+    else
+        exit 1;      
+    fi
+}
