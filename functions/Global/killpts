@@ -1,6 +1,6 @@
 ##DESCRP=Kill all shell sessions.
 function killpts(){
-PTSESS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev 'LISTEN|24.73.185.86')
+PTSESS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev 'LISTEN|24.73.185.86|65.99.235.248')
 PTSPID=$(echo "$PTSESS" |awk '{print $2}')
   echo "Current Sessions:";
   echo "-----------------";
