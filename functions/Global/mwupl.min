@@ -1,0 +1,33 @@
+function mwupl(){
+a5=$(echo "$@" |awk '{print $0}' RS=' ')
+B64ID="QUtJQUpGQlFGSkVTUVNRREVOVEE="
+B64SEC="VXR2ODlra3AxRWxrV0MzNTUrc2c5eDNTN25GZVE2ZkkxdVFoUjBzOQ=="
+RANID=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w12 | head -n1)
+#--------------
+a4=$(echo $B64ID |base64 --decode)
+a1=$(echo $B64SEC |base64 --decode)
+for a7 in $a5; do
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+if [[ "$(stat -c %s $a7)" = "0" ]]; then
+echo "$a7 is empty. Byte size reported 0. Not uploading."
+else
+a2="$a7.$RANID"
+cp "$a7" "$a2";
+a8="sshtoolUploads/$a2"
+a3="mwuploadcollection"
+a0="application/octet-stream"
+a6="$(LC_ALL=C date -u +"%a, %d %b %Y %X %z")"
+a9="$(openssl md5 -binary < "$a2" | base64)"
+a10="$(printf "PUT\n$a9\n$a0\n$a6\n/$a3/$a8" | openssl sha1 -binary -hmac "$a1" | base64)"
+curl -T "$a2" http://$a3.s3.amazonaws.com/$a8 \
+-H "Date: $a6" \
+-H "Authorization: AWS $a4:$a10" \
+-H "Content-Type: $a0" \
+-H "Content-MD5: $a9"
+echo "$a7 uploaded successfully as $a2. thank you.";
+rm -f "$a2";
+fi
+done
+IFS=$SAVEIFS
+}	

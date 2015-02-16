@@ -1,0 +1,15 @@
+##DESCRIPTION=Use mysqladmin with password if necessary.
+function mysqladmin(){
+	if [[ "$SGPANEL" == "cP" ]]; then
+		MYSQLPASS=$(grep 'password' /root/.my.cnf |sed 's/password=//g');
+			if [[ "$MYSQLPASS" = "" ]]; then
+				/usr/bin/mysqladmin "$@";
+			else
+				/usr/bin/mysqladmin -uroot -p"$MYSQLPASS" "$@";
+			fi
+	elif [[ "$SGPANEL" == "PSA" ]]; then
+		/usr/bin/mysqladmin -uadmin -p`cat /etc/psa/.psa.shadow` "$@";
+	else
+		/usr/bin/mysqladmin "$@";
+	fi
+}
