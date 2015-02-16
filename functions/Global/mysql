@@ -1,7 +1,7 @@
 ##DESCRIPTION=Use mysql or mysqladmin with password if necessary.
 function mysql(){
 	if [[ "$SGPANEL" == "cP" ]]; then
-		MYSQLPASS=$(grep 'password' /root/.my.cnf |sed 's/password=//g');
+		MYSQLPASS=$(grep 'password' /root/.my.cnf |sed 's/password=//g' |sed 's/"//g');
 			if [[ "$MYSQLPASS" = "" ]]; then
 				/usr/bin/mysql "$@";
 			else
