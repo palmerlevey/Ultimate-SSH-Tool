@@ -18,9 +18,7 @@ ALLOTHERCSPID=$(ps x|grep "@pts"|grep -Ev "grep|$CSTTY"|awk '{print$1}')
 	read -p "REALLY kill all other sessions now? " -n 1 -r;
 			    if [[ $REPLY =~ ^[Yy]$ ]]; then
 			        echo "";
-				        for i in "$ALLOTHERCSPID"; do
-						kill -9 "$i";
-				        done;
+				        for i in "$ALLOTHERCSPID"; do kill -9 $i; done;
 			    ALLSESS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev 'LISTEN');
 			        echo "All other sessions killed, all current sessions:";
 		            echo "--------------------------";
