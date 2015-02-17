@@ -1,23 +1,32 @@
 ##DESCRP=Kill all shell sessions.
 function killpts(){ 
-    PTSESS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev 'LISTEN|24.73.185.86|65.99.235.248');
-    PTSPID=$(echo "$PTSESS" |awk '{print $2}');
-	    echo "Current Sessions:";
-	    echo "-----------------";
-	    echo "$PTSESS";
-	    echo " ";
-		    read -p "Do you want to kill all of these sessions now? " -n 1 -r;
+CSTTY=$(ps -p $$|tail -n1|awk '{print$2}');
+CSPID=$(ps x|grep "@$CSTTY"|grep -v 'grep'|awk '{print$1}');
+USERSESSTATS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep "$CSPID";ps auxf|grep "$CSTTY"|grep -Ev "grep|ps auxf");
+ALLOTHERSTATS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev "LISTEN|$CSPID";ps auxf|grep 'pts/'|grep -Ev "grep|ps auxf|$CSTTY");
+ALLOTHERCSPID=$(ps x|grep "@pts"|grep -Ev "grep|$CSTTY"|awk '{print$1}')
+	echo "--------------------";
+	echo "Your current session:";
+	echo "--------------------";
+	echo "$USERSESSTATS"
+	echo " "
+	echo "-------------------";
+	echo "All other sessions:"
+	echo "-------------------";
+	echo "$ALLOTHERSTATS"
+	echo " "
+	read -p "REALLY kill all other sessions now? " -n 1 -r;
 			    if [[ $REPLY =~ ^[Yy]$ ]]; then
 			        echo "";
-				        for i in $(echo $PTSPID); do
-						kill -9 $i;
+				        for i in "$ALLOTHERCSPID"; do
+						kill -9 "$i";
 				        done;
-			    PTSESS=""
-			    PTSESS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev 'LISTEN|24.73.185.86|65.99.235.248');
-			        echo "Sessions killed, new list:";
-		                echo "--------------------------";
- 		                echo "$PTSESS";
+			    ALLSESS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev 'LISTEN');
+			        echo "All other sessions killed, all current sessions:";
+		            echo "--------------------------";
+ 		            echo "$ALLSESS";
 			    else
+			    	echo "";
 			        echo "Fine then...";
 			    fi
 }
