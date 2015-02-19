@@ -1,0 +1,15 @@
+##DESCRIPTION=Use mysqlcheck with password if necessary.
+function mysqlcheck(){
+	if [[ "$SGPANEL" == "cP" ]]; then
+		MYSQLPASS=$(grep 'password' /root/.my.cnf |sed 's/password=//g' |sed 's/"//g');
+			if [[ "$MYSQLPASS" = "" ]]; then
+				/usr/bin/mysqlcheck "$@";
+			else
+				/usr/bin/mysqlcheck -uroot -p"$MYSQLPASS" "$@";
+			fi
+	elif [[ "$SGPANEL" == "PSA" ]]; then
+		/usr/bin/mysqlcheck -uadmin -p`cat /etc/psa/.psa.shadow` "$@";
+	else
+		/usr/bin/mysqlcheck "$@";
+	fi
+}
