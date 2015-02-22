@@ -17,7 +17,7 @@ CPUNUM=$(($(cat /proc/cpuinfo |grep -i processor |tail -n1 |awk '{print $3'}) + 
 	fi
 	SNIPSSTARTGEN=$(date +%s)
 	echo "Creating list of files to scan for `pwd`".
-		find . -type f \( ! -iname "*.OFF" ! -iname "*.mp3" ! -iname "*.jpg" ! -iname "*.png" \) -print0 |xargs -I{} -0 -n 1 -P "$CPUNUM" {} >> $SNIPSCANLOG
+		find . -type f \( ! -iname "*.OFF" ! -iname "*.mp3" ! -iname "*.jpg" ! -iname "*.png" \) -print0 >> $SNIPSCANLOG
 		SNIPSENDGEN=$(date +%s)
 		SNIPSELAPSEDGEN=$(($SNIPSENDGEN - $SNIPSSTARTGEN))
 			echo "$(cat $SNIPSCANLOG |wc -l) files listed for all defined filetypes created in $SNIPSELAPSEDGEN seconds and located here: $SNIPSCANLOG."
