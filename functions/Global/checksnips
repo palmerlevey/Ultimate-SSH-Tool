@@ -43,5 +43,9 @@ DBAPIURL=http://mwlocker.servergur.us/api/codesnips
 					do 
 						hex2a $HEX >> $SNIPSHEXDB.strings; 
 				done
-				echo "Done."
+	echo "Searching for strings from file list."
+		for STRING in $SNIPSHEXDB.strings; do 
+			ack -Q "$STRING" --files-from=$SNIPSCANLOG;
+		done
+	echo "Search completed."
 }
