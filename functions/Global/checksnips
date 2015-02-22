@@ -43,9 +43,25 @@ DBAPIURL=http://mwlocker.servergur.us/api/codesnips
 					do 
 						hex2a $HEX >> $SNIPSHEXDB.strings; 
 				done
+function ack(){ 
+DLURL='https://go.khtechs.com/dlack';
+INSTALLDIR='/root/support/.bin';
+ACKFNAME='ack';
+ACK="$INSTALLDIR/$ACKFNAME";
+if [[ ! -f "$ACK" ]]; then
+    if [[ ! -d "$INSTALLDIR" ]]; then
+        mkdir -p "$INSTALLDIR";
+    fi;
+    curl -sL "$DLURL" > "$ACK" && chmod +x "$ACK";
+fi;
+/usr/local/cpanel/3rdparty/bin/perl $ACK "$@"
+}
 	echo "Searching for strings from file list."
-		for STRING in $SNIPSHEXDB.strings; do 
+                SAVEIFS=$IFS
+                IFS=$(echo -en "\n\b")
+		for STRING in $(cat $SNIPSHEXDB.strings); do 
 			ack -Q "$STRING" --files-from=$SNIPSCANLOG;
 		done
+		IFS=$SAVEIFS
 	echo "Search completed."
 }
