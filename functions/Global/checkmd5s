@@ -4,7 +4,8 @@ OWNER=$(pwd |awk -F/ '{print $3}')
 MD5SCANDIR=/root/support/md5scans
 MD5SCANLOG=$MD5SCANDIR/$OWNER.md5scan.`(date +"%m-%d-%Y")`.log
 MD5SIGS=$MD5SCANDIR/mwlocker.sigs
-CPUNUM=$(cat /proc/cpuinfo |grep -i processor |tail -n1 |awk '{print $3'})
+CPUNUM=$(($(cat /proc/cpuinfo |grep processor |tail -n1 |awk '{print $3'}) + 1));
+
 	if [ ! -d $MD5SCANDIR ]; then
 		mkdir -p $MD5SCANDIR
 	fi
