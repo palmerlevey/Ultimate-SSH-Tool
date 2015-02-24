@@ -3,7 +3,7 @@ function lockmdhits() {
 LOCKUSER=$(pwd |awk -F/ '{print $3}')
 MDHITLOG=/root/support/md5scans/$LOCKUSER.md5scan.`(date +"%m-%d-%Y")`.hits
 MDHITS=$(cat $MDHITLOG|awk '{print $2}')
-    if [[ -f $MDHITLOG ]];
+    if [[ -f $MDHITLOG ]]; then
         lockf $(echo $MDHITS);
     else;
         echo "Are you sure the hits exist? Couldn't find the log, failing...";
