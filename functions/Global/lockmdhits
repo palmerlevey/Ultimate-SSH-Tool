@@ -5,7 +5,7 @@ MDHITLOG=/root/support/md5scans/$LOCKUSER.md5scan.`(date +"%m-%d-%Y")`.hits
 MDHITS=$(cat $MDHITLOG|awk '{print $2}')
     if [[ -f $MDHITLOG ]];
         lockf $(echo $MDHITS);
-    else
+    else;
         echo "Are you sure the hits exist? Couldn't find the log, failing...";
     fi
 }
