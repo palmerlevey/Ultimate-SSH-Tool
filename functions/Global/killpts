@@ -5,6 +5,10 @@ CSPID=$(ps x|grep "@$CSTTY"|grep -v 'grep'|awk '{print$1}');
 USERSESSTATS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep "$CSPID";ps auxf|grep "$CSTTY"|grep -Ev "grep|ps auxf");
 ALLOTHERSTATS=$(lsof -Pnl +M -i4 |grep 'sshd' |grep -Ev "LISTEN|$CSPID";ps auxf|grep 'pts/'|grep -Ev "grep|ps auxf|$CSTTY");
 ALLOTHERCSPID=$(ps x|grep "@pts"|grep -Ev "grep|$CSTTY"|awk '{print$1}')
+if [[ -z "$ALLOTHERSTATS" ]]; then
+	echo "Currently, your session is the only one found.";
+	echo "Exiting...";
+else	
 	echo "--------------------";
 	echo "Your current session:";
 	echo "--------------------";
@@ -28,4 +32,12 @@ ALLOTHERCSPID=$(ps x|grep "@pts"|grep -Ev "grep|$CSTTY"|awk '{print$1}')
 			    	echo "";
 			        echo "Fine then...";
 			    fi
+fi			    
 }
+## ~ WIP
+## OPTIONUM=1
+## for OPTION in "$($ALLOTHERCSPID|grep sshd)"; do
+##  	echo '[' "$OPTIONUM" '] - '"$OPTION";
+##  	OPTIONUM=$((OPTIONUM+1));
+##  done
+## ~ WIP

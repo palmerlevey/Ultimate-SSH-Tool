@@ -33,8 +33,6 @@ CPUNUM=$(($(cat /proc/cpuinfo |grep processor |tail -n1 |awk '{print $3'}) + 1))
 		for SIG in $(cat $MD5SIGS); 
 			do 
 				grep $SIG $MD5SCANLOG; 
-# Testing difference with parallels
-#				parallel --will-cite --pipe --block 50K grep $SIG < $MD5SCANLOG;
 		done
 	echo "Done."
 }

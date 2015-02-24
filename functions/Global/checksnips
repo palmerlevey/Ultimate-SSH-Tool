@@ -8,7 +8,7 @@ DBAPIURL=http://mwlocker.servergur.us/api/codesnips
 	if [ ! -d $SNIPSSCANDIR ]; then
 		mkdir -p $SNIPSSCANDIR
 	fi
-	if [ -f $MD5SCANLOG ]; then
+	if [[ -f $MD5SCANLOG ]]; then
 		mv -f $SNIPSCANLOG $SNIPSCANLOG.OLD;
 		touch $SNIPSCANLOG
 	else 
@@ -20,6 +20,9 @@ DBAPIURL=http://mwlocker.servergur.us/api/codesnips
 		SNIPSENDGEN=$(date +%s)
 		SNIPSELAPSEDGEN=$(($SNIPSENDGEN - $SNIPSSTARTGEN))
 			echo "$(cat $SNIPSCANLOG |wc -l) files listed for all defined filetypes created in $SNIPSELAPSEDGEN seconds and located here: $SNIPSCANLOG."
+	if [ -f $SNIPSHEXDB.strings ]; then
+		rm -f $SNIPSHEXDB.strings;
+	fi
 	if [ -f $SNIPSHEXDB ]; then
 		rm -f $SNIPSHEXDB;
 		touch $SNIPSHEXDB
