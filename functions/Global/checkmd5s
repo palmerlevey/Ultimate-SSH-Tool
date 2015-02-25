@@ -36,11 +36,17 @@ CPUNUM=$(($(cat /proc/cpuinfo |grep processor |tail -n1 |awk '{print $3'}) + 1))
 	fi
 	echo "Retreiving latest md5 signatures from MWLocker."
 		curl -s http://mwlocker.servergur.us/api/md5s | grep '"name"' | awk '{print $2}' | sed 's/",//g' | sed 's/^.//' > $MD5SIGS
-	echo "Comparing generated md5s against MWlocker signatures."	
+	echo "Comparing generated md5s against MWlocker signatures."
+		# Progress dots
+		while true; do echo -n .;sleep 1;done &
+	
 		for SIG in $(cat $MD5SIGS); 
 			do 
-				grep $SIG $MD5SCANLOG 2>&1 | tee $MD5SCANHITS; 
+				grep $SIG $MD5SCANLOG >> $MD5SCANHITS; 
 		done
+		# End progress dots
+		kill $!; trap 'kill $!' SIGTERM
+	cat $MD5SCANHITS
 	echo "";
 	echo "Scan completed. Copy of hits located here: $MD5SCANHITS."
 	if [[ ! -z "$(cat $MD5SCANHITS)" ]]; then
