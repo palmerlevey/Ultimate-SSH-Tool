@@ -79,6 +79,8 @@ function whatswrong(){
 		oom_hit() {
 		  if dmesg | grep -q 'OOM killed process'; then
 		    bad "Out of memory killer has been triggered"
+		  elif grep -q killed /var/log/messages; then
+		    bad "Out of memory killer has been triggered"
 		  else
 		    ok "No out of memory conditions found"
 		  fi
