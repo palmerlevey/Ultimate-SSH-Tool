@@ -1,5 +1,5 @@
-##DESCRP=Check all (wp, joom, drup) versions.
-function cmsversions(){
+##DESCRP=Check all (wp, joom, drup) versions for OUTDATED only.
+function cmsverso(){
 HTTPDROOT=$(httpd -V |grep HTTPD_ROOT |awk '{gsub("-D HTTPD_ROOT=", "");gsub(/"/, "");gsub(" ","");print}')
 HTTPDCONF=$(httpd -V |grep SERVER_CONFIG_FILE |awk '{gsub("-D SERVER_CONFIG_FILE=", "");gsub(/"/, "");gsub(" ", "");print}')
 CONFPATH=$(echo $HTTPDROOT/$(echo $HTTPDCONF))
@@ -17,43 +17,43 @@ echo "Latest Joomla! Version(s): $JLATEST"
 echo "Latest Drupal Version(s): $DLATEST"
 echo "Latest ModX Evolution Version: $MXLATEST"
 echo " "
-echo "Searching for WordPress versions..."
+echo "Searching for **OUTDATED** WordPress versions..."
 echo " "
   for i in $DOCROOTS
   do
     if [ -d "$i" ]; then
-      find $i -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
+      find $i -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \; |grep -v "$WPLATEST"
     fi
   done
 echo " "
-echo "Searching for Joomla! versions..."
+echo "Searching for **OUTDATED** Joomla! versions..."
 echo " "
   for i in $DOCROOTS
   do
     if [ -d "$i" ]; then
       find $i -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print0 -exec perl -e 'while 
-(<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \;
+(<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \; |grep -v "$JLATEST"
     fi
   done
 echo " "
-echo "Searching for Drupal versions..."
+echo "Searching for **OUTDATED** Drupal versions..."
 echo " "
   for i in $DOCROOTS
   do
     if [ -d "$i" ]; then
-      find $i -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
+      find $i -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \; |grep -v "$DLATEST"
     fi
   done
 echo " "
-echo "Searching for ModX Evolution versions..."
+echo "Searching for **OUTDATED** ModX Evolution versions..."
 echo " "
   for i in $DOCROOTS
   do
     if [ -d "$i" ]; then
-      find $i -type f -iwholename "*/manager/includes/version.inc.php" -exec grep -H "version = '" {} \;
+      find $i -type f -iwholename "*/manager/includes/version.inc.php" -exec grep -H "version = '" {} \; |grep -v "$MXLATEST"
     fi
   done
 echo " "
-echo "CMS version search completed."
+echo "**OUTDATED** CMS version search completed."
 }
 
