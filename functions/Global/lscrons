@@ -1,0 +1,11 @@
+##DESCRP=List all users cron jobs excluding comments.
+function lscrons(){
+for JOBFILE in $(ls -1 /var/spool/cron/*); do
+	USER=$(echo "$JOBFILE" |awk -F/ '{print $5}')
+		echo "Cron Jobs for cPanel user: $USER";
+		echo "----";
+		cat "$JOBFILE" |sed '/^#/ d' |sed '/^$/d';
+		echo "----";
+		echo " ";
+done		
+}
