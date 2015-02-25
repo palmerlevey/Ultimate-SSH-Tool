@@ -46,7 +46,7 @@ CPUNUM=$(($(cat /proc/cpuinfo |grep processor |tail -n1 |awk '{print $3'}) + 1))
 			done
 
 		# End progress dots
-		(kill $!; trap 'kill $!' SIGTERM)
+		kill $!; trap 'kill $!' SIGTERM > /dev/null
 		echo "";
 	cat $MD5SCANHITS
 	echo "";
