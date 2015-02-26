@@ -1,8 +1,12 @@
 ##DESCRP=Checks main IP for positive RBL listing
 function rblcheck(){
-IPS=$(cat /etc/mailips |awk '{print $2}')
+if [[ ! -z "$(cat /etc/mailips)" ]]; then
+	IPS=$(cat /etc/mailips |awk '{print $2}')
+else
+	IPS=$(lips)
+fi
 RBLAPI="http://rbl-check.org/rbl_api.php?ipaddress="
-echo "Beginning RBL Lookup for all IPs in /etc/mailip..."
+echo "Beginning RBL Lookup email IPs..."
 echo " "
 	for IP in $IPS; do
 		curl "$RBLAPI$IP";
