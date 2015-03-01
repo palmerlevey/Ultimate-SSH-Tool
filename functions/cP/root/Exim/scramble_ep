@@ -1,12 +1,13 @@
 ##DESCRP=Disables the password for a given email on Exim/cP
 scramble_ep() {
     EMADDY=$(echo "$1" |sed -e 's/\(.*\)/\L\1/')
+
     if [ -z "$EMADDY" ];then
         echo "Usage: scramble_email user@domain.com"
         return
     fi
 
-    USER=$(echo "$EMADDY | cut -d'@' -f1)
+    USER=$(echo "$EMADDY" | cut -d'@' -f1)
     DOMAIN=$(echo "$EMADDY" | cut -d'@' -f2)
     ACCT=$(grep "^$DOMAIN" /etc/userdomains | awk -F": " '{print $2}')
 
