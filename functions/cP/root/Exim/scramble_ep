@@ -1,23 +1,23 @@
 ##DESCRP=Disables the password for a given email on Exim/cP
 scramble_ep() {
-    
-    if [ -z "$1" ];then
+    EMADDY=$(echo "$1" |sed -e 's/\(.*\)/\L\1/')
+    if [ -z "$EMADDY" ];then
         echo "Usage: scramble_email user@domain.com"
         return
     fi
 
-    USER=$(echo "$1" | cut -d'@' -f1)
-    DOMAIN=$(echo "$1" | cut -d'@' -f2)
+    USER=$(echo "$EMADDY | cut -d'@' -f1)
+    DOMAIN=$(echo "$EMADDY" | cut -d'@' -f2)
     ACCT=$(grep "^$DOMAIN" /etc/userdomains | awk -F": " '{print $2}')
 
     grep "^$USER" /home/"$ACCT"/etc/"$DOMAIN"/shadow | grep -viE "ABUSE|LOCKED" 1> /dev/null
     if [ $? -ne 0 ];then
-        echo "Error: $1 may be suspended, already locked, or does not exist"
+        echo "Error: $EMADDY may be suspended, already locked, or does not exist"
         return
     fi
 
     sed -i "s/^$USER:/$USER:!!ABUSE!!/" /home/"$ACCT"/etc/"$DOMAIN"/shadow
 
-    echo "Scrambled password for $1 under '$ACCT'"
+    echo "Scrambled password for $EMADDY under '$ACCT'"
     service exim restart
 } 
