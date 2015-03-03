@@ -1,0 +1,4 @@
+##DESCRP=Check for revslider versions.
+function revslidervers(){
+	find /home/*/public_html/wp-content/plugins -type f -name "revslider.php" -exec grep -H 'revSliderVersion' {} \;
+}
