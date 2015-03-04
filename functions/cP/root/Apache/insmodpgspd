@@ -1,0 +1,12 @@
+##DESCRP=Install mod_pagespeed EasyApache module.
+function insmodpgspd(){
+	if [[ -f /var/cpanel/easy/apache/custom_opt_mods/Cpanel/Easy/Speed.pm ]]; then
+		echo "PageSpeed module already exists in EasyApache!";
+	else
+		/usr/local/cpanel/3rdparty/bin/git clone https://github.com/pagespeed/cpanel.git /tmp/pagespeed/
+		cd /tmp/pagespeed/Easy; tar -zcvf Speed.pm.tar.gz pagespeed; mkdir -p /var/cpanel/easy/apache/custom_opt_mods/Cpanel/Easy; mv Speed.pm Speed.pm.tar.gz -t /var/cpanel/easy/apache/custom_opt_mods/Cpanel/Easy/
+		cd && rm -rf /tmp/pagespeed
+			echo "PageSpeed EasyApache module has been installed. Starting EasyApache now!"
+	fi
+/scripts/easyapache --with-module --path-to-module=/var/cpanel/easy/apache/custom_opt_mods/Cpanel/Easy/Speed.pm
+}
