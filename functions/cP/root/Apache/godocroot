@@ -1,4 +1,4 @@
 ##DESCRP=Jump to a domains document root. $ godocroot crazydomainname.com
 function godocroot(){
-	cd /home/`/scripts/whoowns $@`/public_html/
+	find /var/cpanel/userdata -type f -iname $1 -exec grep documentroot {} \;|awk '{print$2}'
 }
