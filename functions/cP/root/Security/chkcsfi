@@ -18,4 +18,5 @@ else
 			if [[ "$TESTING" == "1" ]]; then echo "Testing is ENABLED."; elif [[ "$TESTING" == "0" ]]; then echo "Testing is disabled."; fi
 			if [[ "$LFALERT" == "" ]]; then echo "There is no contact set for LF Alerts."; else echo "The configured contact for LF Alerts is: $LFALERT"; fi
 		fi
+fi
 }
