@@ -1,0 +1,21 @@
+##DESCRP=Check CSF info such as email number of notifications and if enabled.
+function chkcsfi(){
+CSFCONF="/etc/csf/csf.conf"
+if [[ ! -f $CSFCONF ]]; then
+	echo "No CSF configuration found."
+else
+	echo "Starting CSF information checks..."	
+	echo " "
+		if [[ "$(csf -v)" == "csf and lfd have been disabled, use 'csf -e' to enable" ]]; then
+			echo "Warning, CSF is disabled.";
+		else
+			VERSION=$(csf -v |grep -Po 'v(\d)\.(\d{1,2})')
+			TESTING=$(grep 'TESTING =' $CSFCONF |awk '{print $3}' |sed 's/"//g')
+			LFALERT=$(grep 'LF_ALERT_TO =' $CSFCONF |awk '{print $3}' |sed 's/"//g')
+			CONFVARS=$(cat $CSFCONF |sed '/^#/ d' |sed '/^$/ d' |sed '/""/ d')
+
+			echo "Current CSF Version: $VERSION";
+			if [[ "$TESTING" == "1" ]]; then echo "Testing is ENABLED."; elif [[ "$TESTING" == "0" ]]; then echo "Testing is disabled."; fi
+			if [[ "$LFALERT" == "" ]]; then echo "There is no contact set for LF Alerts."; else echo "The configured contact for LF Alerts is: $LFALERT"; fi
+		fi
+}
