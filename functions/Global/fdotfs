@@ -1,0 +1,10 @@
+##DESCRP=Find dot files in pwd or declare path. Ignores htaccess and DS_Store.
+function fdotfs(){
+	if [[ -z "$@" ]]; then
+		DIR=$(pwd)
+	else
+		DIR="$@"
+	fi
+		find $DIR -type f -iname ".*.*";
+		find $DIR -type f \( -iname ".*" ! -iname ".htaccess" ! -iname ".DS_Store" \);
+}
