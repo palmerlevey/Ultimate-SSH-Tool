@@ -7,7 +7,7 @@ if [[ ! -z "$(echo $FAKEIMGS)" ]]; then
         echo "--------------------";
                 for FIMG in $FAKEIMGS; do
                         FIMGPATH=$(readlink -f "$(echo "$FIMG")");
-                        FIMGMIME=$(file --mime-type "$FIMGPATH");
+                        FIMGMIME=$(file "$FIMGPATH");
                         echo "$FIMGMIME" |sed 's/:/ -/g';
                 done
         echo "";
