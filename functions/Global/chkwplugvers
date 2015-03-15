@@ -1,3 +1,4 @@
+##DESCRP=Check wordpress.org for extremely outdated plugins in current directory.
 function chkwplugvers(){
 # Pretty Pass/Fail Functions
 # ---------------------------
