@@ -5,5 +5,5 @@ function fdotfs(){
 	else
 		DIR="$@"
 	fi
-		find $DIR -type f \( -iname ".*" ! -iname ".htaccess" ! -iname ".DS_Store" ! -iname ".ftpquota" ! -iname ".gitignore" \);
+		find $DIR -type f \( -iname ".*" ! -iname ".htaccess" ! -iname ".DS_Store" ! -iname ".ftpquota" ! -iname ".gitignore" ! -iname ".travis.yml" ! -iname ".gitkeep" \);
 }

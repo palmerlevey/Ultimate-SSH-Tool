@@ -1,0 +1,40 @@
+function chkwplugvers(){
+# Pretty Pass/Fail Functions
+# ---------------------------
+## Pass/Ok
+function pass(){
+    echo -e "  \033[32m \xE2\x9C\x93 Up to date.\033[00m\c \n"
+}
+## Fail/Bad
+function fail(){
+    echo -e "  \033[31m \xE2\x9C\x98 Out of date.\033[00m\c"
+}
+## Manual
+function manual(){
+	echo -e "  \033[31m \xE2\x9C\x98 Check manually.\033[00m\c"
+}
+PIVERS=$(find . -maxdepth 2 -type f -iname "*.php" -exec grep -H 'Version: ' {} \;)
+	SAVEIFS=$IFS
+	IFS=$(echo -en "\n\b")
+		for PLUGIN in $(echo "$PIVERS"); do
+			PLUGSLUG=$(echo $PLUGIN |awk -F/ '{print $2}');
+			PLUGINSVER=$(echo $PLUGIN |awk -F: '{print $3}' |sed 's/ //g');
+			LATESTVER=$(curl -s https://wordpress.org/plugins/$PLUGSLUG/ |grep -Po "\>Download Version(.*?)\<\/a\>" |sed 's/>Download Version //g' |sed 's/<\/a>//g');
+				echo "Plugin Found: $PLUGSLUG";
+				echo "  Installed Vers: $PLUGINSVER";
+					if [[ ! -z "$(echo $LATESTVER)" ]]; then
+						echo "  Latest Vers: $LATESTVER";
+					else
+						echo "  Latest Version N/A from the official WP Repo.";
+					fi
+					if [[ "$PLUGINSVER" == "$LATESTVER" ]]; then
+						pass; 
+					elif [[ -z "$(echo $LATESTVER)" ]]; then
+						manual;
+					else
+						fail;
+					fi
+				echo " ";
+		done
+	IFS=$SAVEIFS	
+}
