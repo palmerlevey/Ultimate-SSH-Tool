@@ -1,0 +1,16 @@
+##DESCRP=Check for files named as images but reporting different mime types.
+function chkfakimg(){
+IMGFILES=$(find . -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) -exec file --mime-type {} \;)
+FAKEIMGS=$(echo "$IMGFILES" |sed '/image/d' |awk '{print $1}' |sed 's/://g')
+if [[ ! -z "$(echo $FAKEIMGS)" ]]; then
+        echo "Fake image(s) found.";
+        echo "--------------------";
+                for FIMG in $FAKEIMGS; do
+                        FIMGPATH=$(readlink -f "$(echo "$FIMG")");
+                        FIMGMIME=$(file --mime-type "$FIMGPATH");
+                        echo "$FIMGMIME" |sed 's/:/ -/g';
+                done
+        echo "";
+fi
+}
+
