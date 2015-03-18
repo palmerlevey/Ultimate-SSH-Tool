@@ -1,0 +1,4 @@
+##DESCRP=Show what programs are currently writing to or using tmp.
+function usingtmp(){
+	lsof /tmp |grep -v COMMAND |awk '{print $1}' |uniq
+}
