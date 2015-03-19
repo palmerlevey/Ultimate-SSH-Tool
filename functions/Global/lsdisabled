@@ -1,0 +1,9 @@
+##DESCRP=List disabled files with OFF ext and verbage for customer.
+function lsdisabled(){
+	LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`;
+		echo "We've been able to determine the following files appear to be the majority of the malicious content responsible for this abuse case. The files list have been disabled and will be listed in your server as 
+described:";
+		echo "----";
+		cat $LOCKEDLOG |awk '{print $1".OFF"}';
+		echo "----"
+}
