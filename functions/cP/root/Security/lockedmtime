@@ -2,7 +2,7 @@
 function lockedmtime(){
 	LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`
 	LASTMODDATE=$(tail -n1 $LOCKEDLOG |grep -Po "(\d{4})\-(\d{2})\-(\d{2})")
-	STOPDATE=$(date +%m-%d-%Y -d "$LASTMODDATE + $i day")
+	STOPDATE=$(date +%Y-%m-%d -d "$LASTMODDATE + $i day")
 	SCANDIR=$(tail -n1 $LOCKEDLOG |awk -F/ '{print $1"/"$2"/"$3"/"$4}')
 		find $SCANDIR -type f -newermt $LASTMODDATE ! -newermt $STOPDATE ! -iname "*.OFF" ! -name 'error_log'
 }
