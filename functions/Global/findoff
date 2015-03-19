@@ -1,0 +1,20 @@
+##DESCRP=Search for disabled or OFF files in cwd or declared path for abuse.
+function findoff(){
+if [[ ! -z "$1" ]]; then 
+	DIR="$1";
+else
+	DIR="$(pwd)";
+fi
+	echo "Abuse Case - Searching for disabled malicious content. | $(date)";
+	echo "----";
+		FINDFILES=$(find $DIR -iname "*.OFF" -exec readlink -f {} \;)
+			if [[ -z "$FINDFILES" ]]; then
+				echo "Looks clean to me...";
+			else
+				echo "$FINDFILES";
+			fi
+	echo "----";
+	if [[ ! -z "$FINDFILES" ]]; then
+		echo "The above referenced malicious content still resides on the server and will need to be addressed.";
+	fi
+}
