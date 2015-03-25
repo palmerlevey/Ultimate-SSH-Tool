@@ -24,7 +24,7 @@ function mwupl(){
 				bucket="mwuploadcollection"
 				content_type="application/octet-stream"
 				#date="$(LC_ALL=C date -u +"%a, %d %b %Y %X %z")"
-				date="$(date -u +"%a, %d %b %Y %X %z")"
+				date="$(date -u +"%Y%m%dT%H%M%SZ")"
 				md5="$(openssl md5 -binary < "$fileid" | base64)"
 				sig="$(printf "PUT\n$md5\n$content_type\n$date\n/$bucket/$path" | openssl sha1 -binary -hmac "$key_secret" | base64)"
 						curl -T "$fileid" http://$bucket.s3.amazonaws.com/$path \
