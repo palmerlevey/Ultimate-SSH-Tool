@@ -37,4 +37,5 @@ function mwupl(){
 			fi
 		done
 		IFS=$SAVEIFS
+alias ls='ls'
 }	
