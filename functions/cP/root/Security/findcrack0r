@@ -4,6 +4,6 @@ if [[ -z "$@" ]]; then
 	echo "Please provide the account to scan.";
 	exit 0;
 else
-	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -a "$@";
+	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks http://repo.servergur.us/scripts/wkelly/findcrack0r_pl ) -a "$@";
 fi
 }
