@@ -8,20 +8,36 @@ function cmsvers(){
 	echo "Latest Drupal Version(s): $DLATEST"
 	echo " "
 		if [[ ! -z "$@" ]]; then
-			echo "Searching for WordPress versions..."
-			echo " "
-				find $@ -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
-			echo " "
-			echo "Searching for Joomla! versions..."
-			echo " "
-				find $@ -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print0 -exec perl -e 'while (<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \;
-			echo " "
-			echo "Searching for Drupal versions..."
-			echo " "
-				find $@ -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
-			echo " "
-			echo "CMS version search completed."
-		else 
+			if [[ "$@" == "-p" ]]; then
+				echo "Searching for WordPress versions..."
+				echo " "
+					find $(echo $PWD) -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
+				echo " "
+				echo "Searching for Joomla! versions..."
+				echo " "
+					find $(echo $PWD) -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print0 -exec perl -e 'while (<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \;
+				echo " "
+				echo "Searching for Drupal versions..."
+				echo " "
+					find $(echo $PWD) -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
+				echo " "
+				echo "CMS version search completed."
+			else
+				echo "Searching for WordPress versions..."
+				echo " "
+					find $@ -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
+				echo " "
+				echo "Searching for Joomla! versions..."
+				echo " "
+					find $@ -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print0 -exec perl -e 'while (<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \;
+				echo " "
+				echo "Searching for Drupal versions..."
+				echo " "
+					find $@ -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
+				echo " "
+				echo "CMS version search completed."
+			fi
+		else
 			HTTPDROOT=$(httpd -V |grep HTTPD_ROOT |awk '{gsub("-D HTTPD_ROOT=", "");gsub(/"/, "");gsub(" ","");print}')
 			HTTPDCONF=$(httpd -V |grep SERVER_CONFIG_FILE |awk '{gsub("-D SERVER_CONFIG_FILE=", "");gsub(/"/, "");gsub(" ", "");print}')
 			CONFPATH=$(echo $HTTPDROOT/$(echo $HTTPDCONF))
