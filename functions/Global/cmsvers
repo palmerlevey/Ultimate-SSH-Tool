@@ -9,33 +9,33 @@ function cmsvers(){
 	echo " "
 		if [[ ! -z "$@" ]]; then
 			if [[ "$@" == "-p" ]]; then
-				echo "Searching for WordPress versions..."
+				echo "Searching for WordPress versions in $PWD..."
 				echo " "
 					find $(echo $PWD) -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
 				echo " "
-				echo "Searching for Joomla! versions..."
+				echo "Searching for Joomla! versions in $PWD..."
 				echo " "
 					find $(echo $PWD) -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print0 -exec perl -e 'while (<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \;
 				echo " "
-				echo "Searching for Drupal versions..."
+				echo "Searching for Drupal versions in $PWD..."
 				echo " "
 					find $(echo $PWD) -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
 				echo " "
-				echo "CMS version search completed."
+				echo "CMS version search in $(echo $PWD) completed."
 			else
-				echo "Searching for WordPress versions..."
+				echo "Searching for WordPress versions in $@..."
 				echo " "
 					find $@ -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
 				echo " "
-				echo "Searching for Joomla! versions..."
+				echo "Searching for Joomla! versions in $@..."
 				echo " "
 					find $@ -type f \( -iwholename '*/libraries/joomla/version.php' -o -iwholename '*/libraries/cms/version.php' -o -iwholename '*/libraries/cms/version/version.php' \) -print0 -exec perl -e 'while (<>) { $release = $1 if m/ \$RELEASE\s+= .([\d.]+).;/; $dev = $1 if m/ \$DEV_LEVEL\s+= .(\d+).;/; } print qq( = $release.$dev\n);' {} \;
 				echo " "
-				echo "Searching for Drupal versions..."
+				echo "Searching for Drupal versions in $@..."
 				echo " "
 					find $@ -type f -iwholename "*/modules/system/system.info" -exec grep -H "version = \"" {} \;
 				echo " "
-				echo "CMS version search completed."
+				echo "CMS version search in $@ completed."
 			fi
 		else
 			HTTPDROOT=$(httpd -V |grep HTTPD_ROOT |awk '{gsub("-D HTTPD_ROOT=", "");gsub(/"/, "");gsub(" ","");print}')
@@ -47,7 +47,7 @@ function cmsvers(){
 					DOCROOTS=$(grep "DocumentRoot" $CONFPATH |awk '{gsub("    DocumentRoot ", "");print}')
 				fi
 
-			echo "Searching for WordPress versions..."
+			echo "Searching for ALL WordPress versions..."
 			echo " "
 			  for i in $DOCROOTS
 			  do
@@ -56,7 +56,7 @@ function cmsvers(){
 			    fi
 			  done
 			echo " "
-			echo "Searching for Joomla! versions..."
+			echo "Searching for ALL Joomla! versions..."
 			echo " "
 			  for i in $DOCROOTS
 			  do
@@ -65,7 +65,7 @@ function cmsvers(){
 			    fi
 			  done
 			echo " "
-			echo "Searching for Drupal versions..."
+			echo "Searching for ALL Drupal versions..."
 			echo " "
 			  for i in $DOCROOTS
 			  do
@@ -74,6 +74,6 @@ function cmsvers(){
 			    fi
 			  done
 			echo " "
-			echo "CMS version search completed."
+			echo "ALL CMS version(s) search completed."
 		fi
 }

@@ -1,0 +1,57 @@
+##DESCRP=Compare php md5s of pwd to MWLocker's signatures for all public_htmls.
+function checkallpubmd5s(){
+OWNER=FULLSCAN
+MD5SCANDIR=/root/support/md5scans
+MD5SCANLOG=$MD5SCANDIR/$OWNER.md5scan.`(date +"%m-%d-%Y")`.log
+MD5SCANHITS=$MD5SCANDIR/$OWNER.md5scan.`(date +"%m-%d-%Y")`.hits
+MD5SIGS=$MD5SCANDIR/mwlocker.sigs
+CPUNUM=$(($(cat /proc/cpuinfo |grep processor |tail -n1 |awk '{print $3'}) + 1));
+
+	if [ ! -d $MD5SCANDIR ]; then
+		mkdir -p $MD5SCANDIR
+	fi
+	if [ -f $MD5SCANLOG ]; then
+		mv -f $MD5SCANLOG $MD5SCANLOG.OLD;
+		touch $MD5SCANLOG
+	else 
+		touch $MD5SCANLOG
+	fi
+	if [ -f $MD5SCANHITS ]; then
+		mv -f $MD5SCANHITS $MD5SCANHITS.OLD;
+		touch $MD5SCANHITS
+	else 
+		touch $MD5SCANHITS
+	fi
+	MD5STARTGEN=$(date +%s)
+	echo "Creating md5sums for /var/www/vhosts/*/httpdocs/".
+		find /var/www/vhosts/*/httpdocs/ -type f \( ! -iname "*.OFF" ! -iname "*.mp3" ! -iname "*.jpg" ! -iname "*.png" \) -print0 |xargs -I{} -0 -n 1 -P "$CPUNUM" md5sum {} >> $MD5SCANLOG
+		MD5ENDGEN=$(date +%s)
+		MD5ELAPSEDGEN=$(($MD5ENDGEN - $MD5STARTGEN))
+			echo "$(cat $MD5SCANLOG |wc -l) md5sums for all defined filetypes created in $MD5ELAPSEDGEN seconds and located here: $MD5SCANLOG."
+	if [ -f $MD5SIGS ]; then
+		rm -f $MD5SIGS;
+		touch $MD5SIGS
+	else
+		touch $MD5SIGS
+	fi
+	echo "Retreiving latest md5 signatures from MWLocker."
+		curl -s http://mwlocker.servergur.us/api/md5s | grep '"name"' | awk '{print $2}' | sed 's/",//g' | sed 's/^.//' > $MD5SIGS
+	echo "Comparing generated md5s against MWlocker signatures."
+		# Progress dots
+		#while true; do echo -n .;sleep 1;done & ##REMOVED FOR NOW
+	
+			for SIG in $(cat $MD5SIGS); 
+				do 
+					grep $SIG $MD5SCANLOG >> $MD5SCANHITS; 
+			done
+
+		# End progress dots
+		#kill $!; trap 'kill $!' SIGTERM > /dev/null ##REMOVED FOR NOW
+		echo "";
+	cat $MD5SCANHITS
+	echo "";
+	echo "Scan completed. Copy of hits located here: $MD5SCANHITS."
+	if [[ ! -z "$(cat $MD5SCANHITS)" ]]; then
+		echo "Lockf all hits with $ lockmdhits";
+	fi
+}
