@@ -1,0 +1,4 @@
+##DESCRP=Sort originating PHP Scripts that send mail with Postfix
+function psforigphp(){
+	find /var/spool/postfix/deferred -type f -exec strings {} \; |grep 'X-PHP-Originating-Script' |awk '{print $2}' |sed 's/N<From://g' |uniq -c |sort -n
+}
