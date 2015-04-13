@@ -25,3 +25,9 @@ awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN '{
 		print "cPanel Version: " $0 SGFAIL 
 	}
 }' /usr/local/cpanel/version
+
+if [ -e /usr/local/frontpage/version5.0/bin/owsadm.exe ]; then 
+	print "Frontpage Installed" SGFAIL;
+else 
+	print "Frontpage NOT Installed" SGPASS; 
+fi
