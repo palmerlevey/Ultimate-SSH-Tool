@@ -1,0 +1,4 @@
+##DESCRP=List postfix mail auth logins.
+function psflogins(){
+	find /var/spool/postfix/deferred -type f -exec strings {} \; | grep -Po "sasl_username=(.*)" |sed 's/S//g' |sort |uniq -c |sort -n
+}
