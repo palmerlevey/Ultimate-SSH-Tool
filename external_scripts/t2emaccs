@@ -19,7 +19,7 @@ testemailaccs=$(grep -Hi 'test' /home/*/etc/*/shadow |awk 'BEGIN { FS = "/" }; {
 					send "pass test\r"
 					expect default abort "\n+OK Logged in."
 					send "QUIT\r"
-					EOF
+				EOF
 				echo "#########################"
 
 				echo "Testing email account: $emailacc with password: test123";
@@ -34,7 +34,7 @@ testemailaccs=$(grep -Hi 'test' /home/*/etc/*/shadow |awk 'BEGIN { FS = "/" }; {
 					send "pass test123\r"
 					expect default abort "\n+OK Logged in."
 					send "QUIT\r"
-					EOF
+				EOF
 				echo "#########################"
 			done
 	fi
