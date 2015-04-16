@@ -1,4 +1,6 @@
 ##DESCRP=Display email accounts with corresponding passwords.
 function qmshowep(){
 	mysql -uadmin -p` cat /etc/psa/.psa.shadow` -Dpsa -e"select mail_name,name,password from mail left join domains on mail.dom_id = domains.id inner join accounts where mail.account_id = accounts.id;"
+	echo "";
+	echo "You may need to run: /usr/local/psa/admin/sbin/mail_auth_view";
 }
