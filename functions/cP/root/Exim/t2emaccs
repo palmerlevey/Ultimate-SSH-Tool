@@ -1,6 +1,6 @@
 ##DESCRP=Check test@emailaccount.tld for common passwords.
 function t2emaccs(){
-## Find a way to import list of passwords from http://mwlocker.servergur.us/api/emailauths
+#Find a way to import list of passwords from http://mwlocker.servergur.us/api/emailauths
 testemailaccs=$(grep -Hi 'test' /home/*/etc/*/shadow |awk 'BEGIN { FS = "/" }; {print "test@" $5}')
 if [ -z "$testemailaccs" ]; then echo "No test email accounts found.";
 else
