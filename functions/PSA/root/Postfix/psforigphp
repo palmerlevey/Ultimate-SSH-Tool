@@ -1,4 +1,4 @@
 ##DESCRP=Sort originating PHP Scripts that send mail with Postfix
 function psforigphp(){
-	find /var/spool/postfix/deferred -type f -exec strings {} \; |grep -Po "X\-PHP\-Originating\-Script\: (.*)\.php" |sed 's/ ://g' |uniq -c |sort -n
+	find /var/spool/postfix/deferred -type f -exec strings {} \; |grep -Po "X\-PHP\-Originating\-Script\: (.*)\.php" |sed 's/ ://g' |sort |uniq -c |sort -n
 }
