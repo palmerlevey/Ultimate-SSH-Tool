@@ -1,0 +1,40 @@
+#!/bin/bash
+## Find a way to import list of passwords from http://mwlocker.servergur.us/api/emailauths
+
+testemailaccs=$(grep -Hi 'test' /home/*/etc/*/shadow |awk 'BEGIN { FS = "/" }; {print "test@" $5}')
+
+	if [ -z "$testemailaccs" ]; then echo "No test email accounts found.";
+	else
+		for emailacc in $testemailaccs;
+			do
+				echo "Testing email account: $emailacc with password: test";
+				echo " ";
+				/usr/bin/expect << EOF
+					set timeout 10
+					proc abort {} { exit 2 }
+					spawn telnet localhost 110
+					expect default abort "+OK Dovecot ready."
+					send "user $emailacc\r"
+					expect default abort "\n+OK"
+					send "pass test\r"
+					expect default abort "\n+OK Logged in."
+					send "QUIT\r"
+					EOF
+				echo "#########################"
+
+				echo "Testing email account: $emailacc with password: test123";
+				echo " ";
+				/usr/bin/expect << EOF
+					set timeout 10
+					proc abort {} { exit 2 }
+					spawn telnet localhost 110
+					expect default abort "+OK Dovecot ready."
+					send "user $emailacc\r"
+					expect default abort "\n+OK"
+					send "pass test123\r"
+					expect default abort "\n+OK Logged in."
+					send "QUIT\r"
+					EOF
+				echo "#########################"
+			done
+	fi
