@@ -50,5 +50,6 @@ echo " ";
 	send "QUIT\r"
 EOF
 echo "###################################"
+echo " "
 done
 fi
