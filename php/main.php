@@ -196,6 +196,11 @@ else #this is a dedicated server
 		fi
 		SGMTA="${SGMTA1} / ${SGMTA2}"
 		echo "Dedi MTA: $SGMTA"
+	
+		# CloudLinux Warning Issue 26
+		if [[ ! -z $(uname -a |grep lve) ]]; then 
+			echo -e "Cloudlinux IS installed" $SGWARN; 
+		fi
 
 # - Remove Pass / Warn until function proves correct.
 #		echo "Dedi MTA: $SGMTA" | awk -v SGPASS=$SGPASS -v SGWARN=$SGWARN '{
