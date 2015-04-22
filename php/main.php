@@ -198,7 +198,7 @@ else #this is a dedicated server
 		echo "Dedi MTA: $SGMTA"
 	
 		# CloudLinux Warning Issue 26
-		if [[ ! -z $(uname -a |grep lve) ]]; then 
+		if [[ -f /usr/bin/cldetect ]]; then 
 			echo -e "Cloudlinux IS installed" $SGWARN; 
 		fi
 
