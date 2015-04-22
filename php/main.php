@@ -65,8 +65,9 @@ df -h|awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN -v SGBOLD=$SGBOL
 if [ -f /proc/vz/version ];then #This is an OpenVZ node
     
 	echo 'This is a node!'
-    
-elif [ -d /proc/vz/ ];then #This is a VPS on an OpenVPS node
+
+# Some dedicated servers have openvz installed switching to file check rather than directory check    
+elif [ -f /proc/vz/veinfo ];then #This is a VPS on an OpenVPS node
 
 	SGSERVER="VZ"
 
