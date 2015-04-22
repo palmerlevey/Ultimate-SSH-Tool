@@ -1,7 +1,7 @@
 #!/bin/sh
 #Currently For use in CentOS/RedHat/Fedora based servers
 version='0.04.dpl'
-pulld='09-03-2014 10:30:01'
+pulld='Reloading a push'
 SGFILE=sshtool_main.rc
 SGLOC="http://repo.servergur.us/sshtool/php"
 

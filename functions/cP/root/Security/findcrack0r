@@ -1,7 +1,7 @@
 ##DESCRP=William Ks regex scanner for malicious content $ findcrack0r $account
 function findcrack0r(){
 if [[ -z "$@" ]]; then
-	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -p "$(pwd)" |grep -v ".OFF";
+	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -o "$(pwd)" |grep -v ".OFF";
 else
 	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -a "$@" |grep -v ".OFF";
 fi

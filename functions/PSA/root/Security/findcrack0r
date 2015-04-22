@@ -1,0 +1,12 @@
+##DESCRP=William Ks regex scanner for malicious content ported for PSA
+function findcrack0r(){
+if [[ ! -z $(perl -MFile::Find=find -MFile::Spec::Functions -Tlw -e 'find { wanted => sub { print canonpath $_ if /\.pm\z/ }, no_chdir => 1 }, @INC' |grep Path) ]]; then
+	perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -o "$(pwd)" |grep -v ".OFF";	
+else
+	echo "File::Path module is missing... Installing:"
+	
+		/usr/bin/cpan File::Path;
+	
+			perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -o "$(pwd)" |grep -v ".OFF";
+fi
+}
