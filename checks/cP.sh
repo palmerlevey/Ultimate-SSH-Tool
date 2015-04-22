@@ -28,6 +28,4 @@ awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN '{
 
 if [ -e /usr/local/frontpage/version5.0/bin/owsadm.exe ]; then 
 	echo -e "Frontpage Installed" $SGFAIL;
-else 
-	echo -e "Frontpage NOT Installed" $SGPASS; 
 fi
