@@ -1,4 +1,4 @@
 ##DESCRP=Generate abuse compromised email ticket.
-function genemailtik(){
-	bash <(curl -s http://repo.servergur.us/scripts/abuse/comp_email)
-}
+#function genemailtik(){
+#	bash <(curl -s http://repo.servergur.us/scripts/abuse/comp_email)
+#}
