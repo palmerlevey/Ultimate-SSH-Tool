@@ -1,0 +1,4 @@
+##DESCRP=List exim email auth logins from tarred rotated logs.
+lsauths() {
+	zgrep -o "A=\(.*\)\@\(.*\) S=" /var/log/exim_mainlog*.gz | sed 's/ S\=//g' | sed 's/A\=\(.*\)\://g' | sed '/\(.*\)P=\(.*\)/d' | sort | uniq -c | sort -n
+} 
