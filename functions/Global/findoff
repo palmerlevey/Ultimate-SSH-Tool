@@ -1,11 +1,13 @@
 ##DESCRP=Search for disabled or OFF files in cwd or declared path for abuse.
 function findoff(){
-if [[ ! -z "$1" ]]; then 
-	DIR="$1";
+if [[ ! -z "$1" ]]; then DIR="$1"; else DIR="$(pwd)"; fi
+if [[ "$DIR" =~ "/home/(.+)/public_html" ]]; then ACCOUNT=$(echo $DIR|awk -F/ '{print $2}'); elif [[ "$DIR" =~ "/var/www/vhosts/(.+)/httpdocs" ]]; then ACCOUNT=$(echo $DIR|awk -F/ '{print $4}'); fi
+if [[ ! -z "$ACCOUNT" ]]; then
+	echo "Abuse Case - [ $ACCOUNT ]- Searching for disabled malicious content. | $(date)";
 else
-	DIR="$(pwd)";
+    echo "Abuse Case - Searching for disabled malicious content. | $(date)";
 fi
-	echo "Abuse Case - Searching for disabled malicious content. | $(date)";
+#echo "Abuse Case - Searching for disabled malicious content. | $(date)";
 	echo "----";
 		FINDFILES=$(find $DIR -iname "*.OFF" -exec readlink -f {} \;)
 			if [[ -z "$FINDFILES" ]]; then
