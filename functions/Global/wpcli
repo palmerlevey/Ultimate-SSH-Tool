@@ -1,5 +1,10 @@
 ##DESCRP=Use WP-CLI tool if requirements are met https://github.com/wp-cli/wp-cli/wiki
 function wpcli(){
+if [[ -f /usr/bin/php-cli ]]; then 
+	PHPBIN=/usr/bin/php-cli; 
+else 
+	PHPBIN=$(which php); 
+fi
 if [[ "$(/usr/bin/php-cli -m |grep Phar)" -ne "Phar" ]]; then
 	echo "PHP Phar module is not currently installed. No dice sir.";
 	set -e
