@@ -1,0 +1,11 @@
+##DESCRP=Show all cron mailto settings.
+function showcronmailto(){
+	BOLD=$(tput bold);
+	UNBOLD=$(tput sgr0);
+	CRONFILES=$(find /var/spool/cron/ -type f);
+	for result in $(grep "MAILTO=.*\@" $CRONFILES); do
+		USER=$(echo "$result" |awk -F/ '{print $5}' |awk -F: '{print $1}');
+		USEREMAIL=$(echo "$result" |grep -Po "\"(.*)\"");
+	echo "User ${BOLD}$USER${UNBOLD} has a cron mailto for ${BOLD}$USEREMAIL${UNBOLD}";
+done
+}
