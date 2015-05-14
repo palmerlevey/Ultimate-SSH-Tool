@@ -7,7 +7,7 @@ function nocronmailto(){
     	echo -e "\033[31m \xE2\x9C\x98 \033[00m\c"
 	}
 	CRONUSERS=$(find /var/spool/cron -type f);
-	for CRONFILE in $(CRONUSERS); do
+	for CRONFILE in $(cat $CRONUSERS); do
 		if [[ -z "$(grep MAILTO $CRONFILE)" ]]; then
 			sed -i '1 i\MAILTO=""' $CRONFILE;
 			pass; echo "User: $(echo "$CRONFILE" |awk -F/ '{print $5}') cron file updated with no mailto path.";
