@@ -1,0 +1,9 @@
+##DESCRP=Remove all defers by deleting directories for inode cleanup.
+function psf_killdefers(){
+	/etc/init.d/courier-imapd stop
+	/etc/init.d/postfix stop
+		find /var/spool/postfix/defer/* -type d -exec rm -Rf {} \; -exec mkdir {} \; -exec chown postfix:postfix {} \; -exec chmod 700 {} \;
+		find /var/spool/postfix/deferred/* -type d -exec rm -Rf {} \; -exec mkdir {} \; -exec chown postfix:postfix {} \; -exec chmod 700 {} \;
+	/etc/init.d/postfix start
+	/etc/init.d/courier-imapd start
+}
