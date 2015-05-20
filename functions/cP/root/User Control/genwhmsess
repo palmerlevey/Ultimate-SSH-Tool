@@ -13,8 +13,7 @@ function genwhmsess(){
 
 			echo "Login as root via the following URL:";
 			echo "------------------------------------";
-				$curl -ks -X GET -H "Authorization: WHM root:$AHASH" "https://$(hostname -i):2087/json-api/create_user_session?api.version=1&user=root&service=whostmgrd&locale=en&expires=$expires" |awk -F\" '{print 
-$14}';
+				$curl -ks -X GET -H "Authorization: WHM root:$AHASH" "https://$(hostname -i):2087/json-api/create_user_session?api.version=1&user=root&service=whostmgrd&locale=en&expires=$expires" |awk -F\" '{print $14}';
 			echo "------------------------------------";
 			echo "This session will expire in 1 hour."
 }
