@@ -1,0 +1,52 @@
+##DESCRP=Suspend cPanel accounts for abuse depart. $ abusesusp acc1 acc2 acc3
+function abusesusp(){
+	function pass(){
+	    echo -e "\033[32m \xE2\x9C\x93 \033[00m\c"
+	}
+	function fail(){
+	    echo -e "\033[31m \xE2\x9C\x98 \033[00m\c"
+	}
+	suspendedusers="";
+	failsuspensions="";
+		for cpuser in "$@"; do 
+			if [[ ! -z $(/scripts/suspendacct $cpuser "KH ABUSE SUSPENSION" 1 2> /dev/null |grep "has been suspended") ]]; then
+				pass; echo "cPanel User: $cpuser has successfully been suspended.";
+				suspendedusers="$suspendedusers $cpuser";
+			else
+				fail; echo "Something went wrong when suspending $cpuser";
+				failsuspensions="$failsuspensions $cpuser";
+			fi
+		done
+		echo " ";
+		if [[ ! -z "$suspendedusers" ]]; then
+			echo "The following accounts were suspended successfully:";
+			echo "-----------";
+				for account in $suspendedusers; do
+					if [[ -f /var/cpanel/suspended/$account.lock ]]; then
+							pass; echo "$account LOCKED";
+						else
+							fail; echo "$account NOT LOCKED";
+					fi
+					if [[ ! -z $(cat /var/cpanel/suspended/$account) ]]; then
+						echo "     Suspension Note: $(cat /var/cpanel/suspended/$account)";
+					fi
+				done
+			echo "-----------";
+			echo " ";
+		fi
+		if [[ ! -z "$failsuspensions" ]]; then
+			echo "The following account suspensions failed:";
+			echo "-----------";
+				for account in $failsuspensions; do
+					fail; echo $account;
+						if [[ ! -f "/var/cpanel/users/$account" ]]; then
+							echo "     That user does not exist.";
+						fi
+				done
+			echo "-----------";
+		fi
+		if [[ -z "$failsuspensions" ]]; then
+			pass; echo "Good. No failures.";
+		fi
+		echo " ";
+}
