@@ -1,9 +1,67 @@
 ##DESCRP=Remove all defers by deleting directories for inode cleanup.
 function psf_killdefers(){
-	/etc/init.d/courier-imapd stop
-	/etc/init.d/postfix stop
-		find /var/spool/postfix/defer/* -type d -exec rm -Rf {} \; -exec mkdir {} \; -exec chown postfix:postfix {} \; -exec chmod 700 {} \;
-		find /var/spool/postfix/deferred/* -type d -exec rm -Rf {} \; -exec mkdir {} \; -exec chown postfix:postfix {} \; -exec chmod 700 {} \;
-	/etc/init.d/postfix start
-	/etc/init.d/courier-imapd start
+perlbin=$(which perl)
+echo "Stopping postfix...";
+	/etc/init.d/postfix stop;
+	killall -u postfix;
+echo "Stopping all courier services...";
+	/etc/init.d/courier-imapd stop;
+	/etc/init.d/courier-imaps stop;
+	/etc/init.d/courier-pop3d stop;
+	/etc/init.d/courier-pop3s stop;
+	/etc/init.d/courier-authdaemon stop;
+echo "Stopping SpamAssassin...";
+	/etc/init.d/spamassassin stop;
+echo "-------------------------";
+inc=0; for inc in $(for i in `find /var/spool/postfix/defer -type d `; do echo `ls -a $i | wc -l` $i; done |awk '{print $1}'); do incount=$((incount+inc)); done; echo "Defer Directory Inodes: $incount";
+inc=0; for inc in $(for i in `find /var/spool/postfix/deferred -type d `; do echo `ls -a $i | wc -l` $i; done |awk '{print $1}'); do incount=$((incount+inc)); done; echo "Deferred Directory Inodes: $incount";
+echo "-------------------------";
+echo "Initiating defer(s) cleanup...";
+	for deferdir in $(find /var/spool/postfix/defer/* -type d); do
+		cd "$deferdir";
+		$perlbin -e 'for(<*>){((stat)[9]<(unlink))}' && echo "All files in $deferdir successfully removed.";
+	done
+	echo "All defer subdirectories purged.";
+		deferperm=$(stat -c %a /var/spool/postfix/defer)
+		deferown=$(stat -c "%U:%G" /var/spool/postfix/defer)
+			echo "Recreating defer directory for inode cleanup.";
+				rm -Rf /var/spool/postfix/defer;
+				mkdir /var/spool/postfix/defer;
+				chown -R "$deferown" /var/spool/postfix/defer;
+				chmod "$deferperm"  /var/spool/postfix/defer;
+			echo "Defer directory recreated successfully.";
+				ls -lhad --color=auto /var/spool/postfix/defer
+			echo "";
+	for deferreddir in $(find /var/spool/postfix/deferred/* -type d); do
+		cd "$deferreddir";
+		$perlbin -e 'for(<*>){((stat)[9]<(unlink))}' && echo "All files in $deferreddir successfully removed.";
+	done
+	echo "All deferred subdirectories purged.";
+		deferredperm=$(stat -c %a /var/spool/postfix/deferred)
+		deferredown=$(stat -c "%U:%G" /var/spool/postfix/deferred)
+			echo "Recreating deferred directory for inode cleanup.";
+				rm -Rf /var/spool/postfix/deferred;
+				mkdir /var/spool/postfix/deferred;
+				chown -R "$deferredown" /var/spool/postfix/deferred;
+				chmod "$deferredperm"  /var/spool/postfix/deferred;
+			echo "Defer directory recreated successfully.";
+				ls -lhad --color=auto /var/spool/postfix/deferred
+			echo "";
+	echo "Defer(s) cleanup completed.";
+echo "-------------------------";
+inc=0; for inc in $(for i in `find /var/spool/postfix/defer -type d `; do echo `ls -a $i | wc -l` $i; done |awk '{print $1}'); do incount=$((incount+inc)); done; echo "Defer Directory Inodes: $incount";
+inc=0; for inc in $(for i in `find /var/spool/postfix/deferred -type d `; do echo `ls -a $i | wc -l` $i; done |awk '{print $1}'); do incount=$((incount+inc)); done; echo "Deferred Directory Inodes: $incount";
+echo "-------------------------";
+echo "Restarting postfix services...";
+	/etc/init.d/postfix start;
+echo "Restarting courier services...";
+	/etc/init.d/courier-imapd start;
+	/etc/init.d/courier-imaps start;
+	/etc/init.d/courier-pop3d start;
+	/etc/init.d/courier-pop3s start;
+	/etc/init.d/courier-authdaemon start;	
+echo "Restarting SpamAssassin services...";
+	/etc/init.d/spamassassin start;
+echo "==========";
+echo "Completed.";
 }
