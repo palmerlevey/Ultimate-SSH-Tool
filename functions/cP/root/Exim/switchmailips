@@ -1,6 +1,5 @@
 ##DESCRP=Change the IP exim mails from
-function switchmailip() 
-{
+function switchmailip(){
     IPs=($(ifconfig | grep 'inet addr' | awk '{print $2}'| sed 's#addr:##g' | grep -v 127.0.0.1 | sed 's/^/ /' | tr '\n' ' '))
     index=1
     mainIP=${IPs[0]}
