@@ -8,9 +8,14 @@ function abusesusp(){
 	}
 	suspendedusers="";
 	failsuspensions="";
-		for cpuser in "$@"; do 
+		for cpacct in "$@"; do 
+			if [[ -z $(echo "$cpacct" |grep "\.") ]]; then 
+				cpuser="$cpacct";
+			else 
+				cpuser=$(/scripts/whoowns "$cpacct");
+			fi
 			if [[ ! -z $(/scripts/suspendacct $cpuser "KH ABUSE SUSPENSION" 1 2> /dev/null |grep "has been suspended") ]]; then
-				pass; echo "cPanel User: $cpuser has successfully been suspended.";
+				pass; echo "cPanel Account: $cpuser has successfully been suspended.";
 				suspendedusers="$suspendedusers $cpuser";
 			else
 				fail; echo "Something went wrong when suspending $cpuser";
@@ -30,6 +35,10 @@ function abusesusp(){
 					if [[ ! -z $(cat /var/cpanel/suspended/$account) ]]; then
 						echo "     Suspension Note: $(cat /var/cpanel/suspended/$account)";
 					fi
+						echo "         Domain(s):";
+					for cpdomain in $(grep $account /etc/userdomains |awk '{print $1}' |sed 's/://g'); do
+						echo "           $cpdomain";
+					done
 				done
 			echo "-----------";
 			echo " ";
