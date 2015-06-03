@@ -8,7 +8,7 @@ ACK="$INSTALLDIR/$ACKFNAME"
 		if [[ ! -d "$INSTALLDIR" ]]; then
 			mkdir -p "$INSTALLDIR";
 		fi
-		curl -sL "$DLURL" > "$ACK" && chmod +x "$ACK";
+		curl -skL "$DLURL" > "$ACK" && chmod +x "$ACK";
 	fi
 /usr/local/cpanel/3rdparty/bin/perl $ACK "$@"
 }
