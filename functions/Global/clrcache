@@ -1,0 +1,4 @@
+##DESCRP=Clear memory cache and buffers (free -m)
+function clrcache(){
+	sync; echo 3 > /proc/sys/vm/drop_caches
+}
