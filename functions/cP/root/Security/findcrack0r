@@ -1,8 +1,23 @@
 ##DESCRP=William Ks regex scanner for malicious content $ findcrack0r $account
-function findcrack0r(){
-if [[ -z "$@" ]]; then
-	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -o "$(pwd)" |grep -v ".OFF";
-else
-	/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -a "$@" |grep -v ".OFF";
-fi
+function findcrack0r(){ 
+    if [[ -z "$@" ]]; then
+        /usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -o "$(pwd)" | grep -v ".OFF";
+    elif [[ "$1" == "-d" ]]; then
+    	if [[ -z "$2" ]]; then
+    		echo "ERROR: (-d) Directory flag passed with no argument.";
+    		echo "Try again with -d /home/directory/";
+    		echo "";
+    	fi
+    		/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -o "$2" | grep -v ".OFF";
+    elif [[ "$1" == "-a" ]]; then
+    	if [[ -z "$2" ]]; then
+    		echo "ERROR: (-a) Account flag passed with no argument.";
+    		echo "Try again with -a accountname";
+    		echo "";
+    	fi
+    		/usr/local/cpanel/3rdparty/bin/perl <( curl -ks https://repo.coydogsoftware.net/coydog/rxtools/raw/master/findcrack0r.pl ) -a "$2" | grep -v ".OFF";
+    else
+    	echo "Unkown error. B0rk.";
+    	echo "";
+    fi
 }
