@@ -12,7 +12,7 @@ LIST=<(curl -s http://repo.servergur.us/sshtool/lists/freetlds)
 		echo "/var/cpanel/commondomains is not empty.";
 		echo "Manually add the following to the file.";
 		echo "====";
-		echo "LIST";
+		echo "$LIST";
 		echo "====";
 	fi
 }
