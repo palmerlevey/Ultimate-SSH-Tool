@@ -1,0 +1,18 @@
+##DESCRP=Disable creation of free TLD accounts. (eg freedomain.ml)
+function disablefreetlds(){
+LIST=<(curl -s http://repo.servergur.us/sshtool/lists/freetlds)
+	if [ ! -f /var/cpanel/commondomains ]; then touch /var/cpanel/commondomains; fi
+	if [ ! -s /var/cpanel/commondomains ]; then 
+		for freetld in $LIST; do 
+			echo "$freetld" >> /var/cpanel/commondomains;
+			echo *"$freetld" has been added to the disabled domains.;
+		done
+	fi;
+	if [ -s /var/cpanel/commondomains ]; then 
+		echo "/var/cpanel/commondomains is not empty.";
+		echo "Manually add the following to the file.";
+		echo "====";
+		echo "LIST";
+		echo "====";
+	fi
+}
