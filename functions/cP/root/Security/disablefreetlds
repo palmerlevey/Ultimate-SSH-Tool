@@ -7,8 +7,7 @@ LIST=<(curl -s http://repo.servergur.us/sshtool/lists/freetlds)
 			echo "$freetld" >> /var/cpanel/commondomains;
 			echo *"$freetld" has been added to the disabled domains.;
 		done
-	fi;
-	if [ -s /var/cpanel/commondomains ]; then 
+	else
 		echo "/var/cpanel/commondomains is not empty.";
 		echo "Manually add the following to the file.";
 		echo "====";
