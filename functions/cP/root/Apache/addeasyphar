@@ -1,0 +1,8 @@
+##DESCRP=Sneakily enable Phar in all EasyApache templates.
+function addeasyphar(){
+	for $template_file in "$(find /var/cpanel/easy/apache/ -type f -iname "*.yaml" -exec grep -l 'Phar": 0' {} \;)"; do
+		cp $template_file $template_file.dist_bak;
+		sed 's/Phar": 0/Phar": 1/g' -i "$template_file";
+		echo "$template_file updated with Phar: 1";
+	done
+}
