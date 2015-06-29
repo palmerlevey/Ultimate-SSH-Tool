@@ -24,14 +24,17 @@ function xmlrpcvulntest(){
 				if [ -f "$tmptestlog" ]; then rm -f "$tmptestlog"; fi
 					echo "$distpostdata" |sed "s/VULNSITEURL/$esc_xmlrpcurl/g" |sed "s/VALIDPOSTURL/$esc_blogposturl/g" > "$tmppostfile"
 						curl -vs -A "$useragent" -X POST "$xmlrpcurl" --data @"$tmppostfile" > "$tmptestlog" 2>&1
-							if [ ! -z "$(grep faultString $tmptestlog)" ]; then 
-								pass; echo "Server is not vulnerable."; 
-							else
+							if [ ! -z "$(grep "Pingback from" $tmptestlog)" ]; then 
 								fail; echo "Server IS vulnerable to the XMLRPC pingback exploit!"; 
 									echo "The verbose output from this vulnerability test can be found in this paste:";
 									echo "====";
 										curl -F file=@"$tmptestlog" paste.privatesystems.net;
 									echo "====";
+							else
+								pass; echo "Server is not vulnerable."; 
+								echo "====";
+									grep '<string>' "$tmptestlog";
+								echo "====";
 							fi
 				if [ -f "$tmppostfile" ]; then rm -f "$tmppostfile"; fi
 				if [ -f "$tmptestlog" ]; then rm -f "$tmptestlog"; fi
