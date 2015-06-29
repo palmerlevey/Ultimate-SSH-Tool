@@ -34,6 +34,7 @@ function xmlrpcvulntest(){
 								pass; echo "Server is not vulnerable."; 
 								echo "====";
 									grep '<string>' "$tmptestlog";
+									grep -i 'redirect' "$tmptestlog";
 								echo "====";
 							fi
 				if [ -f "$tmppostfile" ]; then rm -f "$tmppostfile"; fi
