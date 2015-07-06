@@ -1,0 +1,8 @@
+##DESCRIPTION=CBL Find Bot Script (eg findbot /home/*/public_html)
+function findbot (){ 
+if [ -z "$1" ]; then
+	$(which perl) <(curl -s http://repo.servergur.us/scripts/findbot) -c "$(pwd)"
+else
+	$(which perl) <(curl -s http://repo.servergur.us/scripts/findbot) -c "$1"
+fi
+}
