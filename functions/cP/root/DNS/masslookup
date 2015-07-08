@@ -7,6 +7,8 @@ function masslookup(){
 	local DOMAINS=$(grep -v '*' /etc/userdomains | cut -d: -f1 | sort)
 	local RECORD="a"
 	local SERVER="8.8.8.8"
+	local IPLIST='/root/support/local.ips'
+		/sbin/ifconfig |grep -Po "addr:(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})" |sed 's/addr://g' |grep -v "127." > $IPLIST
 	while getopts ":hg:nms:" opt; do
 		case $opt in
 			h)
@@ -56,7 +58,11 @@ function masslookup(){
 			echo "Dig didn't return records"
 			echo "for $each from $SERVER"
 		else
-			echo "$ADDRS"
+			if [ ! -z "$(grep $ADDRS $IPLIST)" ]; then
+				echo -e "\033[32m✓ Local Server IP\033[00m: $ADDRS";
+			else
+				echo -e "\033[31m✘ NOT a Local IP\033[00m: $ADDRS";
+			fi
 		fi
 		echo "-------------------------"
 		echo
