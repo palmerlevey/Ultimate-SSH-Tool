@@ -9,6 +9,20 @@ function instngx(){
 	echo " "
 	echo "NGiNX has now been successfully installed."
 	echo "Please wait..."
+	# Issue #27
+	if [[ -f /usr/sbin/csf ]]; then
+	    echo "CSF is installed, attempting to add Nginx Process Ignore.";
+	        if [[ -f /etc/csf/csf.pignore ]] ; then
+	            if grep -qi "exe:/usr/local/sbin/nginx" /etc/csf/csf.pignore; then
+	                echo "$(grep -i "exe:/usr/local/sbin/nginx" /etc/csf/csf.pignore) already exists in /etc/csf/csf.pignore";
+	            else echo "exe:/usr/local/sbin/nginx" >> /etc/csf/csf.pignore;
+	                echo "# Added by KHSupport $(date +"%m-%d-%Y")" >> /etc/csf/csf.pignore;
+	                tail -2 /etc/csf/csf.pignore;
+	            fi
+	        else
+	            echo "No csf.pignore configuration found.";
+	        fi
+	fi
 	sleep 5
 	/etc/init.d/httpd restart &> /dev/null
 	echo " "
