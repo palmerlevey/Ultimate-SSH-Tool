@@ -10,8 +10,12 @@ echo "Stopping all courier services...";
 	/etc/init.d/courier-pop3d stop;
 	/etc/init.d/courier-pop3s stop;
 	/etc/init.d/courier-authdaemon stop;
-echo "Stopping SpamAssassin...";
+if [ -f /etc/init.d/spamassassin ]; then
+	echo "Stopping SpamAssassin...";
 	/etc/init.d/spamassassin stop;
+else
+	echo "SpamAssassin not found, skipping..."
+fi
 echo "-------------------------";
 inc=0; for inc in $(for i in `find /var/spool/postfix/defer -type d `; do echo `ls -a $i | wc -l` $i; done |awk '{print $1}'); do incount=$((incount+inc)); done; echo "Defer Directory Inodes: $incount";
 inc=0; for inc in $(for i in `find /var/spool/postfix/deferred -type d `; do echo `ls -a $i | wc -l` $i; done |awk '{print $1}'); do incount=$((incount+inc)); done; echo "Deferred Directory Inodes: $incount";
@@ -60,8 +64,12 @@ echo "Restarting courier services...";
 	/etc/init.d/courier-pop3d start;
 	/etc/init.d/courier-pop3s start;
 	/etc/init.d/courier-authdaemon start;	
-echo "Restarting SpamAssassin services...";
+if [ -f /etc/init.d/spamassassin ]; then	
+	echo "Restarting SpamAssassin services...";
 	/etc/init.d/spamassassin start;
+else
+	echo "SpamAssassin not found, skipping..."
+fi	
 echo "==========";
 echo "Completed.";
 }
