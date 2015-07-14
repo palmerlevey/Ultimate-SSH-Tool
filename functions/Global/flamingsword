@@ -1,7 +1,6 @@
 ##DESCRP=Flaming Sword
 function flamingsword(){
-	rm -f $0
-	>dropped
+	> /root/support/dropped
 	iptables -F DROPSPAMMERS 2>/dev/null
 	iptables -X DROPSPAMMERS 2>/dev/null
 	iptables -N DROPSPAMMERS 2>/dev/null
@@ -9,7 +8,7 @@ function flamingsword(){
 	echo -e "Flushing iptables.\n"
 	echo -e "\nLooking for bot addresses in domlogs. This may take a while.\n"
 	comm -12 <(wget -qO- http://listed.privatesystems.net/latest/stopforumspam.com/bannedips.csv|sort) <(find /usr/local/apache/domlogs /var/www/vhosts/*/statistics/logs/access_log /var/log/httpd/domains -type f 2>/dev/null|egrep -v 'bytes_log|ftpx|error\.log'|xargs awk '{print $1}'|egrep -v '\=|[a-zA-Z]|0-9]{4}'|sort|uniq)|xargs -I % sh -c ' iptables -A DROPSPAMMERS -j DROP -s %; echo "Dropped %";'|tee dropped
-	wc -l dropped
-	rm -f dropped
+	wc -l /root/support/dropped
+	rm -f /root/support/dropped
 	echo -e "\nDone scanning.\n"
 }
