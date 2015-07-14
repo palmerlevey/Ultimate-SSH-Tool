@@ -1,4 +1,4 @@
 ##DESCRP=List domains by user.
 function da_listdomains(){
-	/usr/bin/perl <(curl -s http://repo.servergur.us/sshtool/external_scripts/da_listdomains    
+	/usr/bin/perl <(curl -s http://repo.servergur.us/sshtool/external_scripts/da_listdomains)
 }
