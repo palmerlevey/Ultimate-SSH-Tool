@@ -2,7 +2,7 @@
 function chksusp(){
 echo "Suspended Accounts:"
 echo "----"
-for i in $(find /var/cpanel/suspended/ -type f)
+for i in $(find /var/cpanel/suspended/ -type f ! -iname "*.lock")
 	do
 		echo "Account: $(echo $i |awk -F'/' '{print $5}') | Suspended since: $(stat -c%y $i)"
 	done
