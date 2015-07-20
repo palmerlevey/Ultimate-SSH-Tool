@@ -8,12 +8,12 @@ LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`
     until [ -z "$1" ]; do
         UGA=`stat -c "%U:%G:%a - Last Modified: %y" $1`;
         chmod 000 "$1";
-        chown nobody:nobody "$1";
+        #chown nobody:nobody "$1"; #Temporarily removing nobody permissions.
         mv -i "$1" "$1".OFF;
         echo "$(readlink -f $1) $UGA" >> $LOCKEDLOG;
         shift;
     done;
     echo "The following files have now been locked:";
     echo "--";
-    cat $LOCKEDLOG
+    #cat $LOCKEDLOG #Removing printing of log on each lock.
 }
