@@ -13,7 +13,6 @@ LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`
         echo "$(readlink -f $1) $UGA" >> $LOCKEDLOG;
         shift;
     done;
-    echo "The following files have now been locked:";
-    echo "--";
+    echo "The files have now been locked. Run $ findoff to print all locked files.";
     #cat $LOCKEDLOG #Removing printing of log on each lock.
 }
