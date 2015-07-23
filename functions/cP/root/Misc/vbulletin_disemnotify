@@ -17,12 +17,16 @@ function vbulletin_disemnotify(){
 							echo "";
 								for CONFIG_FILE in $(echo "$VB_CONFIG" |awk -F: '{print $1}'); do
 									CONFIG_TECH_EMAIL=$(grep 'technicalemail' "$CONFIG_FILE" |grep -Po "= \'(.*?)\@(.*?)\.(.*)\'" |sed "s/= '//g" |sed "s/'//g");
-									echo "$CONFIG_FILE is currently using $CONFIG_TECH_EMAIL as the database contact email.";
-									cp "$CONFIG_FILE" "$CONFIG_FILE".khbak;
-									echo "Backup config created.";
-									sed -i "s/$CONFIG_TECH_EMAIL//g" "$CONFIG_FILE";
-									echo "Email notifications disabled in $CONFIG_FILE";
-									echo "";
+										if [ -z "$CONFIG_TECH_EMAIL" ]; then
+											echo "$CONFIG_FILE has email notifications disabled, not changing.";
+											echo "";
+										else
+											echo "$CONFIG_FILE is currently using $CONFIG_TECH_EMAIL as the database contact email.";
+											cp "$CONFIG_FILE" "$CONFIG_FILE".khbak;
+											echo "Backup config created.";
+											sed -i "s/$CONFIG_TECH_EMAIL//g" "$CONFIG_FILE";
+											echo "Email notifications disabled in $CONFIG_FILE";
+											echo "";
 								done
 						fi
 			fi
@@ -37,12 +41,17 @@ function vbulletin_disemnotify(){
 						echo "";
 							for CONFIG_FILE_2 in $(echo "$VB_CONFIG_SEARCH" |awk -F: '{print $1}'); do
 								CONFIG2_TECH_EMAIL=$(grep 'technicalemail' "$CONFIG_FILE" |grep -Po "= \'(.*?)\@(.*?)\.(.*)\'" |sed "s/= '//g" |sed "s/'//g");
-								echo "$CONFIG_FILE_2 is currently using $CONFIG2_TECH_EMAIL as the database contact email.";
-								cp "$CONFIG_FILE_2" "$CONFIG_FILE_2".khbak;
-								echo "Backup config created.";
-								sed -i "s/$CONFIG2_TECH_EMAIL//g" "$CONFIG_FILE_2";
-								echo "Email notifications disabled in $CONFIG_FILE_2";
-								echo "";
+									if [ -z "$CONFIG2_TECH_EMAIL" ]; then
+										echo "$CONFIG_FILE_2 has email noticiations disabled, not changing.";
+										echo "";
+									else
+										echo "$CONFIG_FILE_2 is currently using $CONFIG2_TECH_EMAIL as the database contact email.";
+										cp "$CONFIG_FILE_2" "$CONFIG_FILE_2".khbak;
+										echo "Backup config created.";
+										sed -i "s/$CONFIG2_TECH_EMAIL//g" "$CONFIG_FILE_2";
+										echo "Email notifications disabled in $CONFIG_FILE_2";
+										echo "";
+									fi
 							done
 					fi
 	fi
