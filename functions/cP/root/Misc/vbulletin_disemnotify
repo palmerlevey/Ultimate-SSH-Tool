@@ -1,0 +1,49 @@
+##DESCRP=Disable vBulletin database error notifications in cPanel servers (eg $ vbulletin_disemnotify cpuser)
+# ONLY cPANEL CURRENTLY
+function vbulletin_disemnotify(){
+	if [ ! -z "$1" ]; then
+		VBQUERY="$1";
+		CPANEL_OWNER=$(grep -i "$VBQUERY" /etc/userdomains |awk '{print $2}');
+			if [ -z "$CPANEL_OWNER" ]; then 
+				echo "Not found.";
+			else
+				echo "Matched cPanel Account: $CPANEL_OWNER";
+					VB_CONFIG=$(find /home/"$CPANEL_OWNER"/public_html/ -type f -iwholename "*/includes/config.php" -exec grep -H "vBulletin [0-9]\.[0-9]\.[0-9]" {} \;);
+						if [ -z "$VB_CONFIG" ]; then
+							echo "No vBulletin configs found for $CPANEL_OWNER";
+						else
+							echo "Matched the following vBulletin configs:";
+							echo "$VB_CONFIG";
+							echo "";
+								for CONFIG_FILE in $(echo "$VB_CONFIG" |awk '{print $1}'); do
+									CONFIG_TECH_EMAIL=$(grep 'technicalemail' "$CONFIG_FILE" |grep -Po "= \'(.*?)\@(.*?)\.(.*)\'" |sed "s/= '//g" |sed "s/'//g");
+									echo "$CONFIG_FILE is currently using $CONFIG_TECH_EMAIL as the database contact email.";
+									cp "$CONFIG_FILE" "$CONFIG_FILE".khbak;
+									echo "Backup config created.";
+									sed -i "s/$CONFIG_TECH_EMAIL//g" "$CONFIG_FILE";
+									echo "Email notifications disabled in $CONFIG_FILE";
+									echo "";
+								done
+						fi
+			fi
+		else
+			echo "No query provided, searching for all vBulletin installs.";
+				VB_CONFIG_SEARCH=$(find /home/*/public_html/ -type f -iwholename "*/includes/config.php" -exec grep -H "vBulletin [0-9]\.[0-9]\.[0-9]" {} \;);
+					if [ -z "$VB_CONFIG_SEARCH" ]; then
+						echo "No vBulletin installs found.";
+					else
+						echo "Matched the following vBulletin configs:";
+						echo "$VB_CONFIG_SEARCH";
+						echo "";
+							for CONFIG_FILE_2 in $(echo "$VB_CONFIG_SEARCH" |awk '{print $1}'); do
+								CONFIG2_TECH_EMAIL=$(grep 'technicalemail' "$CONFIG_FILE" |grep -Po "= \'(.*?)\@(.*?)\.(.*)\'" |sed "s/= '//g" |sed "s/'//g");
+								echo "$CONFIG_FILE_2 is currently using $CONFIG2_TECH_EMAIL as the database contact email.";
+								cp "$CONFIG_FILE_2" "$CONFIG_FILE_2".khbak;
+								echo "Backup config created.";
+								sed -i "s/$CONFIG2_TECH_EMAIL//g" "$CONFIG_FILE_2";
+								echo "Email notifications disabled in $CONFIG_FILE_2";
+								echo "";
+							done
+					fi
+	fi
+}
