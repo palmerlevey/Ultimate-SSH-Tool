@@ -27,6 +27,7 @@ function vbulletin_disemnotify(){
 											sed -i "s/$CONFIG_TECH_EMAIL//g" "$CONFIG_FILE";
 											echo "Email notifications disabled in $CONFIG_FILE";
 											echo "";
+										fi
 								done
 						fi
 			fi
