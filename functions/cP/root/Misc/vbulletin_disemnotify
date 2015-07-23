@@ -15,7 +15,7 @@ function vbulletin_disemnotify(){
 							echo "Matched the following vBulletin configs:";
 							echo "$VB_CONFIG";
 							echo "";
-								for CONFIG_FILE in $(echo "$VB_CONFIG" |awk '{print $1}'); do
+								for CONFIG_FILE in $(echo "$VB_CONFIG" |awk -F: '{print $1}'); do
 									CONFIG_TECH_EMAIL=$(grep 'technicalemail' "$CONFIG_FILE" |grep -Po "= \'(.*?)\@(.*?)\.(.*)\'" |sed "s/= '//g" |sed "s/'//g");
 									echo "$CONFIG_FILE is currently using $CONFIG_TECH_EMAIL as the database contact email.";
 									cp "$CONFIG_FILE" "$CONFIG_FILE".khbak;
@@ -35,7 +35,7 @@ function vbulletin_disemnotify(){
 						echo "Matched the following vBulletin configs:";
 						echo "$VB_CONFIG_SEARCH";
 						echo "";
-							for CONFIG_FILE_2 in $(echo "$VB_CONFIG_SEARCH" |awk '{print $1}'); do
+							for CONFIG_FILE_2 in $(echo "$VB_CONFIG_SEARCH" |awk -F: '{print $1}'); do
 								CONFIG2_TECH_EMAIL=$(grep 'technicalemail' "$CONFIG_FILE" |grep -Po "= \'(.*?)\@(.*?)\.(.*)\'" |sed "s/= '//g" |sed "s/'//g");
 								echo "$CONFIG_FILE_2 is currently using $CONFIG2_TECH_EMAIL as the database contact email.";
 								cp "$CONFIG_FILE_2" "$CONFIG_FILE_2".khbak;
