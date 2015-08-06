@@ -1,0 +1,15 @@
+##DESCRIPTION=Use mysqldump with password if necessary.
+function mysqldump(){
+	if [[ "$SGPANEL" == "cP" ]]; then
+		MYSQLPASS=$(grep 'password' /root/.my.cnf |sed 's/password=//g' |sed 's/"//g');
+			if [[ "$MYSQLPASS" = "" ]]; then
+				/usr/bin/mysqldump "$1 > $1.sql";
+			else
+				/usr/bin/mysqldump -uroot -p"$MYSQLPASS" "$$1 > $1.sql";
+			fi
+	elif [[ "$SGPANEL" == "PSA" ]]; then
+		/usr/bin/mysqldump -uadmin -p`cat /etc/psa/.psa.shadow` "$$1 > $1.sql";
+	else
+		/usr/bin/mysqldump "$$1 > $1.sql";
+	fi
+}
