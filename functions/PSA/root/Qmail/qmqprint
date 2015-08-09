@@ -1,4 +1,4 @@
 ##DESCRP=Display emails in the qmail queue.
 function qmqprint(){
-	/var/qmail/bin/qmail-qread
+	/var/qmail/bin/qmail-qread |sed 's/#//g'
 }
