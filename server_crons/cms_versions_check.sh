@@ -40,7 +40,7 @@ WHMCSLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X
 ####################################################
 
 # Versioning file status.
-VERSIONSFILE='../lists/cms_latest';
+VERSIONSFILE='/home/servergu/domains/repo.servergur.us/public_html/sshtool/lists/cms_latest';
 VERSIONSTMPFILE="$VERSIONSFILE.tmp";
 
 if [ -f $VERSIONSFILE ]; then WRITEFILE=$VERSIONSTMPFILE; else WRITEFILE=$VERSIONSFILE; fi
@@ -65,3 +65,6 @@ echo "" >> $WRITEFILE;
 echo "UPDATED=$(date)" >> $WRITEFILE;
 
 if [ $WRITEFILE=$VERSIONSTMPFILE ]; then mv -f $VERSIONSTMPFILE $VERSIONSFILE; fi
+
+# Temp cron debugging.
+echo "Ran @ $(date)" >> /home/servergu/domains/repo.servergur.us/public_html/sshtool/server_crons/run.log
