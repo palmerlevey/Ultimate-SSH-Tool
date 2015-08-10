@@ -1,5 +1,4 @@
 #!/bin/sh
-
 ## Live Version Lookups
 # WordPress - https://wordpress.org
 WORDPRESSLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s "https://wordpress.org/download/" |grep -Po "Version (\d{1,3})?\.(\d{1,3})?\.(\d{1,3})" |sed 's/Version //g');
@@ -34,9 +33,11 @@ TYPOLATEST=$(curl -sI 'http://get.typo3.org/current' |grep -Po "src\-(\d{1})\.(\
 # XOOPS - http://xoops.org
 XOOPSLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s 'http://xoops.org/modules/core/' |grep -Po "XOOPS (\d{1})\.(\d{1,2})\.(\d{1,2})?\.(\d{1,2})" |sed 's/XOOPS //g');
 
-# WHMCS - https://whmcs.com/
-WHMCSLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s 'https://download.whmcs.com/' |grep -Po "V(\d{1})\.(\d{1,2})?\.(\d{1,2})" |head -n1 |sed 's/V//g')
+# WHMCS - https://whmcs.com
+WHMCSLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s 'https://download.whmcs.com/' |grep -Po "V(\d{1})\.(\d{1,2})?\.(\d{1,2})" |head -n1 |sed 's/V//g');
 
+# phpBB - https://www.phpbb.com
+PHPBBLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s https://www.phpbb.com/downloads/ |grep -Po "stable phpBB: (\d{1})\.(\d{1,2})\.(\d{1,2})" |sed 's/stable phpBB: //g')
 ####################################################
 
 # Versioning file status.
