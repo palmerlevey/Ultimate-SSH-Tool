@@ -6,7 +6,7 @@ LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`
         return;
     fi;
     until [ -z "$1" ]; do
-        UGA=`stat -c "%U:%G:%a - Last Modified: %y" $1`;
+        UGA=`stat -c "%U:%G:%a - mtime: %y ctime: %z" $1`;
         chmod 000 "$1";
         #chown nobody:nobody "$1"; #Temporarily removing nobody permissions.
         mv -i "$1" "$1".OFF;
