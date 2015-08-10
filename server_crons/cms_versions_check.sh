@@ -68,5 +68,8 @@ echo "UPDATED=$(date)" >> $WRITEFILE;
 
 if [ $WRITEFILE=$VERSIONSTMPFILE ]; then mv -f $VERSIONSTMPFILE $VERSIONSFILE; fi
 
+# Correcting symlink permissions for the log (temp).
+chown -h servergu:servergu /home/servergu/domains/repo.servergur.us/public_html/lists/cms_versions.list
+
 # Temp cron debugging.
 echo "Ran @ $(date)" >> /home/servergu/domains/repo.servergur.us/public_html/sshtool/server_crons/run.log
