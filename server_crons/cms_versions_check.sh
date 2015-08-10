@@ -36,6 +36,9 @@ XOOPSLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X
 # WHMCS - https://whmcs.com
 WHMCSLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s 'https://download.whmcs.com/' |grep -Po "V(\d{1})\.(\d{1,2})?\.(\d{1,2})" |head -n1 |sed 's/V//g');
 
+# Blesta - http://www.blesta.com
+BLESTALATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s 'http://www.blesta.com/blog/' |grep -Po "Download (\d{1})\.(\d{1,2})?\.(\d{1,2}) Full" |head -n1 |sed 's/Download //g' |sed 's/ Full//g')
+
 # phpBB - https://www.phpbb.com
 PHPBBLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s https://www.phpbb.com/downloads/ |grep -Po "stable phpBB: (\d{1})\.(\d{1,2})\.(\d{1,2})" |sed 's/stable phpBB: //g')
 ####################################################
@@ -60,6 +63,7 @@ echo "MODXREV=$MODXREVLATEST" >> $WRITEFILE;
 echo "TYPO3=$TYPOLATEST" >> $WRITEFILE;
 echo "XOOPS=$XOOPSLATEST" >> $WRITEFILE;
 echo "WHMCS=$WHMCSLATEST" >> $WRITEFILE;
+echo "BLESTA=$BLESTALATEST" >> $WRITEFILE;
 echo "PHPBB=$PHPBBLATEST" >> $WRITEFILE;
 
 # Update Time Stamp
@@ -67,9 +71,6 @@ echo "" >> $WRITEFILE;
 echo "UPDATED=$(date)" >> $WRITEFILE;
 
 if [ $WRITEFILE=$VERSIONSTMPFILE ]; then mv -f $VERSIONSTMPFILE $VERSIONSFILE; fi
-
-# Correcting symlink permissions for the log (temp).
-chown -h servergu:servergu /home/servergu/domains/repo.servergur.us/public_html/lists/cms_versions.list
 
 # Temp cron debugging.
 echo "Ran @ $(date)" >> /home/servergu/domains/repo.servergur.us/public_html/sshtool/server_crons/run.log
