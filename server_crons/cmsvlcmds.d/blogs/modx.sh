@@ -6,7 +6,14 @@ cmsname='MODX Revolution';
 cmshomepage='http://modx.com';
 cmslatestvurl='http://modx.com/download/';
 cmsdescrip='NA';
-cmsfindinstalledvi='NA';
+cmsfindinstalledvi=$(cat <<EOF
+Lookup Info:
+====
+From Current Directory:
+	find $(PWD) -type f -iwholename "*/manager/includes/version.inc.php" -exec grep -H "version = '" {} \; |grep -v "$MXLATEST"
+====	
+EOF
+);
 
 # Additional curl arguments required.
 curlargs='\

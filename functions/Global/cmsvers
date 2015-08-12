@@ -1,8 +1,12 @@
 ##DESCRP=Check all (wp, joom, drup) versions.
 function cmsvers(){
-	WPLATEST=$(curl -s "https://wordpress.org/download/" |grep -Po "Version (\d{1,3})?\.(\d{1,3})?\.(\d{1,3})" |sed 's/Version//g')
-	JLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s http://www.joomla.org/download.html |grep -Po "Joomla_(?:\d*\.?\d+\.?\d+)\-Stable\-Full\_Package\.zip" | grep -Po "(?:\d*\.?\d+\.?\d+)" |tr "\n" " ")
-	DLATEST=$(curl -s https://www.drupal.org/project/drupal | grep -Po "drupal\-(?:\d*\.?\d+\.?\d+).tar.gz" | grep -Po "(?:\d*\.?\d+\.?\d+)" |tr "\n" " ")
+	LATESTVERSINFO=$(curl -s 'http://repo.servergur.us/sshtool/server_crons/cms_latest');
+	#WPLATEST=$(curl -s "https://wordpress.org/download/" |grep -Po "Version (\d{1,3})?\.(\d{1,3})?\.(\d{1,3})" |sed 's/Version//g');
+	WPLATEST=$(echo "$LATESTVERSINFO" |grep WordPress |awk '{print $2}');
+	#JLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s http://www.joomla.org/download.html |grep -Po "Joomla_(?:\d*\.?\d+\.?\d+)\-Stable\-Full\_Package\.zip" | grep -Po "(?:\d*\.?\d+\.?\d+)" |tr "\n" " ")
+	JLATEST=$(echo "$LATESTVERSINFO" |grep Joomla |awk '{print $2}');
+	#DLATEST=$(curl -s https://www.drupal.org/project/drupal | grep -Po "drupal\-(?:\d*\.?\d+\.?\d+).tar.gz" | grep -Po "(?:\d*\.?\d+\.?\d+)" |tr "\n" " ");
+	DLATEST=$(echo "$LATESTVERSINFO" |grep Drupal |awk '{print $2}');		
 	echo "Latest WordPress Version: $WPLATEST"
 	echo "Latest Joomla! Version(s): $JLATEST"
 	echo "Latest Drupal Version(s): $DLATEST"

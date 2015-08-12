@@ -10,7 +10,7 @@ cmsfindinstalledvi=$(cat <<EOF
 Lookup Info:
 ====
 From Current Directory:
-   find $(echo $PWD) -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
+	find $(echo $PWD) -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
 ====
 EOF
 );

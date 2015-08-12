@@ -10,7 +10,14 @@ cmsname='CMS Name Here';
 cmshomepage='https://cms.tld';
 cmslatesvurl='https://cms.tld/downloadlatest';
 cmsdescrip='This is a cool CMS.';
-cmsfindinstalledvi='/installpath/includes/config.php';
+cmsfindinstalledvi=$(cat <<EOF
+Lookup Info:
+====
+From Current Directory:
+	N/A
+====
+EOF
+);
 
 # Additional curl arguments required.
 curlargs='\

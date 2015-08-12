@@ -8,14 +8,16 @@ CONFPATH=$(echo $HTTPDROOT/$(echo $HTTPDCONF))
 	else
 		DOCROOTS=$(grep "DocumentRoot" $CONFPATH |awk '{gsub("    DocumentRoot ", "");print}')
 	fi
-WPLATEST=$(curl -sI https://wordpress.org/latest.tar.gz | grep -Po "wordpress-(.*).tar.gz" |sed 's/wordpress-//g'|cut -d. -f1-3)
-JLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s http://www.joomla.org/download.html |grep -Po "Joomla_(?:\d*\.?\d+\.?\d+)\-Stable\-Full\_Package\.zip" | grep -Po "(?:\d*\.?\d+\.?\d+)" |tr "\n" " ")
-DLATEST=$(curl -s https://www.drupal.org/project/drupal | grep -Po "drupal\-(?:\d*\.?\d+\.?\d+).tar.gz" | grep -Po "(?:\d*\.?\d+\.?\d+)" |tr "\n" " ")
-MXLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s http://modx.com/download/evolution/ |grep -Po "\<h3\>(.*?)\<\/h3\>" |head -n1 |sed 's/<h3>MODX Evolution //g' |sed 's/<\/h3>//g')
+LATESTVERSINFO=$(curl -s 'http://repo.servergur.us/sshtool/server_crons/cms_latest');
+#WPLATEST=$(curl -s "https://wordpress.org/download/" |grep -Po "Version (\d{1,3})?\.(\d{1,3})?\.(\d{1,3})" |sed 's/Version//g');
+WPLATEST=$(echo "$LATESTVERSINFO" |grep WordPress |awk '{print $2}');
+#JLATEST=$(curl -A "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5" -s http://www.joomla.org/download.html |grep -Po "Joomla_(?:\d*\.?\d+\.?\d+)\-Stable\-Full\_Package\.zip" | grep -Po "(?:\d*\.?\d+\.?\d+)" |tr "\n" " ")
+JLATEST=$(echo "$LATESTVERSINFO" |grep Joomla |awk '{print $2}');
+#DLATEST=$(curl -s https://www.drupal.org/project/drupal | grep -Po "drupal\-(?:\d*\.?\d+\.?\d+).tar.gz" | grep -Po "(?:\d*\.?\d+\.?\d+)" |tr "\n" " ");
+DLATEST=$(echo "$LATESTVERSINFO" |grep Drupal |awk '{print $2}');   
 echo "Latest WordPress Version: $WPLATEST"
 echo "Latest Joomla! Version(s): $JLATEST"
 echo "Latest Drupal Version(s): $DLATEST"
-echo "Latest ModX Evolution Version: $MXLATEST"
 echo " "
 echo "Searching for **OUTDATED** WordPress versions..."
 echo " "
@@ -45,14 +47,6 @@ echo " "
     fi
   done
 echo " "
-echo "Searching for **OUTDATED** ModX Evolution versions..."
-echo " "
-  for i in $DOCROOTS
-  do
-    if [ -d "$i" ]; then
-      find $i -type f -iwholename "*/manager/includes/version.inc.php" -exec grep -H "version = '" {} \; |grep -v "$MXLATEST"
-    fi
-  done
 echo " "
 echo "**OUTDATED** CMS version search completed."
 }
