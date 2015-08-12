@@ -6,11 +6,11 @@ cmsname='MODX Revolution';
 cmshomepage='http://modx.com';
 cmslatestvurl='http://modx.com/download/';
 cmsdescrip='NA';
-cmsfindinstalledvi=$(cat <<EOF
+cmsfindinstalledvi=$(cat <<'EOF'
 Lookup Info:
 ====
 From Current Directory:
-	find $(PWD) -type f -iwholename "*/manager/includes/version.inc.php" -exec grep -H "version = '" {} \; |grep -v "$MXLATEST"
+	find $(echo $pwd) -type f -iwholename "*/manager/includes/version.inc.php" -exec grep -H "version = '" {} \; |grep -v "$MXLATEST"
 ====	
 EOF
 );

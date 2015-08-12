@@ -6,11 +6,11 @@ cmsname='WordPress';
 cmshomepage='https://wordpress.org';
 cmslatestvurl='https://wordpress.org/download/';
 cmsdescrip='WordPress is web software you can use to create a beautiful website or blog. We like to say that WordPress is both free and priceless at the same time.';
-cmsfindinstalledvi=$(cat <<EOF
+cmsfindinstalledvi=$(cat <<'EOF'
 Lookup Info:
 ====
 From Current Directory:
-	find $(echo $PWD) -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
+	find $(echo $pwd) -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
 ====
 EOF
 );
