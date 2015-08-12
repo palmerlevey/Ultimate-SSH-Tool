@@ -10,7 +10,7 @@ cmsname='CMS Name Here';
 cmshomepage='https://cms.tld';
 cmslatesvurl='https://cms.tld/downloadlatest';
 cmsdescrip='This is a cool CMS.';
-cmsfindinstalledvi=$(cat <<EOF
+cmsfindinstalledvi=$(cat <<'EOF'
 Lookup Info:
 ====
 From Current Directory:

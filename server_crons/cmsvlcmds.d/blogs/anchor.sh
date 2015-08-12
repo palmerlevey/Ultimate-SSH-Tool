@@ -6,7 +6,14 @@ cmsname='Anchor';
 cmshomepage='http://anchorcms.com';
 cmslatestvurl='http://anchorcms.com/';
 cmsdescrip='NA';
-cmsfindinstalledvi='NA';
+cmsfindinstalledvi=$(cat <<'EOF'
+Lookup Info:
+====
+From Current Directory:
+	find $(echo $pwd) -type f -iwholename "*/index.php" -exec grep -H "define('VERSION" {} \; |grep -v 'install'
+====
+EOF
+);
 
 # Additional curl arguments required.
 curlargs='-s ';

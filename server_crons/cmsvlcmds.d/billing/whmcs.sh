@@ -6,7 +6,14 @@ cmsname='WHMCS';
 cmshomepage='https://whmcs.com';
 cmslatestvurl='https://download.whmcs.com/';
 cmsdescrip='NA';
-cmsfindinstalledvi='NA';
+cmsfindinstalledvi=$(cat <<'EOF'
+Lookup Info:
+====
+From Current Directory:
+	find $(echo $pwd) -type f -iwholename "*/includes/index.php" -exec grep -H -Po "Version: (\d{1})\.(\d{1})\.(\d{1,2})" {} \;
+====
+EOF
+);
 
 # Additional curl arguments required.
 curlargs='\

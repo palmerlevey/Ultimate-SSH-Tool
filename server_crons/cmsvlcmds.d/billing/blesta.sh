@@ -6,7 +6,14 @@ cmsname='Blesta';
 cmshomepage='http://www.blesta.com';
 cmslatestvurl='http://www.blesta.com/blog/';
 cmsdescrip='NA';
-cmsfindinstalledvi='NA';
+cmsfindinstalledvi=$(cat <<'EOF'
+Lookup Info:
+====
+From Current Directory:
+	find $(echo $pwd) -type f -iwholename "*/components/upgrades/tasks/upgrade*.php" |sort |tail -n1 |grep -Po "upgrade(\d)_(\d)_(\d).php" |sed 's/upgrade//g' |sed 's/_/./g' |sed 's/.php//g'
+====
+EOF
+);
 
 # Additional curl arguments required.
 curlargs='\
