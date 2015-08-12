@@ -22,7 +22,7 @@ EOF
 curlargs='-s ';
 
 # Run version lookup command.
-cmslatestversion=$(curl $curlargs $cmslatestvurl |grep -Po "version (\d{1})\.(\d{1,2})\.(\d{1,2})");
+cmslatestversion=$(curl $curlargs $cmslatestvurl |grep -Po "version (\d{1})\.(\d{1,2})\.(\d{1,2})" |sed 's/version //g');
 
 # Run and print the latest version lookup.
 echo "$cmsname: $cmslatestversion";
