@@ -10,8 +10,8 @@ versionsfile="cms_latest";
 versionstmpfile="$versionsfile.tmp";
 runlog="run.log";
 
-if [ -f $versionsfile ]; then touch $versionstmpfile; writefile=$versionstmpfile; else writefile=$versionsfile; fi
 if [ -f $versionstmpfile ]; then rm -f $versionstmpfile; fi
+if [ -f $versionsfile ]; then touch $versionstmpfile; writefile=$versionstmpfile; else writefile=$versionsfile; fi
 
 ## Run all lookup commands from the ./cmsvlcmds.d/ folder by category.
 
