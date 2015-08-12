@@ -6,7 +6,14 @@ cmsname='WordPress';
 cmshomepage='https://wordpress.org';
 cmslatestvurl='https://wordpress.org/download/';
 cmsdescrip='WordPress is web software you can use to create a beautiful website or blog. We like to say that WordPress is both free and priceless at the same time.';
-cmsfindinstalledvi='/installpath/wp-includes/version.php';
+cmsfindinstalledvi=$(cat <<EOF
+Lookup Info:
+====
+From Current Directory:
+   find $(echo $PWD) -type f -iwholename "*/wp-includes/version.php" -exec grep -H "\$wp_version =" {} \;
+====
+EOF
+);
 
 # Additional curl arguments required.
 curlargs='\
@@ -18,3 +25,6 @@ cmslatestversion=$(curl $curlargs $cmslatestvurl |grep -Po "Version (\d{1,3})?\.
 
 # Run and print the latest version lookup.
 echo "$cmsname: $cmslatestversion";
+
+# Print installed version lookup instructions.
+# echo "$cmsfindinstaledvi";
