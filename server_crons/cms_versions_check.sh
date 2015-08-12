@@ -2,14 +2,13 @@
 ##
 ## Live CMS Versions Check
 version='2.0a';
-projectdir='/home/servergu/domains/repo.servergur.us/public_html/sshtool/server_crons';
 
 ## Place all CMS version lookup commands in ./cmsvlcmds.d/
 
 # Versioning file status.
-versionsfile="$projectdir/cms_latest";
-versionstmpfile="$projectdir/$versionsfile.tmp";
-runlog="$projectdir/run.log";
+versionsfile="cms_latest";
+versionstmpfile="$versionsfile.tmp";
+runlog="run.log";
 
 if [ -f $versionsfile ]; then touch $versionstmpfile; writefile=$versionstmpfile; else writefile=$versionsfile; fi
 if [ -f $versionstmpfile ]; then rm -f $versionstmpfile; fi
