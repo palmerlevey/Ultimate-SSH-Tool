@@ -2,7 +2,7 @@
 ##
 ## Live CMS Versions Check
 version='2.0a';
-projectdir='/domains/repo.servergur.us/public_html/sshtool/server_crons';
+projectdir='/home/servergu/domains/repo.servergur.us/public_html/sshtool/server_crons';
 
 ## Place all CMS version lookup commands in ./cmsvlcmds.d/
 
