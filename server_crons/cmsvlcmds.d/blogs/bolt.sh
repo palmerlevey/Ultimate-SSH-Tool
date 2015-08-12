@@ -4,7 +4,8 @@ cmsname='Bolt';
 
 # CMS Info/Description
 cmshomepage='https://bolt.cm';
-cmslatestvurl='https://bolt.cm/';
+#cmslatestvurl='https://bolt.cm/'; # Currently experiencing SSL issues.
+cmslatestvurl='http://bolt.cm/';
 cmsdescrip='NA';
 cmsfindinstalledvi='NA';
 
