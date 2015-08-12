@@ -4,6 +4,10 @@
 version='2.0a';
 
 ## Place all CMS version lookup commands in ./cmsvlcmds.d/
+## See ./cmsvlcmds.d/cms_template.sh for command templating.
+
+# Adding cd $projectdir for cron testing.
+cd /home/servergu/domains/repo.servergur.us/public_html/sshtool/server_crons/
 
 # Versioning file status.
 versionsfile="cms_latest";
