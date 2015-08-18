@@ -1,0 +1,18 @@
+##DESCRP=Edit apache configuration with nano starting a vhost for cPanel user.
+function vihttp (){ 
+	if [ -z "$1" ]; then
+		echo "[error] oops.. cPanel user required.";
+	else
+		cpanel_user_domain=$(grep -Po "(.*?): $1" /etc/trueuserdomains |awk '{print $1}' |sed 's/://g');
+		if [ -z $(echo $cpanel_user_domain) ]; then
+			echo "[error] oops.. Domain for $1 not found.";
+		else
+			httpd_conf_linenum=$(grep -n -Po "ServerName $cpanel_user_domain" /usr/local/apache/conf/httpd.conf |head -n1 |awk -F: '{print $1}');
+			if [ -z $(echo $httpd_conf_linenum) ]; then
+				echo "[error] oops.. Unable to find that in the configuration.";
+			else
+				/usr/bin/nano -c +$httpd_conf_linenum /usr/local/apache/conf/httpd.conf
+			fi
+		fi
+	fi
+}
