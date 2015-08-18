@@ -9,14 +9,14 @@ function malPOSTS(){
 			find_malfile=$(find . -type f -name "*.OFF" |rev |cut -d/ -f 1 |rev |sed 's/.OFF//g');
 			mal_posts=$(for malfile in $find_malfile; do grep -h $malfile /usr/local/apache/domlogs/$current_cpanel_user/* |grep POST; done);
 				post_ips=$(echo "$mal_posts" |awk '{print $1}' |sort |uniq -c |sort -n);
-				post_urls=$(echo "$mal_posts" |awk '{print $11}' |sort |uniq -c |sort -n);
+				post_urls=$(echo "$mal_posts" |awk '{print $7}' |sort |uniq -c |sort -n);
 				verbose_posts=$(echo "$mal_posts");
-			echo "Post requests source IP:";
+			echo "POST requests source IP:";
 			echo "========";
 			echo $post_ips; 
 			echo "========";
 			echo "";
-			echo "Post destination URL:";
+			echo "POST destination path:";
 			echo "========";
 			echo $post_urls; 
 			echo "========";
