@@ -1,0 +1,25 @@
+##DESCRP=Search for POSTs in domlogs of current cPanel user matching malicious .OFF files.
+function malPOSTS(){
+	echo "Depending on the traffic and domlog sizes, this may take a while. Working..."
+	current_cpanel_user=$(pwd |sed 's/\/home\///g' |sed 's/\/public_html//g');
+		if [ -z $(echo $current_cpanel_user) ]; then 
+			echo "[error] oops... Unable to locate current cPanel user.";
+			echo "Make sure you are in /home/USER/public_html and try again.";
+		else
+			find_malfile=$(find . -type f -name "*.OFF" |rev |cut -d/ -f 1 |rev |sed 's/.OFF//g');
+			mal_posts=$(for malfile in $find_malfile; do grep -h $malfile /usr/local/apache/domlogs/$current_cpanel_user/* |grep POST; done);
+				post_ips=$(echo "$mal_posts" |awk '{print $1}' |sort |uniq -c |sort -n);
+				post_urls=$(echo "$mal_posts" |awk '{print $11}' |sort |uniq -c |sort -n);
+				verbose_posts=$(echo "$mal_posts");
+			echo "Post requests source IP:";
+			echo "========";
+			echo $post_ips; 
+			echo "========";
+			echo "";
+			echo "Post destination URL:";
+			echo "========";
+			echo $post_urls; 
+			echo "========";
+			echo "";
+		fi
+}
