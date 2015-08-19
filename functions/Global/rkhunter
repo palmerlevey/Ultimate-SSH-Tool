@@ -1,0 +1,35 @@
+##DESCRP=Install and/or use rkhunter - https://rootkit.nl/projects/rootkit_hunter.html
+function rkhunter(){
+	if [ -f /usr/local/bin/rkhunter ]; then is_installed=1; else is_installed=0; fi
+	if [ "$is_installed" == "1" ]; then 
+		if [ -z "$1" ]; then
+			/usr/local/bin/rkhunter "$1";
+		else
+			/usr/local/bin/rkhunter --check -sk;
+		fi
+	else
+		echo "Rootkit Hunter not found, installing now...";
+		install_path='/usr/local/src';
+		rkhunter_dl='http://dfn.dl.sourceforge.net/sourceforge/rkhunter/rkhunter-1.4.2.tar.gz';
+		rkhunter_sha='http://iweb.dl.sourceforge.net/project/rkhunter/rkhunter/1.4.2/rkhunter-1.4.2.tar.gz.sha256';
+			cd "$install_path" || exit;
+			wget --quiet "$rkhunter_dl";
+			wget --quiet "$rkhunter_sha";
+				rkchecksum=$(/usr/bin/sha256sum -c rkhunter-1.4.2.tar.gz.sha256 |grep OK);
+					if [ -z "$rkchecksum" ]; then echo "WARNING rkhunter checksum failed."; fi
+			tar -xf rkhunter*.tar.gz;
+			cd rkhunter* || exit;
+			./installer.sh --layout default --install > /dev/null 2>&1;
+				if [ -f /usr/local/bin/rkhunter ]; then 
+					echo "rkhunter installed successfully. Beginning updates and configuration. This may take a while...";
+					sed -i 's/ALLOW_SSH_ROOT_USER=no/ALLOW_SSH_ROOT_USER=yes/g' /etc/rkhunter.conf;
+					/usr/local/bin/rkhunter --update > /dev/null 2>&1;
+					/usr/local/bin/rkhunter --propupd > /dev/null 2>&1;
+					echo "Removing source packaging files that are no longer needed.";
+					rm -Rf /usr/local/src/rkhunter*;
+					echo "Install completed. Re-run to perform scan.";
+				else
+					echo "Installation failed. b0rk";
+				fi
+	fi
+}
