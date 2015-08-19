@@ -21,7 +21,7 @@ curlargs='\
 -s ';
 
 # Run version lookup command.
-cmslatestversion=$(curl $curlargs $cmslatestvurl |grep -Po "Version (\d{1,3})?\.(\d{1,3})?\.(\d{1,3})" |sed 's/Version //g');
+cmslatestversion=$(curl $curlargs $cmslatestvurl |grep -Po "Version (\d{1,3})\.?(\d{1,3})?\.?(\d{1,3})?" |sed 's/Version //g');
 
 # Run and print the latest version lookup.
 echo "$cmsname: $cmslatestversion";
