@@ -8,17 +8,19 @@ SGINFO="\\033[60G\\033[0;39m[\\033[1;34mINFO\\033[0;39m]"
             		print HAND " + mod_ruid" SGPASS
         	} else {
             		print HAND " + mod_ruid is incompatible with LiteSpeed" SGFAIL
-        	}            
+        	}
 	} else if( HAND ~ /[Ff][Cc][Gg][Ii]/ ) {
 		print HAND SGWARN
 	} else {
 		print HAND SGFAIL
 	}
 
-	while ((getline line < "/etc/csf/csf.pignore") > 0) {
-		if (line ~ /^[[:blank:]]*p?(cmd|exe):\/usr\/bin\/php[[:blank:]]*$/) {
-            		print SGSEC " Remove " line " from csf.pignore" SGFAIL
-        	}
+	if( HAND !~ /[Ff][Cc][Gg][Ii]/ ) {
+		while ((getline line < "/etc/csf/csf.pignore") > 0) {
+			if (line ~ /^[[:blank:]]*p?(cmd|exe):\/usr\/bin\/php[[:blank:]]*$/) {
+            			print SGSEC " Remove " line " from csf.pignore" SGFAIL
+        		}
+		}
 	}
 }'
 awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN '{
