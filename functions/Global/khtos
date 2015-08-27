@@ -1,0 +1,5 @@
+##DESCRP=KH Terms Of Service https://git.privatesystems.net/dlevey/ultimate-ssh-tool/issues/18
+function khtos() {
+    echo "KnownHost TOS: https://www.knownhost.com/terms-of-service.html#${1}"
+    curl -s https://www.knownhost.com/terms-of-service.html|sed -n "/<h3>$1/,/<a\ id=\"`expr $1 + 1`\"/p"|sed 's/<[^>]\+>//g'
+}
