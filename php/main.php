@@ -169,7 +169,9 @@ else #this is a dedicated server
 		SGinit="/etc/init.d"
 		if [ -f ${SGinit}/psa ];then
 			SGPANEL="PSA"
-		elif [ -f ${SGinit}/cpanel ];then
+		elif [ -f ${SGinit}/cpanel ];then #Cent6
+			SGPANEL="cP"
+		elif [ -f /etc/systemd/system/cpanel.service ];then #Cent7
 			SGPANEL="cP"
 		elif [ -f ${SGinit}/directadmin ];then
 			SGPANEL="DA"
