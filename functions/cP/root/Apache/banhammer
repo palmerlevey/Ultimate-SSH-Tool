@@ -68,7 +68,6 @@ function banhammer(){
 	iptables -X DROPSPAMMERS 2>/dev/null
 	iptables -N DROPSPAMMERS 2>/dev/null
 	echo -e "\nLooking for bot addresses in $SERVTXT (in $SERVLOGS) using $LINESTXT lines. This may take a while.\n"
-    echo -e "Variable check: OPTIND $OPTIND OPTARG $OPTARG LINES $LINES LINESTXT $LINESTXT LOG $LOG RE $RE"
 	comm -12 <(wget -qO- http://listed.privatesystems.net/latest/stopforumspam.com/bannedips.csv|sort) <(find "$SERVLOGS" -type f 2>/dev/null|egrep -v 'bytes_log|ftpx|error\.log|*.gz'|xargs tail -n $LINES|awk '{print $1}'|egrep -v '\=|[a-zA-Z]|0-9]{4}'|sort|uniq)|xargs -I % sh -c 'iptables -A DROPSPAMMERS -j DROP -s %; echo "Dropped %";'|tee -a $LOG
 	echo "$(cat $LOG|wc -l) dropped"
 	curl -F file=@$LOG http://paste.privatesystems.net/
