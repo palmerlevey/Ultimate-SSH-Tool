@@ -6,8 +6,8 @@ function banhammer(){
 	local LINESTXT="5000"
 	local LOG="/root/support/logs/banned.out"
 	local RE
-    local SERVLOGS="/usr/local/apache/domlogs"
-    local SERVTXT="Apache domlogs"
+	local SERVLOGS="/usr/local/apache/domlogs"
+	local SERVTXT="Apache domlogs"
 	while getopts ":hl:L:ax" opt; do
 		case $opt in
 			h)
@@ -17,7 +17,7 @@ function banhammer(){
 				echo "    -L FILE    Sets the log file to record to. Default: /root/support/logs/banned.out"
 				echo "    -l Lines   Sets the number of lines to read from the end of each dom log. Default: 5000"
 				echo "    -a         Use the entirety of the domlogs"
-                echo "    -x         Use nginxcp logs (/var/log/nginx) instead of Apache domlogs"
+				echo "    -x         Use nginxcp logs (/var/log/nginx) instead of Apache domlogs"
 				echo "    -h         This help message"
 				return
 				;;
@@ -42,14 +42,14 @@ function banhammer(){
 				LINES="+0"
 				LINESTXT="all"
 				;;
-            x)
-                SERVLOGS="/var/log/nginx"
-                SERVTXT="nginx logs"
-                if [[ ! -d "$SERVLOGS" ]]; then
-                    echo "Error: No nginxcp logs found in $SERVLOGS" >&2
-                    return
-                fi
-                ;;
+			x)
+				SERVLOGS="/var/log/nginx"
+				SERVTXT="nginx logs"
+				if [[ ! -d "$SERVLOGS" ]]; then
+					echo "Error: No nginxcp logs found in $SERVLOGS" >&2
+					return
+				fi
+				;;
 			:)
 				echo "-$OPTARG requires an argument" >&2
 				return
