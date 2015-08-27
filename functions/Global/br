@@ -14,7 +14,7 @@ function hr() {
         echo "${LINE:0:$COLS}"
     fi
 }
-function hrs() {
+function br() {
     local WORD
     for WORD in "${@:-#}"
     do

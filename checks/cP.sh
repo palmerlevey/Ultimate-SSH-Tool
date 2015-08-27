@@ -31,18 +31,22 @@ awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN '{
         }
 }' /usr/local/cpanel/version
 
-if [[ -f /usr/local/lsws/bin/lswsctrl ]]; then
+if [ -f /usr/local/lsws/bin/lswsctrl ]; then
     echo -e "LiteSpeed is installed $SGINFO"
 fi
 
-if [[ -f /usr/sbin/nginx ]]; then
-    if [[ -f /usr/local/cpanel/whostmgr/docroot/cgi/nginx.php ]]; then
+if [ -f /usr/sbin/nginx ]; then
+    if [ -f /usr/local/cpanel/whostmgr/docroot/cgi/nginx.php ]; then
         echo -e "nginxCP is installed $SGINFO"
-    elif [[ -f /usr/local/cpanel/whostmgr/docroot/cgi/engintron.php ]]; then
+    elif [ -f /usr/local/cpanel/whostmgr/docroot/cgi/engintron.php ]; then
         echo -e "nginx / Enginetron is installed $SGINFO"
     else
         echo -e "nginx binaries present; plugin unknown $SGWARN"
     fi
+fi
+
+if [ -f /cpanel_install_failed ]; then
+	echo -e "cPanel install failed." $SGFAIL;
 fi
 
 if [ -e /usr/local/frontpage/version5.0/bin/owsadm.exe ]; then
