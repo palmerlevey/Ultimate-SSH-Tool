@@ -45,6 +45,10 @@ if [[ -f /usr/sbin/nginx ]]; then
     fi
 fi
 
+if [ -f /cpanel_install_failed ]; then
+	echo -e "cPanel install failed." $SGFAIL;
+fi
+
 if [ -e /usr/local/frontpage/version5.0/bin/owsadm.exe ]; then
         echo -e "Frontpage Installed" $SGFAIL;
 fi
