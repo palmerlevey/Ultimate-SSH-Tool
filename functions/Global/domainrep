@@ -1,0 +1,18 @@
+##DESCRP=Check domainn reputation via URLVoid API.
+function domainrep(){
+	apikey="16a647d3c668ebbb47f2c647c2f784f8532bd627";
+	url_scan="$1";
+	scanner_url="http://api.urlvoid.com/api1000/$apikey/host/$url_scan/scan/";
+		if [ -z "$1" ]; then 
+			echo "Oops.. No domain provided."; echo "Usage: $ domainrep testdomain.com"; echo ""; 
+		else
+			echo "Beginning URLVoid Scan Results for $url_scan...";
+			scan_results=$(curl -s "$scanner_url");
+				echo "";
+				echo "Connect Time: $(echo "$scan_results" |grep connect |grep -Po '\d+\.?\d*')";
+				echo "Reported IP: $(echo "$scan_results" |grep addr |grep -Po '\d+\.?\d*+\.?\d*+\.?\d*')";
+				echo "Verdict: $(echo "$scan_results" |grep -Po 'result>(.*?)</action' |sed 's/result>//g' |sed 's/<\/action//g')";
+				echo "";
+				echo "Done.";
+		fi
+}
