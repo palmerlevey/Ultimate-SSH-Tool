@@ -55,7 +55,7 @@ function echo_warn(){
 	echo -e "\\033[1;33m$@ \\033[60G\\033[0;39m[\\033[1;33mWARN\\033[0;39m]"
 }
 
-df -h|awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN -v SGBOLD=$SGBOLD -v SGNORM=$SGNORM '/[[:digit:]]+%/ {
+df -h|grep -v virtfs|awk -v SGPASS=$SGPASS -v SGFAIL=$SGFAIL -v SGWARN=$SGWARN -v SGBOLD=$SGBOLD -v SGNORM=$SGNORM '/[[:digit:]]+%/ {
 	if( $5 ~ /1?[90][0-9]%/ ) {
 		print "Usage of " $6 " has reached " SGBOLD $5 SGNORM " and " SGBOLD $4 SGNORM " is available" SGFAIL
 	} else if ( $5 ~ /1?[80][5-9]%/ ) {
