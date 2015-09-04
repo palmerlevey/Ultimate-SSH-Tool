@@ -35,13 +35,19 @@ if [ -f /usr/local/lsws/bin/lswsctrl ]; then
     echo -e "LiteSpeed is installed $SGINFO"
 fi
 
-if [ -f /usr/sbin/nginx ]; then
+if [ -f /usr/local/sbin/nginx ]; then
     if [ -f /usr/local/cpanel/whostmgr/docroot/cgi/nginx.php ]; then
-        echo -e "nginxCP is installed $SGINFO"
-    elif [ -f /usr/local/cpanel/whostmgr/docroot/cgi/engintron.php ]; then
-        echo -e "nginx / Enginetron is installed $SGINFO"
+            echo -e "nginxCP is installed $SGINFO"
     else
-        echo -e "nginx binaries present; plugin unknown $SGWARN"
+            echo -e "nginx binaries present in /usr/local/sbin/nginx ; plugin unknown $SGWARN"
+    fi
+fi
+
+if [ -f /usr/sbin/nginx ]; then
+    if [ -f /usr/local/cpanel/whostmgr/docroot/cgi/engintron.php ]; then
+            echo -e "nginx / Enginetron is installed $SGINFO"
+    else
+            echo -e "nginx binaries present in /usr/sbin/nginx; plugin unknown $SGWARN"
     fi
 fi
 
