@@ -1,0 +1,21 @@
+##DESCRP=Uninstall softaculous plugin from cPanel server.
+function uninstall_softaculous(){
+if [ ! -f /etc/cron.d/softaculous ]; then echo "Softaculous is already uninstalled."; else
+/usr/local/cpanel/bin/unregister_cpanelplugin /usr/local/cpanel/whostmgr/docroot/cgi/softaculous/softaculous.cpanelplugin;
+rm -rf /etc/cron.d/softaculous;
+rm -rf /var/softaculous;
+rm -rf /usr/local/cpanel/whostmgr/cgi/softaculous;
+rm -rf /usr/local/cpanel/whostmgr/cgi/addon_softaculous.php;
+rm -rf /usr/local/cpanel/whostmgr/cgi/addon_softaculous.cgi
+rm -rf /usr/local/cpanel/base/frontend/x3/dynamicui/dynamicui_softicons.conf;
+rm -rf /usr/local/cpanel/base/frontend/x3/dynamicui/dynamicui_softaculous.conf;
+rm -rf /usr/local/cpanel/base/frontend/x3/dynamicui/dynamicui_soft_div_icons.conf;
+rm -rf /usr/local/cpanel/base/frontend/x3/dynamicui/dynamicui_soft_div.conf;
+rm -rf /usr/local/cpanel/base/frontend/paper_lantern/dynamicui/dynamicui_softicons.conf;
+rm -rf /usr/local/cpanel/base/frontend/paper_lantern/dynamicui/dynamicui_softaculous.conf;
+rm -rf /usr/local/cpanel/base/frontend/paper_lantern/dynamicui/dynamicui_soft_div_icons.conf;
+rm -rf /usr/local/cpanel/base/frontend/paper_lantern/dynamicui/dynamicui_soft_div.conf;
+fi
+echo "Softaculous has been uninstalled."
+}
+	
