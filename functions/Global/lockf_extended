@@ -1,0 +1,22 @@
+##DESCRP=Chmod 000 chown nobody:nobody and add .OFF to files
+function lockf() {
+    if [ -z "$1" ]; then echo "Usage: lockf FILES"; return; fi;
+    MD5SIGS=/root/support/mwlocker.sigs.`(date +"%m-%d-%Y")`;
+    LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`;
+    MD5REPO='http://mwlocker.servergur.us/api/md5s';
+        for sigfile in $(find /root/support/ -type f -iname "mwlocker.sig*"); do if [ ! $sigfile == $MD5SIGS ]; then rm -f $sigfile; fi; done
+        if [ ! -f "$MD5SIGS" ]; then curl -s --compressed "$MD5REPO" | grep '"name"' | awk '{print $2}' | sed 's/",//g' | sed 's/^.//' > "$MD5SIGS"; fi
+    until [ -z "$1" ]; do
+        UGA=$(stat -c "%U:%G:%a - mtime: %y ctime: %z" "$1");
+        FILEPATH=$(readlink -f "$1");
+            FILEMD5=$(md5sum "$FILEPATH" |awk '{print $1}');
+                if [ ! -z $(grep $FILEMD5 $MD5SIGS) ]; then INREPO="1"; else INREPO="0"; fi
+                if [ $INREPO == 0 ]; then mwupl $FILEPATH; fi
+                if [ $INREPO == 1 ]; then curl -X POST http://mwlocker.servergur.us/api/topmd5s/$FILEMD5; fi
+            chmod 000 "$1"; mv -i "$1" "$1".OFF;
+        echo "$FILEPATH $UGA" >> $LOCKEDLOG;
+        shift;
+    done;
+    echo "The files have now been locked. Run $ findoff to print all locked files.";
+    #cat $LOCKEDLOG #Removing printing of log on each lock.
+}
