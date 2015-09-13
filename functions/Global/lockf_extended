@@ -1,5 +1,5 @@
 ##DESCRP=Chmod 000 chown nobody:nobody and add .OFF to files
-function lockf() {
+function lockf_extended() {
     if [ -z "$1" ]; then echo "Usage: lockf FILES"; return; fi;
     MD5SIGS=/root/support/mwlocker.sigs.`(date +"%m-%d-%Y")`;
     LOCKEDLOG=/root/support/.lockedf.`(date +"%m-%d-%Y")`;
