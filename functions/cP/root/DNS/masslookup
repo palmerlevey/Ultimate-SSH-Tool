@@ -19,6 +19,7 @@ function masslookup(){
 				echo "    -s SERVER     The server to query. Default: 8.8.8.8"
 				echo "    -n            Query for NS records instead of A records"
 				echo "    -m            Query for MX records instead of A records"
+				echo "    -t            Query for TXT records instead of A records"
 				echo "    -h            This help message"
 				return
 				;;
@@ -31,6 +32,9 @@ function masslookup(){
 				;;
 			m)
 				RECORD="mx"
+				;;
+			t)
+				RECORD="txt"
 				;;
 			s)
 				SERVER=$OPTARG
